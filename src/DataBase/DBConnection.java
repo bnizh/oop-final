@@ -16,6 +16,7 @@ public class DBConnection {
                         "?characterEncoding=UTF8&useSSL=false", DBInfo.MYSQL_USERNAME, DBInfo.MYSQL_PASSWORD)) {
 
             this.con = con;
+
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         }

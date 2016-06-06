@@ -2,9 +2,9 @@ DROP database IF EXISTS base;
 create database base;
 use base;
 
-DROP TABLE IF EXISTS Users; 
-DROP TABLE IF EXISTS items; 
-DROP TABLE IF EXISTS usersComments; 
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS items;
+DROP TABLE IF EXISTS usersComments;
 DROP TABLE IF EXISTS gallery;
 DROP TABLE IF EXISTS tags;
  
@@ -17,7 +17,8 @@ CREATE TABLE Users (
     typeOfUser int not null,
     rating int,
     voters int,
-    phone VARCHAR(64),
+    email varchar(128),
+    mobileNumber VARCHAR(64),
     imageUrl varchar(256),
     primary key (userID)
 );
@@ -25,11 +26,10 @@ CREATE TABLE Users (
 create table itemsComments(
     commentID int auto_increment not null,
     writerID int not null,
-    itemID int not null,
+    ownerID int not null,
     dateOfComment date,
     primary key(commentID),
-    foreign key(writerID)  references Users(userID),
-    foreign key(itemID)  references items(itemID)
+    foreign key(writerID)  references Users(userID)
 );
 
 create table categories(
@@ -76,3 +76,4 @@ create table tags(
     tagType int not null,
     ownerID int not null
 );
+

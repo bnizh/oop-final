@@ -1,4 +1,4 @@
-package Accounts;
+package Objects;
 
 public abstract class User {
     private String name;

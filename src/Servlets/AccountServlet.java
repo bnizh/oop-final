@@ -1,17 +1,11 @@
 package Servlets;
 
-import Accounts.User;
-import Accounts.AccountFactory;
-import DataBase.DBFactory;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 
 
 @WebServlet("/AccountServlet")

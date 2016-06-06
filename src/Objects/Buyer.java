@@ -1,4 +1,4 @@
-package Accounts;
+package Objects;
 
 public class Buyer extends User {
 

@@ -1,8 +1,8 @@
 package DataBase;
 
-import Accounts.Buyer;
-import Accounts.Seller;
-import Accounts.User;
+import Objects.Buyer;
+import Objects.Seller;
+import Objects.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

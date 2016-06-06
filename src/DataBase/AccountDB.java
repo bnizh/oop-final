@@ -56,7 +56,7 @@ public class AccountDB implements DBQueries {
     }
 
     @Override
-    public List getAllSeller() {
+    public List<Seller> getAllSeller() {
         return null;
     }
 
@@ -86,7 +86,7 @@ public class AccountDB implements DBQueries {
     }
 
     @Override
-    public List getAllBuyer() {
+    public List<Buyer> getAllBuyer() {
         return null;
     }
 }

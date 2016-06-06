@@ -8,11 +8,7 @@ public abstract class User {
     private String userName;
     private String image;
     private String email;
-<<<<<<< HEAD
     private int ID;
-=======
-    private int id;
->>>>>>> 3bc6491ab8db33e800cc2080d01827c3d1427e37
 
     public String getEmail() {
         return email;

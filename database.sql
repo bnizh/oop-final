@@ -17,13 +17,29 @@ CREATE TABLE Users (
     typeOfUser int not null,
     rating int,
     voters int,
-    phone int,
+    phone VARCHAR(64),
     imageUrl varchar(256),
     primary key (userID)
 );
 
+create table itemsComments(
+    commentID int auto_increment not null,
+    writerID int not null,
+    itemID int not null,
+    dateOfComment date,
+    primary key(commentID),
+    foreign key(writerID)  references Users(userID),
+    foreign key(itemID)  references items(itemID)
+);
+
+create table categories(
+    categoryID int auto_increment not null,
+    categoryName varchar(128),
+    primary key(categoryID)
+);
+
 Create table items(
-	itemID int auto_increment not null,
+	  itemID int auto_increment not null,
     ItemName varchar(128),
     itemImageUrl varchar(256),
     categoryID int not null,
@@ -35,7 +51,7 @@ Create table items(
 );
 
 Create table usersComments(
-	commentID int auto_increment not null,
+	  commentID int auto_increment not null,
     writerID int not null,
     ownerID int not null,
     comm varchar (2048),

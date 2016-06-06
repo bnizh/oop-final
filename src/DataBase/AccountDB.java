@@ -46,6 +46,11 @@ public class AccountDB implements DBQueries {
     }
 
     @Override
+    public Seller getSellerByID(int ID) {
+        return null;
+    }
+
+    @Override
     public boolean addNewSeller(Seller seller) {
     return false;
     }
@@ -56,17 +61,22 @@ public class AccountDB implements DBQueries {
     }
 
     @Override
-    public User getBuyerByUsername(String userName) {
+    public Buyer getBuyerByUsername(String userName) {
         return null;
     }
 
     @Override
-    public User getBuyerByEmail(String email) {
+    public Buyer getBuyerByEmail(String email) {
         return null;
     }
 
     @Override
-    public List<User> getBuyerByName(String name) {
+    public Buyer getBuyerByID(int ID) {
+        return null;
+    }
+
+    @Override
+    public List<Buyer> getBuyerByName(String name) {
         return null;
     }
 

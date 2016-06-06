@@ -24,8 +24,10 @@ public class AccountDB implements DBQueries {
         try (PreparedStatement stm = con.prepareStatement("SELECT * FROM "+ DBInfo.MYSQL_DATABASE_Users_table+" where username = \""+username+"\" ")) {
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next()){
-                    return new Seller(rs.getString("username"),rs.getString("password"), rs.getString("email")
+                    Seller sel = new Seller(rs.getString("username"),rs.getString("password"), rs.getString("email")
                             ,rs.getString("name"),rs.getInt("rating"),rs.getString("mobileNumber"),rs.getInt("voters"), rs.getString("imageUrl"));
+                    sel.setID(rs.getInt("userID"));
+                    return  sel;
                 }
 
             } catch (SQLException e) {
@@ -55,9 +57,9 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean addNewSeller(Seller seller) {
-        String s = "insert into "+DBInfo.MYSQL_DATABASE_Users_table+" (password, userName, name, typeOfUser, rating, voters, mobileNumber, imageUrl) values("+"\""+seller.getPassword()+"\""+","+
+        String s = "insert into "+DBInfo.MYSQL_DATABASE_Users_table+" (password, userName, name, typeOfUser, rating, voters, mobileNumber, imageUrl, email) values("+"\""+seller.getPassword()+"\""+","+
                 "\"" +seller.getUserName()+"\""+","+"\""+seller.getName()+"\""+","+1+","+seller.getRating()
-                +","+seller.getVoters()+","+"\""+seller.getMobileNumber()+"\""+","+"\""+seller.getImage()+"\""+")";
+                +","+seller.getVoters()+","+"\""+seller.getMobileNumber()+"\""+","+"\""+seller.getImage()+"\""+","+"\""+seller.getEmail()+"\""+")";
         try (PreparedStatement stm = con.prepareStatement(s)) {
             stm.execute();
         } catch (SQLException e) {

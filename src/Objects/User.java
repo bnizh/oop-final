@@ -100,4 +100,6 @@ public abstract class User {
         this.voters = voters;
         this.image = image;
     }
+
+
 }

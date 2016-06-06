@@ -12,6 +12,7 @@ public interface DBQueries {
     public Seller getSellerByEmail(String email);
 
     public List<Seller> getSellerByName(String name);
+
     public Seller getSellerByID(int ID);
 
     public boolean addNewSeller(Seller seller);
@@ -22,11 +23,12 @@ public interface DBQueries {
     public Buyer getBuyerByUsername(String userName);
 
     public Buyer getBuyerByEmail(String email);
+
     public Buyer getBuyerByID(int ID);
 
-    public List<User> getBuyerByName(String name);
+    public List<Buyer> getBuyerByName(String name);
 
     public boolean addNewBuyer(Buyer buyer);
 
-    public List<User> getAllBuyer();
+    public List<Buyer> getAllBuyer();
 }

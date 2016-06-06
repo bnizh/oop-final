@@ -86,7 +86,48 @@ public class AccountDB implements DBQueries {
 
     @Override
     public List<Seller> getAllSeller() {
+
+
         return null;
+    }
+
+
+    @Override
+    public boolean updateSeller(Seller seller) {
+        String s = "update "+DBInfo.MYSQL_DATABASE_Users_table +"set userName ="+'\"'+seller.getUserName()+'\"'+", password ="+'\"'+seller.getPassword()+'\"'
+                +", name ="+'\"'+seller.getName()+'\"'+",email ="+'\"'+seller.getEmail()+'\"'+", mobileNumber="+'\"'+
+                seller.getMobileNumber()+'\"'+", imageUrl ="+'\"'+seller.getImage()+'\"'+" where userID ="+seller.getID();
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            stm.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteSeller(int sellerID) {
+        String s ="DELETE FROM "+DBInfo.MYSQL_DATABASE_Users_table +"where userID ="+ sellerID;
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            stm.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteBuyer(int buyerID) {
+        String s ="DELETE FROM "+DBInfo.MYSQL_DATABASE_Users_table +"where userID ="+ buyerID;
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            stm.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
@@ -140,7 +181,7 @@ public class AccountDB implements DBQueries {
     @Override
     public boolean addNewBuyer(Buyer buyer) {
         String s = "insert into "+DBInfo.MYSQL_DATABASE_Users_table+" (password, userName, name, typeOfUser, rating, voters, mobileNumber, imageUrl, email) values("+"\""+buyer.getPassword()+"\""+","+
-                "\"" +buyer.getUserName()+"\""+","+"\""+buyer.getName()+"\""+","+1+","+buyer.getRating()
+                "\"" +buyer.getUserName()+"\""+","+"\""+buyer.getName()+"\""+","+0+","+buyer.getRating()
                 +","+buyer.getVoters()+","+"\""+buyer.getMobileNumber()+"\""+","+"\""+buyer.getImage()+"\""+","+"\""+buyer.getEmail()+"\""+")";
         try (PreparedStatement stm = con.prepareStatement(s)) {
             stm.execute();
@@ -148,6 +189,11 @@ public class AccountDB implements DBQueries {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
+    }
+
+    @Override
+    public boolean updateBuyer(Buyer buyer) {
         return false;
     }
 

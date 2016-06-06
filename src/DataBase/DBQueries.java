@@ -18,6 +18,11 @@ public interface DBQueries {
 
     public List<Seller> getAllSeller();
 
+    public boolean updateSeller(Seller seller);
+
+    public boolean deleteSeller(int sellerID);
+
+    public boolean deleteBuyer(int buyerID);
 
     public Buyer getBuyerByUsername(String userName);
 
@@ -28,6 +33,8 @@ public interface DBQueries {
     public List<Buyer> getBuyerByName(String name);
 
     public boolean addNewBuyer(Buyer buyer);
+
+    public boolean updateBuyer(Buyer buyer);
 
     public List<Buyer> getAllBuyer();
 }

@@ -1,0 +1,159 @@
+﻿/*  header */
+.header {
+    height: 90px;
+    width: 100%;
+    border-bottom: 2px solid #ff5e01;
+}
+
+.header1 {
+    position: absolute;
+    height: 90px;
+    width: 260px;
+    text-align: center;
+    padding: auto;
+    line-height: 90px;
+}
+
+#logo:hover {
+    border: 1px solid #ff5e01;
+    border-radius: 5px;
+}
+
+#logo {
+    text-decoration: none;
+    color: #ff5e01;
+    font-size: 40px;
+    padding: 5px;
+}
+
+.login-input-container {
+    position: absolute;
+    right: 3%;
+    height: 100%;
+}
+
+.left-menu-item {
+    color: white;
+    width: 184px;
+    display: block;
+    border-bottom: 1px solid #ff5e01;;
+    background-color: white;
+    padding: 8px 0 8px 16px;
+    text-decoration: none;
+    cursor: hand;
+}
+
+.login-input {
+    height: 30px;
+    float: left;
+    padding-right: 1px;
+    top: 30px;
+    margin-right: 2px;
+    color: #909;
+    border: 1px solid #ff5e01;
+    border-radius: 3px;
+    padding-left: 10px;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #909;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #909;
+    opacity: 1;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #909;
+    opacity: 1;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #909;
+}
+
+.login-input:hover,
+.login-input:focus {
+    outline: 0;
+}
+
+.login-button {
+    width: 60px;
+    background-color: white;
+    border: 1px solid #ff5e01;
+    color: #ff5e01;
+    border-radius: 3px;
+}
+
+.login-button:hover,
+.login-button:focus {
+    background-color: #ff5e01;
+    color: white;
+    outline: 0;
+    border: 1px solid #ff5e01;
+    cursor: hand;
+}
+
+#new-acc {
+    position: absolute;
+    top: 75%;
+    right: 1%;
+    text-decoration: none;
+}
+
+#new-acc:hover {
+    color: #ff5e01;
+}
+
+/*  header */
+#main{
+    margin-right: -15px;
+    margin-left: -15px;
+
+}
+.left-menu{
+
+}
+
+.product {
+    height: 300px;
+    width: 300px;
+    border: 1px solid #ff5e01;
+    float: left;
+    margin: 10px 10px 10px 10px;
+}
+
+.registration-field {
+    float: right;
+    font-size: 30px;
+    color: #909;
+    margin: 10px 250px 10px 10px;
+}
+
+.registration-input {
+    height: 30px;
+    width: 600px;
+    margin-right: 2px;
+    color: #909;
+    border: 1px solid #ff5e01;
+    border-radius: 3px;
+    padding-left: 10px;
+}
+
+#footer {
+    width: 100%;
+    height: 60px;
+    border: 2px groove #ff5e01;
+    border-radius: 5px;
+}
+
+#footer-reg {
+    position: absolute;
+    width: 99%;
+    height: 10%;
+    top: 92%;
+    border: 2px groove #ff5e01;
+    border-radius: 5px;
+
+}

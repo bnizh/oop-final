@@ -8,6 +8,7 @@ public abstract class User {
     private String userName;
     private String image;
     private String email;
+    private int ID;
 
     public String getEmail() {
         return email;
@@ -16,7 +17,6 @@ public abstract class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
 
     public String getUserName() {
@@ -81,10 +81,19 @@ public abstract class User {
         this.rating += rating;
         this.voters++;
     }
-    public User (String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image) {
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public User(String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image) {
         this.userName = username;
-        this.password= password;
-        this.email= email;
+        this.password = password;
+        this.email = email;
         this.name = name;
         this.rating = rating;
         this.mobileNumber = mobileNumber;

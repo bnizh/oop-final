@@ -2,7 +2,7 @@ package Objects;
 
 import java.util.Date;
 
-public class OBJECTFactory {
+public class ObjectFactory {
     //Returns new User
     public static Seller getNewSeller(String username, String password, String email,
                                       String name, int rating, int voters, String mobileNumber, String image) {

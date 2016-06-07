@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -56,7 +57,14 @@ public class AccountDB implements DBQueries {
 
     @Override
     public List<Seller> getSellerByName(String name) {
-        return null;
+        ArrayList<Seller> list = new ArrayList<Seller>();
+        String s ="Select * from "+DBInfo.MYSQL_DATABASE_Users_table+" where typeOfUser =" + 1+" and name ="+'\"'+name+'\"';
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            getSeveralSellersFromBase(list, stm);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     @Override
@@ -83,12 +91,30 @@ public class AccountDB implements DBQueries {
         return false;
     }
 
+    private void getSeveralSellersFromBase(List<Seller> list, PreparedStatement stm){
+        try (ResultSet rs = stm.executeQuery()) {
+            while (rs.next()){
+                Seller sel = new Seller(rs.getString("username"),rs.getString("password"), rs.getString("email")
+                        ,rs.getString("name"),rs.getInt("rating"),rs.getString("mobileNumber"),rs.getInt("voters"), rs.getString("imageUrl"));
+                sel.setID(rs.getInt("userID"));
+                list.add(sel);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public List<Seller> getAllSeller() {
-
-
-        return null;
+        ArrayList<Seller> list = new ArrayList<Seller>();
+        String s ="Select * from "+DBInfo.MYSQL_DATABASE_Users_table+" where typeOfUser =" + 1;
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            getSeveralSellersFromBase(list, stm);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
 
@@ -108,7 +134,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean deleteSeller(int sellerID) {
-        String s ="DELETE FROM "+DBInfo.MYSQL_DATABASE_Users_table +"where userID ="+ sellerID;
+        String s ="DELETE FROM "+DBInfo.MYSQL_DATABASE_Users_table +" where userID ="+ sellerID;
         try (PreparedStatement stm = con.prepareStatement(s)) {
             stm.execute();
             return true;
@@ -120,7 +146,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean deleteBuyer(int buyerID) {
-        String s ="DELETE FROM "+DBInfo.MYSQL_DATABASE_Users_table +"where userID ="+ buyerID;
+        String s ="DELETE FROM "+DBInfo.MYSQL_DATABASE_Users_table +" where userID ="+ buyerID;
         try (PreparedStatement stm = con.prepareStatement(s)) {
             stm.execute();
             return true;
@@ -174,8 +200,15 @@ public class AccountDB implements DBQueries {
     }
 
     @Override
-    public List<Buyer> getBuyerByName(String name) {
-        return null;
+    public List<Buyer> getBuyerByName(String name){
+        ArrayList<Buyer> list = new ArrayList<Buyer>();
+        String s ="Select * from "+DBInfo.MYSQL_DATABASE_Users_table+" where typeOfUser =" +0+" and name ="+'\"'+name+'\"';
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            getSeveralBuyersFromBase(list, stm);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     @Override
@@ -194,11 +227,41 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean updateBuyer(Buyer buyer) {
+        String s = "update "+DBInfo.MYSQL_DATABASE_Users_table +" set userName ="+'\"'+buyer.getUserName()+'\"'+", password ="+'\"'+buyer.getPassword()+'\"'
+                +", name ="+'\"'+buyer.getName()+'\"'+",email ="+'\"'+buyer.getEmail()+'\"'+", mobileNumber="+'\"'+
+                buyer.getMobileNumber()+'\"'+", imageUrl ="+'\"'+buyer.getImage()+'\"'+" where userID ="+buyer.getID();
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            stm.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
+    private void getSeveralBuyersFromBase(List<Buyer> list, PreparedStatement stm){
+        try (ResultSet rs = stm.executeQuery()) {
+            while (rs.next()){
+                Buyer b = new Buyer(rs.getString("username"),rs.getString("password"), rs.getString("email")
+                        ,rs.getString("name"),rs.getInt("rating"),rs.getString("mobileNumber"),rs.getInt("voters"), rs.getString("imageUrl"));
+                b.setID(rs.getInt("userID"));
+                list.add(b);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public List<Buyer> getAllBuyer() {
-        return null;
+        ArrayList<Buyer> list = new ArrayList<Buyer>();
+        String s ="Select * from "+DBInfo.MYSQL_DATABASE_Users_table+" where typeOfUser =" + 0;
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            getSeveralBuyersFromBase(list, stm);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

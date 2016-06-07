@@ -1,4 +1,6 @@
 (function () {
+
+    <!--  opening modal-->
     $(document).ready(function () {
         // Get the modal
         var modal = document.getElementById('myModal');
@@ -25,7 +27,23 @@
                 modal.style.display = "none";
             }
         }
+        <!--  opening modal-->
 
+        <!--  change type-->
+
+        $('input:radio[name=user-type]').change(function () {
+            var radioValue = $("input[name='user-type']:checked").val();
+            if ($('#seller-bt').is(':checked')) {
+                $('.seller').css("visibility", "visible").css("display", "block");
+                $('.buyer').css("visibility", "hidden").css("display", "none");
+            }
+            else {
+                $('.seller').css("visibility", "hidden").css("display", "none");
+                $('.buyer').css("visibility", "visible").css("display", "block");
+            }
+        });
+        <!--  change type-->
 
     });
 })();
+

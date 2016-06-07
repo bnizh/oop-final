@@ -60,11 +60,22 @@ public class SellerTest extends TestCase {
     }
 
     public void testGetName() throws Exception {
-
+        Seller s = new Seller("username","password","email","name",0,"112",0, "image");
+        assertEquals(s.getName(), "name");
+        assertFalse(s.getName().equals("bla"));
+        s= new Seller("username","password","email","bla",0,"112",0, "image");
+        assertEquals(s.getName(), "bla");
     }
 
     public void testSetName() throws Exception {
-
+        Seller s = new Seller("username","password","email","name",0,"112",0, "image");
+        s.setName("bla");
+        assertEquals(s.getName(),"bla");
+        assertFalse(s.getName().equals("name"));
+        s.setName("name1");
+        assertEquals(s.getName(), "name1");
+        assertFalse(s.getName().equals("name"));
+        assertFalse(s.getName().equals("bla"));
     }
 
     public void testGetRating() throws Exception {

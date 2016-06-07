@@ -10,8 +10,6 @@ import java.util.List;
 
 public class DBConnection implements  DBQueries{
 
-
-
     @Override
     public Seller getSellerByUsername(String companyName) {
         try {

@@ -1,6 +1,7 @@
 package DataBase;
 
 import Objects.Buyer;
+import Objects.ObjectFactory;
 import Objects.Seller;
 
 import java.sql.Connection;
@@ -22,10 +23,8 @@ public class AccountDB implements DBQueries {
     private Seller getSellerFromBase(PreparedStatement stm){
         try (ResultSet rs = stm.executeQuery()) {
             if (rs.next()){
-                Seller sel = new Seller(rs.getString("username"),rs.getString("password"), rs.getString("email")
-                        ,rs.getString("name"),rs.getInt("rating"),rs.getString("mobileNumber"),rs.getInt("voters"), rs.getString("imageUrl"));
-                sel.setID(rs.getInt("userID"));
-                return  sel;
+                return  ObjectFactory.getNewSeller(rs.getString("username"),rs.getString("password"), rs.getString("email")
+                        ,rs.getString("name"),rs.getInt("rating"),rs.getString("mobileNumber"),rs.getInt("voters"), rs.getString("imageUrl"),rs.getInt("userID"));
             }
 
         } catch (SQLException e) {
@@ -94,10 +93,8 @@ public class AccountDB implements DBQueries {
     private void getSeveralSellersFromBase(List<Seller> list, PreparedStatement stm){
         try (ResultSet rs = stm.executeQuery()) {
             while (rs.next()){
-                Seller sel = new Seller(rs.getString("username"),rs.getString("password"), rs.getString("email")
-                        ,rs.getString("name"),rs.getInt("rating"),rs.getString("mobileNumber"),rs.getInt("voters"), rs.getString("imageUrl"));
-                sel.setID(rs.getInt("userID"));
-                list.add(sel);
+                list.add(ObjectFactory.getNewSeller(rs.getString("username"),rs.getString("password"), rs.getString("email")
+                        ,rs.getString("name"),rs.getInt("rating"),rs.getString("mobileNumber"),rs.getInt("voters"), rs.getString("imageUrl"),rs.getInt("userID")));
             }
 
         } catch (SQLException e) {
@@ -168,10 +165,10 @@ public class AccountDB implements DBQueries {
     private Buyer getBuyerFromBase(PreparedStatement stm) {
         try (ResultSet rs = stm.executeQuery()) {
             if (rs.next()) {
-                Buyer b = new Buyer(rs.getString("username"), rs.getString("password"), rs.getString("email")
-                        , rs.getString("name"), rs.getInt("rating"), rs.getString("mobileNumber"), rs.getInt("voters"), rs.getString("imageUrl"));
-                b.setID(rs.getInt("userID"));
-                return b;
+
+                return ObjectFactory.getNewBuyer(rs.getString("username"),rs.getString("password"), rs.getString("email")
+                        ,rs.getString("name"),rs.getInt("rating"),rs.getString("mobileNumber"),rs.getInt("voters"), rs.getString("imageUrl"),rs.getInt("userID"));
+
             }
 
         } catch (SQLException e) {
@@ -241,10 +238,8 @@ public class AccountDB implements DBQueries {
     private void getSeveralBuyersFromBase(List<Buyer> list, PreparedStatement stm){
         try (ResultSet rs = stm.executeQuery()) {
             while (rs.next()){
-                Buyer b = new Buyer(rs.getString("username"),rs.getString("password"), rs.getString("email")
-                        ,rs.getString("name"),rs.getInt("rating"),rs.getString("mobileNumber"),rs.getInt("voters"), rs.getString("imageUrl"));
-                b.setID(rs.getInt("userID"));
-                list.add(b);
+                list.add(ObjectFactory.getNewBuyer(rs.getString("username"),rs.getString("password"), rs.getString("email")
+                        ,rs.getString("name"),rs.getInt("rating"),rs.getString("mobileNumber"),rs.getInt("voters"), rs.getString("imageUrl"),rs.getInt("userID")));
             }
 
         } catch (SQLException e) {

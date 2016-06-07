@@ -14,8 +14,8 @@ public class Seller extends User {
         this.gallery = gallery;
     }
 
-    public Seller(String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image) {
-        super(username, password, email,name,rating,mobileNumber,voters,image);
+    public Seller(String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image, int sellerID) {
+        super(username, password, email,name,rating,mobileNumber,voters,image, sellerID);
     }
     public boolean equals(Seller u){
         return (this.getID() == u.getID() && this.getUserName().equals(u.getUserName()) && this.getEmail().equals(u.getEmail())

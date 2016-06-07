@@ -90,7 +90,7 @@ public abstract class User {
         this.ID = ID;
     }
 
-    public User(String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image) {
+    public User(String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image, int ID) {
         this.userName = username;
         this.password = password;
         this.email = email;
@@ -99,6 +99,7 @@ public abstract class User {
         this.mobileNumber = mobileNumber;
         this.voters = voters;
         this.image = image;
+        this.ID = ID;
     }
 
 

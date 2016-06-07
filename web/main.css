@@ -335,15 +335,50 @@ button:focus {
     overflow: auto;
 }
 .reg-label{
-    width: 20%;
+    width: 15%;
+    font-size:20px;
+    margin-left:7%;
     float:left;
+    color:#909;
 }
+.user-type{
+    margin-left:45%;
+    color:#990099;
+    font-size: 20px;
+}
+
 .reg-form{
-    width: 75%;
+    width: 60%;
     float:left;
+    margin-right: 14%;
 }
 #buyer-registration{
     overflow: auto;
+    margin-top: 20px;
+}
+#buyer-registration div{
+    margin-bottom: 10px;
+    overflow: auto;
+}
+#seller-registration{
+    overflow: auto;
+    margin-top: 20px;
+}
+#seller-registration div{
+    margin-bottom: 10px;
+    overflow: auto;
+}
+.registration-submit-buy{
+    float:right;
+    margin-right: 20%;
+    width: 15%;
+    border-radius: 10px;
+    height:30px;
+    color:#990099;
+}
+.registration-submit-buy:hover,
+.registration-submit-buy:focus{
+    color:white;
 }
 /*  -------Modal-------------*/
 .registration-input {

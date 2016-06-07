@@ -4,6 +4,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <link href="main.css" rel="stylesheet">
     <script src="script.js"></script>
+    <script src="AjaxSending.js"></script>
 </head>
 <body>
 <!-- Header -->
@@ -100,11 +101,11 @@
             <h2>Registration</h2>
         </div>
         <div class="modal-body">
-            <div class="col-md-12">
-                <label class="r-but col-md-offset-3 col-md-3 "><input id="buyer-bt" type="radio"
-                                                                      name="user-type"
-                                                                      checked="checked">buyer</label>
-                <label class="r-but col-md-6"><input id="seller-bt" type="radio" name="user-type">Seller</label>
+            <div class="user-type">
+                <label style="margin-right: 5%"class=""><input id="buyer-bt" type="radio"
+                                       name="user-type"
+                                       checked="checked">buyer</label>
+                <label class=""><input id="seller-bt" type="radio" name="user-type">Seller</label>
             </div>
             <div class="row buyer">
                 <form id="buyer-registration" action="" method="">
@@ -144,39 +145,59 @@
                                placeholder="Surname">
                     </div>
                     <div>
-                        <button id="registration-submit-buy" type="submit" class="button">Confirm</button>
+                        <label class=" reg-label">Mobile Number:</label>
+                        <input type="number" class="search-form-control reg-form"
+                               name="bmobile"
+                               value=""
+                               placeholder="Mobile Number">
+                    </div>
+                    <div>
+                        <button type="submit" class="button registration-submit-buy">Confirm</button>
                     </div>
                 </form>
             </div>
 
             <div class="row seller" style="visibility: hidden; display:none;">
                 <form id="seller-registration" action="" method="">
-                    <label class="col-md-offset-1 col-md-2 reg-label">company:</label>
-                    <input type="text" class="col-md-8 search-form-control reg-form"
-                           name="company"
-                           value=""
-                           placeholder="Company">
-                    <label class="col-md-offset-1 col-md-2 reg-label">E-Mail:</label>
-                    <input type="email" class="col-md-8 search-form-control reg-form"
-                           name="seller-email"
-                           value=""
-                           placeholder="E-mail">
-                    <label class="col-md-offset-1 col-md-2 reg-label">Password:</label>
-                    <input type="password" class="col-md-8 search-form-control reg-form "
-                           name="seller-password"
-                           value=""
-                           placeholder="Password">
-                    <label class="col-md-offset-1 col-md-2 reg-label">Name:</label>
-                    <input type="text" class="col-md-8 search-form-control reg-form"
-                           name="seller-name"
-                           value=""
-                           placeholder="Name"><label class="col-md-offset-1 col-md-2 reg-label">Surname</label>
-                    <input type="text" class="col-md-8 search-form-control reg-form"
-                           value=""
-                           name="seller-surname"
-                           placeholder="Surname">
+                    <div>
+                        <label class="reg-label">UserName:</label>
+                        <input type="text" class=" search-form-control reg-form"
+                               name="susername"
+                               value=""
+                               placeholder="UserName">
+                    </div>
+                    <div>
+                        <label class=" reg-label">E-Mail:</label>
+                        <input type="email" class=" search-form-control reg-form"
+                               name="semail"
+                               value=""
+                               placeholder="E-mail">
+                    </div>
+                    <div>
+                        <label class="reg-label">Password:</label>
+                        <input type="password" class=" search-form-control reg-form "
+                               name="spassword"
+                               value=""
+                               placeholder="Password">
+                    </div>
+                    <div>
+                        <label class=" reg-label">Company Name:</label>
+                        <input type="text" class=" search-form-control reg-form"
+                               name="company"
+                               value=""
+                               placeholder="Name">
+                    </div>
 
-                    <button id="registration-submit" type="submit" class="btn btn-primary">Confirm</button>
+                    <div>
+                        <label class=" reg-label">Mobile Number:</label>
+                        <input type="number" class="search-form-control reg-form"
+                               name="smobile"
+                               value=""
+                               placeholder="Mobile Number">
+                    </div>
+                    <div>
+                        <button type="submit" class="button registration-submit-buy">Confirm</button>
+                    </div>
                 </form>
             </div>
         </div>

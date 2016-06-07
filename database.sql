@@ -77,4 +77,3 @@ create table tags(
     ownerID int not null
 );
 
-select * from Users; 

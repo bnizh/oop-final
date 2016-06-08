@@ -102,5 +102,14 @@ public abstract class User {
         this.ID = ID;
     }
 
-
+    public User(String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image) {
+        this.userName = username;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.rating = rating;
+        this.mobileNumber = mobileNumber;
+        this.voters = voters;
+        this.image = image;
+    }
 }

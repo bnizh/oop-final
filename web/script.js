@@ -26,13 +26,13 @@
             if (event.target == modal) {
                 modal.style.display = "none";
             }
-        }
+        };
         <!--  opening modal-->
 
         <!--  change type-->
 
         $('input:radio[name=user-type]').change(function () {
-            var radioValue = $("input[name='user-type']:checked").val();
+
             if ($('#seller-bt').is(':checked')) {
                 $('.seller').css("visibility", "visible").css("display", "block");
                 $('.buyer').css("visibility", "hidden").css("display", "none");
@@ -43,7 +43,7 @@
             }
         });
         <!--  change type-->
-
+      
     });
 })();
 

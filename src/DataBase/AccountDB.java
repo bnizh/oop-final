@@ -24,7 +24,7 @@ public class AccountDB implements DBQueries {
         try (ResultSet rs = stm.executeQuery()) {
             if (rs.next()){
                 return  ObjectFactory.getNewSeller(rs.getString("username"),rs.getString("password"), rs.getString("email")
-                        ,rs.getString("name"),rs.getInt("rating"),rs.getString("mobileNumber"),rs.getInt("voters"), rs.getString("imageUrl"),rs.getInt("userID"));
+                        ,rs.getString("name"),rs.getInt("rating"),rs.getInt("voters"),rs.getString("mobileNumber"), rs.getString("imageUrl"),rs.getInt("userID"));
             }
 
         } catch (SQLException e) {
@@ -94,7 +94,7 @@ public class AccountDB implements DBQueries {
         try (ResultSet rs = stm.executeQuery()) {
             while (rs.next()){
                 list.add(ObjectFactory.getNewSeller(rs.getString("username"),rs.getString("password"), rs.getString("email")
-                        ,rs.getString("name"),rs.getInt("rating"),rs.getString("mobileNumber"),rs.getInt("voters"), rs.getString("imageUrl"),rs.getInt("userID")));
+                        ,rs.getString("name"),rs.getInt("rating"),rs.getInt("voters"),rs.getString("mobileNumber"), rs.getString("imageUrl"),rs.getInt("userID")));
             }
 
         } catch (SQLException e) {
@@ -167,7 +167,7 @@ public class AccountDB implements DBQueries {
             if (rs.next()) {
 
                 return ObjectFactory.getNewBuyer(rs.getString("username"),rs.getString("password"), rs.getString("email")
-                        ,rs.getString("name"),rs.getInt("rating"),rs.getString("mobileNumber"),rs.getInt("voters"), rs.getString("imageUrl"),rs.getInt("userID"));
+                        ,rs.getString("name"),rs.getInt("rating"),rs.getInt("voters"),rs.getString("mobileNumber"), rs.getString("imageUrl"),rs.getInt("userID"));
 
             }
 
@@ -198,7 +198,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public List<Buyer> getBuyerByName(String name){
-        ArrayList<Buyer> list = new ArrayList<Buyer>();
+        ArrayList<Buyer> list = new ArrayList<>();
         String s ="Select * from "+DBInfo.MYSQL_DATABASE_Users_table+" where typeOfUser =" +0+" and name ="+'\"'+name+'\"';
         try (PreparedStatement stm = con.prepareStatement(s)) {
             getSeveralBuyersFromBase(list, stm);
@@ -239,7 +239,7 @@ public class AccountDB implements DBQueries {
         try (ResultSet rs = stm.executeQuery()) {
             while (rs.next()){
                 list.add(ObjectFactory.getNewBuyer(rs.getString("username"),rs.getString("password"), rs.getString("email")
-                        ,rs.getString("name"),rs.getInt("rating"),rs.getString("mobileNumber"),rs.getInt("voters"), rs.getString("imageUrl"),rs.getInt("userID")));
+                        ,rs.getString("name"),rs.getInt("rating"),rs.getInt("voters"),rs.getString("mobileNumber"), rs.getString("imageUrl"),rs.getInt("userID")));
             }
 
         } catch (SQLException e) {
@@ -250,7 +250,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public List<Buyer> getAllBuyer() {
-        ArrayList<Buyer> list = new ArrayList<Buyer>();
+        ArrayList<Buyer> list = new ArrayList<>();
         String s ="Select * from "+DBInfo.MYSQL_DATABASE_Users_table+" where typeOfUser =" + 0;
         try (PreparedStatement stm = con.prepareStatement(s)) {
             getSeveralBuyersFromBase(list, stm);

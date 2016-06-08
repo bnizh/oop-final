@@ -390,6 +390,11 @@ button:focus {
     border-radius: 3px;
     padding-left: 10px;
 }
+label.myLabel input[type="file"] {
+    position: fixed;
+    top: -1000px;
+}
+
 
 #footer {
     position: relative;

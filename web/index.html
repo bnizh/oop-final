@@ -108,48 +108,53 @@
                 <label class=""><input id="seller-bt" type="radio" name="user-type">Seller</label>
             </div>
             <div class="row buyer">
-                <form id="buyer-registration" action="" method="">
+                <form id="buyer-registration" action="" method="" enctype="multipart/form-data">
+                    <input type="hidden"  value="buyer" name="type">
                     <div>
                         <label class="reg-label">UserName:</label>
                         <input type="text" class=" search-form-control reg-form"
-                               name="busername"
+                               name="username"
                                value=""
                                placeholder="UserName">
                     </div>
                     <div>
                         <label class=" reg-label">E-Mail:</label>
                         <input type="email" class=" search-form-control reg-form"
-                               name="bemail"
+                               name="email"
                                value=""
                                placeholder="E-mail">
                     </div>
                     <div>
                         <label class="reg-label">Password:</label>
                         <input type="password" class=" search-form-control reg-form "
-                               name="bpassword"
+                               name="password"
                                value=""
                                placeholder="Password">
                     </div>
                     <div>
                         <label class=" reg-label">Name:</label>
                         <input type="text" class=" search-form-control reg-form"
-                               name="bname"
+                               name="name"
                                value=""
                                placeholder="Name">
                     </div>
                     <div>
                         <label class=" reg-label">Surname</label>
                         <input type="text" class="search-form-control reg-form"
-                               name="bsurname"
+                               name="surname"
                                value=""
                                placeholder="Surname">
                     </div>
                     <div>
                         <label class=" reg-label">Mobile Number:</label>
                         <input type="number" class="search-form-control reg-form"
-                               name="bmobile"
+                               name="mobile"
                                value=""
                                placeholder="Mobile Number">
+                    </div>
+                    <div>
+                        <label class=" reg-label">Profile Picture</label>
+                        <input type="file" name="file">
                     </div>
                     <div>
                         <button type="submit" class="button registration-submit-buy">Confirm</button>
@@ -159,24 +164,25 @@
 
             <div class="row seller" style="visibility: hidden; display:none;">
                 <form id="seller-registration" action="" method="">
+                    <input type="hidden"  value="seller" name="type">
                     <div>
                         <label class="reg-label">UserName:</label>
                         <input type="text" class=" search-form-control reg-form"
-                               name="susername"
+                               name="username"
                                value=""
                                placeholder="UserName">
                     </div>
                     <div>
                         <label class=" reg-label">E-Mail:</label>
                         <input type="email" class=" search-form-control reg-form"
-                               name="semail"
+                               name="email"
                                value=""
                                placeholder="E-mail">
                     </div>
                     <div>
                         <label class="reg-label">Password:</label>
                         <input type="password" class=" search-form-control reg-form "
-                               name="spassword"
+                               name="password"
                                value=""
                                placeholder="Password">
                     </div>
@@ -191,9 +197,13 @@
                     <div>
                         <label class=" reg-label">Mobile Number:</label>
                         <input type="number" class="search-form-control reg-form"
-                               name="smobile"
+                               name="mobile"
                                value=""
                                placeholder="Mobile Number">
+                    </div>
+                    <div>
+                        <label class=" reg-label">Profile Picture</label>
+                        <input type="file" name="file">
                     </div>
                     <div>
                         <button type="submit" class="button registration-submit-buy">Confirm</button>

@@ -5,18 +5,62 @@ import java.util.List;
 public class Item {
     String name;
     int ID;
+    int rating;
+    int voters;
     int ownerID;
     String image;
     int price;
-    List<Category> categories;
+    int categoryID;
 
-    public Item(String name, int ID, int ownerID, String image, int price) {
+    public Item(String name, int ownerID, String image, int price, int categoryID, int rating, int voters) {
         this.name = name;
-        this.ID = ID;
         this.ownerID = ownerID;
         this.image = image;
         this.price = price;
+        this.image = image;
+        this.categoryID = categoryID;
+        this.rating = rating;
+        this.voters = voters;
     }
+
+    public Item(String name, int ID, int ownerID, String image, int price, int categoryID, int rating, int voters) {
+        this.name = name;
+        this.ownerID = ownerID;
+        this.image = image;
+        this.price = price;
+        this.image = image;
+        this.categoryID = categoryID;
+        this.rating = rating;
+        this.voters = voters;
+        this.ID = ID;
+    }
+
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public int getVoters() {
+        return voters;
+    }
+
+    public void setVoters(int voters) {
+        this.voters = voters;
+    }
+
+
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
 
     public boolean addCategory(int categoryID) {
         return false;

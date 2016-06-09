@@ -1,6 +1,7 @@
 package DataBase;
 
 import Objects.Buyer;
+import Objects.Item;
 import Objects.ObjectFactory;
 import Objects.Seller;
 
@@ -258,5 +259,105 @@ public class AccountDB implements DBQueries {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    public boolean addItem(Item it) {
+       String s = "Insert into " + DBInfo.MYSQL_DATABASE_Items_table+" values ('"+it.getName()+"','"+it.getImage()+"',"
+               +it.getCategoryID()+","+it.getOwnerID()+","+it.getPrice()+","+it.getRating()+","+it.getVoters()+")";
+        return itemHelper(s);
+    }
+
+    @Override
+    public boolean deletItem(int id) {
+        String s = "Delete from "+DBInfo.MYSQL_DATABASE_Items_table+" where itemID ="+id;
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            stm.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private void getItems(List<Item> ls ,String s) {
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    ls.add(ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
+                            rs.getString("itemImageUrl"), rs.getInt("price"), rs.getInt("categoryID"), rs.getInt("rating"),
+                            rs.getInt("voters")));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    @Override
+    public Item getItemById(int id) {
+        String s = "select * from "+DBInfo.MYSQL_DATABASE_Items_table+" where itemID ="+id;
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    return ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
+                            rs.getString("itemImageUrl"), rs.getInt("price"), rs.getInt("categoryID"), rs.getInt("rating"),
+                            rs.getInt("voters"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Item> getItemsBySeller(int sellerID) {
+        List<Item> ls = new ArrayList<Item>();
+        String s = "select * from "+DBInfo.MYSQL_DATABASE_Items_table+" where ownerID ="+sellerID;
+        getItems(ls,s);
+        return ls;
+    }
+
+    @Override
+    public List<Item> getItemsByName(String name) {
+        List<Item> ls = new ArrayList<Item>();
+        String s = "select * from "+DBInfo.MYSQL_DATABASE_Items_table+" where ItemName ="+name;
+        getItems(ls,s);
+        return ls;
+    }
+
+    private boolean itemHelper(String s){
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            stm.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public List<Item> getTopItems(int numberOfItems) {
+        String s ="Select *, (rating / voters) as avg from "+ DBInfo.MYSQL_DATABASE_Items_table+" order by avg desc limit" +numberOfItems;
+        return null;
+    }
+
+    @Override
+    public boolean updateItem(Item it) {
+        String s = "update "+DBInfo.MYSQL_DATABASE_Items_table+" set itemName ='"+it.getName()+"',itemImageUrl ='"+it.getImage()+
+                "',categoryID ="+it.getCategoryID()+", ownerID="+it.getOwnerID()+", price="+it.getPrice()+", rating="+it.getRating()
+                +",voters ="+it.getVoters()+" where itemID="+it.getID();
+        return itemHelper(s);
+    }
+
+    @Override
+    public boolean deletAllItemsForSeller(int idexOfSeller) {
+        String s = "delete from "+ DBInfo.MYSQL_DATABASE_Items_table+" where ownerID =" +idexOfSeller;
+        return itemHelper(s);
     }
 }

@@ -13,17 +13,11 @@ import java.sql.SQLException;
 
 public class AccountDBTest extends TestCase {
     public void testGetSellerByUsername() throws Exception {
+        Connection con = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try (
-                Connection con = DriverManager.getConnection("jdbc:mysql://" + DBInfo.MYSQL_DATABASE_SERVER + "/" + DBInfo.MYSQL_DATABASE_NAME +
-                        "?characterEncoding=UTF8&useSSL=false", DBInfo.MYSQL_USERNAME, DBInfo.MYSQL_PASSWORD)) {
-
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
             AccountDB acc = new AccountDB(con);
-            Seller s =  new Seller("username","password","email","name",0,"112",0, "image");
+            Seller s = new Seller("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewSeller(s);
             s.setID(1);
             Seller sel = acc.getSellerByUsername("username");
@@ -31,6 +25,9 @@ public class AccountDBTest extends TestCase {
             assertTrue(s.equals(sel));
         } catch (SQLException ex) {
             throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
         }
     }
 
@@ -55,24 +52,21 @@ public class AccountDBTest extends TestCase {
     }
 
     public void testUpdateSeller() throws Exception {
+        Connection con = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try (
-                Connection con = DriverManager.getConnection("jdbc:mysql://" + DBInfo.MYSQL_DATABASE_SERVER + "/" + DBInfo.MYSQL_DATABASE_NAME +
-                        "?characterEncoding=UTF8&useSSL=false", DBInfo.MYSQL_USERNAME, DBInfo.MYSQL_PASSWORD)) {
-
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
             AccountDB acc = new AccountDB(con);
-            Seller s =  new Seller("username","password","email","name",0,"112",0, "image");
+            Seller s = new Seller("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewSeller(s);
             s.setUserName("us");
             s.setID(1);
             acc.updateSeller(s);
-            assertEquals(s.getUserName(),acc.getSellerByID(1).getUserName());
+            assertEquals(s.getUserName(), acc.getSellerByID(1).getUserName());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
         }
     }
 
@@ -105,23 +99,21 @@ public class AccountDBTest extends TestCase {
     }
 
     public void testDeleteSeller() throws Exception {
+        Connection con = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try (
-                Connection con = DriverManager.getConnection("jdbc:mysql://" + DBInfo.MYSQL_DATABASE_SERVER + "/" + DBInfo.MYSQL_DATABASE_NAME +
-                        "?characterEncoding=UTF8&useSSL=false", DBInfo.MYSQL_USERNAME, DBInfo.MYSQL_PASSWORD)) {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
             AccountDB acc = new AccountDB(con);
-            Seller s =  new Seller("username","password","email","name",0,"112",0, "image");
+            Seller s = new Seller("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewSeller(s);
-            s= acc.getSellerByUsername("username");
+            s = acc.getSellerByUsername("username");
             acc.deleteSeller(s.getID());
-            s=acc.getSellerByID(s.getID());
-            assertTrue(s==null);
+            s = acc.getSellerByID(s.getID());
+            assertTrue(s == null);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
         }
-        }
+    }
 }

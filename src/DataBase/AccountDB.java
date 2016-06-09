@@ -24,7 +24,7 @@ public class AccountDB implements DBQueries {
         try (ResultSet rs = stm.executeQuery()) {
             if (rs.next()){
                 return  ObjectFactory.getNewSeller(rs.getString("username"),rs.getString("password"), rs.getString("email")
-                        ,rs.getString("name"),rs.getInt("rating"),rs.getInt("voters"),rs.getString("mobileNumber"), rs.getString("imageUrl"),rs.getInt("userID"));
+                        ,rs.getString("name"),rs.getInt("rating"),rs.getInt("voters"), rs.getString("mobileNumber"),rs.getString("imageUrl"),rs.getInt("userID"));
             }
 
         } catch (SQLException e) {
@@ -94,7 +94,7 @@ public class AccountDB implements DBQueries {
         try (ResultSet rs = stm.executeQuery()) {
             while (rs.next()){
                 list.add(ObjectFactory.getNewSeller(rs.getString("username"),rs.getString("password"), rs.getString("email")
-                        ,rs.getString("name"),rs.getInt("rating"),rs.getInt("voters"),rs.getString("mobileNumber"), rs.getString("imageUrl"),rs.getInt("userID")));
+                        ,rs.getString("name"),rs.getInt("rating"),rs.getInt("voters"), rs.getString("mobileNumber"),rs.getString("imageUrl"),rs.getInt("userID")));
             }
 
         } catch (SQLException e) {
@@ -117,7 +117,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean updateSeller(Seller seller) {
-        String s = "update "+DBInfo.MYSQL_DATABASE_Users_table +"set userName ="+'\"'+seller.getUserName()+'\"'+", password ="+'\"'+seller.getPassword()+'\"'
+        String s = "update "+DBInfo.MYSQL_DATABASE_Users_table +" set userName ="+'\"'+seller.getUserName()+'\"'+", password ="+'\"'+seller.getPassword()+'\"'
                 +", name ="+'\"'+seller.getName()+'\"'+",email ="+'\"'+seller.getEmail()+'\"'+", mobileNumber="+'\"'+
                 seller.getMobileNumber()+'\"'+", imageUrl ="+'\"'+seller.getImage()+'\"'+" where userID ="+seller.getID();
         try (PreparedStatement stm = con.prepareStatement(s)) {

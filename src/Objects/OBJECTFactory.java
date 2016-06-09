@@ -11,7 +11,7 @@ public class ObjectFactory {
     }
     /* seller without ID*/
     public static Seller getNewSeller(String username, String password, String email,
-                                      String name, int rating, int voters, String mobileNumber, String image) {
+                                      String name, int rating, String mobileNumber, int voters,  String image) {
         return new Seller(username, password, email, name, rating, mobileNumber, voters, image);
     }
     /*buyer with id*/
@@ -21,7 +21,7 @@ public class ObjectFactory {
     }
     /*buyer without id*/
     public static Buyer getNewBuyer(String username, String password, String email,
-                                    String name, int rating, int voters, String mobileNumber, String image) {
+                                    String name, int rating, String mobileNumber, int voters,  String image) {
         return new Buyer(username, password, email, name, rating, mobileNumber, voters, image);
     }
     public static Category getNewCategory(int ID, String name){

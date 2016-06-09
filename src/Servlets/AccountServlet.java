@@ -50,13 +50,13 @@ public class AccountServlet extends HttpServlet {
       String password=  HashCreator.getHash(request.getParameter("password"));
         if (request.getParameter("type").equals("buyer")) {
            Buyer buyer= ObjectFactory.getNewBuyer(request.getParameter("username"), password,
-                    request.getParameter("email"), request.getParameter("name")+" "+request.getParameter("surname"), 0, 0, request.getParameter("mobile"), imgURL
+                    request.getParameter("email"), request.getParameter("name")+" "+request.getParameter("surname"), 0, request.getParameter("mobile"),0,  imgURL
             );
             DBFactory.getDBConnection().addNewBuyer(buyer);
         }
         else{
             Seller seller= ObjectFactory.getNewSeller(request.getParameter("username"), password,
-                    request.getParameter("email"), request.getParameter("company"), 0, 0, request.getParameter("mobile"), imgURL
+                    request.getParameter("email"), request.getParameter("company"), 0, request.getParameter("mobile"), 0,  imgURL
             );
             DBFactory.getDBConnection().addNewSeller(seller);
         }
@@ -68,7 +68,7 @@ public class AccountServlet extends HttpServlet {
     * and puts that file into users folder and returns path of that file
     * */
     private String saveFile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String uploadDirectory = "D:\\\\prog\\\\OOP\\\\files\\\\" + request.getParameter("username");
+        String uploadDirectory = "C:\\\\Users\\\\Boris\\\\Desktop\\\\final project\\\\oop-final\\\\" + request.getParameter("username");
         Path folder = Paths.get(uploadDirectory);
         if (Files.notExists(folder)) {
             new File(uploadDirectory).mkdir();

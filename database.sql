@@ -7,17 +7,18 @@ DROP TABLE IF EXISTS items;
 DROP TABLE IF EXISTS usersComments;
 DROP TABLE IF EXISTS gallery;
 DROP TABLE IF EXISTS tags;
+DROP TABLE IF EXISTS categories;
  
 
 CREATE TABLE Users (
     userID int auto_increment not null,
     password varchar(128) not null,
-    userName varchar(128) not null,
+    userName varchar(128) not null unique,
     name varchar(128),
     typeOfUser int not null,
     rating int,
     voters int,
-    email varchar(128),
+    email varchar(128) unique,
     mobileNumber VARCHAR(64),
     imageUrl varchar(256),
     primary key (userID)
@@ -34,7 +35,7 @@ create table itemsComments(
 
 create table categories(
     categoryID int auto_increment not null,
-    categoryName varchar(128),
+    categoryName varchar(128) unique,
     primary key(categoryID)
 );
 

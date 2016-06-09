@@ -78,3 +78,6 @@ create table tags(
     tagType int not null,
     ownerID int not null
 );
+
+
+SELECT * FROM users;

@@ -1,6 +1,7 @@
 package DataBase;
 
 import Objects.Buyer;
+import Objects.Item;
 import Objects.Seller;
 
 import java.sql.Connection;
@@ -320,5 +321,45 @@ public class DBConnection implements  DBQueries{
                 }
             }
         }
+    }
+
+    @Override
+    public boolean addItem(Item it) {
+        return false;
+    }
+
+    @Override
+    public boolean deletItem(int id) {
+        return false;
+    }
+
+    @Override
+    public Item getItemById(int id) {
+        return null;
+    }
+
+    @Override
+    public List<Item> getItemsBySeller(int sellerID) {
+        return null;
+    }
+
+    @Override
+    public List<Item> getItemsByName(String name) {
+        return null;
+    }
+
+    @Override
+    public List<Item> getTopItems(int numberOfItems) {
+        return null;
+    }
+
+    @Override
+    public boolean updateItem(Item it) {
+        return false;
+    }
+
+    @Override
+    public boolean deletAllItemsForSeller(int idexOfSeller) {
+        return false;
     }
 }

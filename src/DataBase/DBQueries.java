@@ -1,6 +1,7 @@
 package DataBase;
 
 import Objects.Buyer;
+import Objects.Item;
 import Objects.Seller;
 
 import java.util.List;
@@ -37,4 +38,22 @@ public interface DBQueries {
     public boolean updateBuyer(Buyer buyer);
 
     public List<Buyer> getAllBuyer();
+
+
+
+    public boolean addItem(Item it);
+
+    public boolean deletItem(int id );
+
+    public Item getItemById(int id);
+
+    public List<Item> getItemsBySeller(int sellerID);
+
+    public List<Item> getItemsByName(String name);
+
+    public List<Item> getTopItems (int numberOfItems);
+
+    public boolean updateItem(Item it);
+
+    public boolean deletAllItemsForSeller(int idexOfSeller);
 }

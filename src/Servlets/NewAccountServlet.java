@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.NoSuchAlgorithmException;
 
 @MultipartConfig
 @WebServlet("/NewAccountServlet")
@@ -23,22 +24,23 @@ public class NewAccountServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserManager um = ManagerFactory.getUserManager();
-        if (!um.checkUsernameVacancy(request.getParameter("username"))) {
-            PrintWriter out = response.getWriter();
-            out.write("used");
-            out.close();
-            return;
-        }
-
         FileManager fm = ManagerFactory.getFileManager();
         Part filePart = request.getPart("file");
-        String imgUrl = fm.saveFile(request.getParameter("username"), filePart);
+
         if (request.getParameter("type").equals("seller"))
-            um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
-                    request.getParameter("company"), request.getParameter("mobile"), imgUrl, request.getParameter("type"));
+            try {
+                um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
+                        request.getParameter("company"), request.getParameter("mobile"), filePart, request.getParameter("type"));
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
         else {
-            um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
-                    request.getParameter("name") + " " + request.getParameter("surname"), request.getParameter("mobile"), imgUrl, request.getParameter("type"));
+            try {
+                um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
+                        request.getParameter("name") + " " + request.getParameter("surname"), request.getParameter("mobile"), filePart, request.getParameter("type"));
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
         }
 
 

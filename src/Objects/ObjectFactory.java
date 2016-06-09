@@ -38,4 +38,6 @@ public class ObjectFactory {
     public static Comment getNewComment(int ownerID, int writerID, int commentID, String comment, Date dateOfWrite){
         return new Comment(ownerID,writerID,commentID,comment,dateOfWrite);
     }
+
+
 }

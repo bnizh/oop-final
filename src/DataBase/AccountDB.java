@@ -33,7 +33,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public Seller getSellerByUsername(String username) {
-        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM "+ DBInfo.MYSQL_DATABASE_Users_table+" where username = \""+username+"\" ")) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM "+ DBInfo.MYSQL_DATABASE_Users_table+" where username = \""+username+"\" AND typeOfUser=1")) {
             return getSellerFromBase(stm);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,7 +44,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public Seller getSellerByEmail(String email) {
-        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM "+ DBInfo.MYSQL_DATABASE_Users_table+" where email = \""+email+"\" ")) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM "+ DBInfo.MYSQL_DATABASE_Users_table+" where email = \""+email+"\" AND typeOfUser=1")) {
             return getSellerFromBase(stm);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -153,7 +153,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public Buyer getBuyerByUsername(String userName) {
-        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM "+ DBInfo.MYSQL_DATABASE_Users_table+" where username = \""+userName+"\" ")) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM "+ DBInfo.MYSQL_DATABASE_Users_table+" where username = \""+userName+"\" AND typeOfUser=0")) {
             return getBuyerFromBase(stm);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -176,7 +176,7 @@ public class AccountDB implements DBQueries {
     }
     @Override
     public Buyer getBuyerByEmail(String email) {
-        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM "+ DBInfo.MYSQL_DATABASE_Users_table+" where email = \""+email+"\" ")) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM "+ DBInfo.MYSQL_DATABASE_Users_table+" where email = \""+email+"\" AND typeOfUser=0")) {
             return getBuyerFromBase(stm);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -281,9 +281,9 @@ public class AccountDB implements DBQueries {
         try (PreparedStatement stm = con.prepareStatement(s)) {
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
-                    ls.add(ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
+                    /*ls.add(ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
                             rs.getString("itemImageUrl"), rs.getInt("price"), rs.getInt("categoryID"), rs.getInt("rating"),
-                            rs.getInt("voters")));
+                            rs.getInt("voters")));*/
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -299,9 +299,9 @@ public class AccountDB implements DBQueries {
         try (PreparedStatement stm = con.prepareStatement(s)) {
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next()) {
-                    return ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
+                    /*return ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
                             rs.getString("itemImageUrl"), rs.getInt("price"), rs.getInt("categoryID"), rs.getInt("rating"),
-                            rs.getInt("voters"));
+                            rs.getInt("voters"));*/
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

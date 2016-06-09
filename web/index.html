@@ -13,13 +13,14 @@
         <a href="#" id="logo">Food-Online</a>
     </div>
     <div>
-        <form class="login-input-container" action="/NewAccountServlet" method="post">
+        <form class="login-input-container" action="/AccountServlet" method="post">
             <div style="position:relative; width:100%; height:90px">
                 <div style='width:100%; height:30px'></div>
-                <input class="login-input" type="text" placeholder="Username" name="username">
+                <input class="login-input" type="text" placeholder="Username or E-mail" name="username">
+                <input type="hidden" value="true" name="login">
                 <input class="login-input" type="password" placeholder="Password" name="password">
                 <button type="submit" class="login-button login-input">Log In</button>
-                <a id="new-acc" href="file:///C:/Users/Tengiz/Desktop/finProj/registration.html"> creat new account</a>
+                <a id="new-acc" href="#"> creat new account</a>
             </div>
 
         </form>
@@ -102,17 +103,19 @@
         </div>
         <div class="modal-body">
             <div class="user-type">
-                <label style="margin-right: 5%"class=""><input id="buyer-bt" type="radio"
-                                       name="user-type"
-                                       checked="checked">buyer</label>
+                <label style="margin-right: 5%" class=""><input id="buyer-bt" type="radio"
+                                                                name="user-type"
+                                                                checked="checked">buyer</label>
                 <label class=""><input id="seller-bt" type="radio" name="user-type">Seller</label>
             </div>
             <div class="row buyer">
                 <form id="buyer-registration" action="" method="" enctype="multipart/form-data">
-                    <input type="hidden"  value="buyer" name="type">
+                    <input type="hidden" value="buyer" name="type">
+                    <div id="buyer-reg-message" style="display: none; text-align: center"><label style="color:red">Username
+                        is already used</label></div>
                     <div>
                         <label class="reg-label">UserName:</label>
-                        <input type="text" class=" search-form-control reg-form"
+                        <input id="username-reg-b" type="text" class=" search-form-control reg-form"
                                name="username"
                                value=""
                                placeholder="UserName">
@@ -164,10 +167,12 @@
 
             <div class="row seller" style="visibility: hidden; display:none;">
                 <form id="seller-registration" action="" method="">
-                    <input type="hidden"  value="seller" name="type">
+                    <input type="hidden" value="seller" name="type">
+                    <div id="seller-reg-message" style="display: none; text-align: center"><label style="color:red">Username
+                        is already used</label></div>
                     <div>
                         <label class="reg-label">UserName:</label>
-                        <input type="text" class=" search-form-control reg-form"
+                        <input id="username-reg-s" type="text" class=" search-form-control reg-form"
                                name="username"
                                value=""
                                placeholder="UserName">

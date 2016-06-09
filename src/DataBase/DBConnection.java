@@ -18,7 +18,6 @@ public class DBConnection implements  DBQueries{
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
             return  DBFactory.getDBQueries(con).getSellerByUsername(companyName);
-
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         }finally {

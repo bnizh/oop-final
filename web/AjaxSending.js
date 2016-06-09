@@ -10,14 +10,14 @@
                 type: 'POST',
                 data: formData,
                 success: function (data) {
-                    alert(data)
+                    if(data=="used"){
+                        buyerUserNameValidation(data);
+                    }
                 },
                 cache: false,
                 contentType: false,
                 processData: false,
-                success: function (returndata) {
-                    alert(returndata);
-                }
+
             });
 
             return false;
@@ -34,20 +34,83 @@
                 type: 'POST',
                 data: formData,
                 success: function (data) {
-                    alert(data)
+                    if(data=="used"){
+                        sellerUserNameValidation(data)
+                    }
+                    else{
+                        
+                    }
                 },
                 cache: false,
                 contentType: false,
                 processData: false,
-                success: function (returndata) {
-                    alert(returndata);
+
+            });
+
+            return false;
+        });
+        $("#username-reg-b").change(function () {
+            event.preventDefault();
+            var arg = $(this).val();
+            alert(arg);
+            $.ajax({
+                url: 'UsernameCheckServlet',
+                type: 'POST',
+                data: {username: arg},
+                cache: false,
+                dataType: "text",
+            }).done(function (response) {
+                if (response == "free") {
+                    $("#username-reg-b").css('background-color', '9FEF7D');
+                    $("#buyer-reg-message").css('display', 'none');
+                }
+                if (response == "used") {
+                    $("#buyer-reg-message").css('display', 'block');
+                    $("#username-reg-b").css('border-color', '#D08080');
+                    $("#username-reg-b").css('background-color', '#D08080');
                 }
             });
 
             return false;
         });
+        $("#username-reg-s").change(function () {
+            event.preventDefault();
+            var arg = $(this).val();
+            alert(arg);
+            $.ajax({
+                url: 'UsernameCheckServlet',
+                type: 'POST',
+                data: {username: arg},
+                cache: false,
+                dataType: "text",
+            }).done(function (response) {
+                sellerUserNameValidation(response);
+            });
+
+            return false;
+        });
+        function sellerUserNameValidation(response) {
+            if (response == "free") {
+                $("#username-reg-s").css('background-color', '9FEF7D');
+                $("#seller-reg-message").css('display', 'none');
+            }
+            if (response == "used") {
+                $("#seller-reg-message").css('display', 'block');
+                $("#username-reg-s").css('border-color', '#D08080');
+                $("#username-reg-s").css('background-color', '#D08080');
+            }
+        }
+        function buyerUserNameValidation(response) {
+            if (response == "free") {
+                $("#username-reg-b").css('background-color', '9FEF7D');
+                $("#buyer-reg-message").css('display', 'none');
+            }
+            if (response == "used") {
+                $("#buyer-reg-message").css('display', 'block');
+                $("#username-reg-b").css('border-color', '#D08080');
+                $("#username-reg-b").css('background-color', '#D08080');
+            }
+        }
 
     });
 })();
-
-

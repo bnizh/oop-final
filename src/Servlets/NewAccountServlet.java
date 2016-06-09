@@ -26,18 +26,20 @@ public class NewAccountServlet extends HttpServlet {
         UserManager um = ManagerFactory.getUserManager();
         FileManager fm = ManagerFactory.getFileManager();
         Part filePart = request.getPart("file");
+        System.out.println(filePart.getClass().getName());
+        System.out.println(filePart.getClass().getSimpleName());
 
         if (request.getParameter("type").equals("seller"))
             try {
-                um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
-                        request.getParameter("company"), request.getParameter("mobile"), filePart, request.getParameter("type"));
+                System.out.println(  um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
+                        request.getParameter("company"), request.getParameter("mobile"), filePart, request.getParameter("type")));
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
         else {
             try {
-                um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
-                        request.getParameter("name") + " " + request.getParameter("surname"), request.getParameter("mobile"), filePart, request.getParameter("type"));
+                System.out.println(   um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
+                        request.getParameter("name") + " " + request.getParameter("surname"), request.getParameter("mobile"), filePart, request.getParameter("type")));
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }

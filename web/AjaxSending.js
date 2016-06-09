@@ -6,7 +6,7 @@
             var formData = new FormData($(this)[0]);
 
             $.ajax({
-                url: "AccountServlet",
+                url: "NewAccountServlet",
                 type: 'POST',
                 data: formData,
                 success: function (data) {
@@ -30,7 +30,7 @@
             var formData = new FormData($(this)[0]);
 
             $.ajax({
-                url: "AccountServlet",
+                url: "NewAccountServlet",
                 type: 'POST',
                 data: formData,
                 success: function (data) {
@@ -52,7 +52,6 @@
         $("#username-reg-b").change(function () {
             event.preventDefault();
             var arg = $(this).val();
-            alert(arg);
             $.ajax({
                 url: 'UsernameCheckServlet',
                 type: 'POST',
@@ -76,7 +75,6 @@
         $("#username-reg-s").change(function () {
             event.preventDefault();
             var arg = $(this).val();
-            alert(arg);
             $.ajax({
                 url: 'UsernameCheckServlet',
                 type: 'POST',

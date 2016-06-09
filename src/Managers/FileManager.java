@@ -16,7 +16,7 @@ import java.nio.file.StandardCopyOption;
 
 public class FileManager {
     public String saveFile(String userName, Part filePart) throws IOException, ServletException {
-        String uploadDirectory = "C:\\\\Users\\\\Boris\\\\Desktop\\\\final project\\\\oop-final\\\\" + userName;
+        String uploadDirectory = "D:\\\\prog\\\\OOP\\\\files\\\\" + userName;
         Path folder = Paths.get(uploadDirectory);
         if (Files.notExists(folder)) {
             new File(uploadDirectory).mkdir();

@@ -20,9 +20,12 @@ public class UsernameCheckServlet extends HttpServlet {
         boolean free = um.checkUsernameVacancy(userName);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        if (free)
+        if (free){
             out.write("free");
-        else out.write("used");
+        }
+        else {
+            out.write("used");
+        }
         out.close();
     }
 

@@ -110,8 +110,8 @@ public class UserManager {
     }
 
     public boolean isEmailVacant(String email) {
-        Seller seller = db.getSellerByUsername(email);
-        Buyer buyer = db.getBuyerByUsername(email);
+        Seller seller = db.getSellerByEmail(email);
+        Buyer buyer = db.getBuyerByEmail(email);
         return seller == null && buyer == null;
     }
 

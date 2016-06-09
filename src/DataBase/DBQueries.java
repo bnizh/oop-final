@@ -1,6 +1,7 @@
 package DataBase;
 
 import Objects.Buyer;
+import Objects.Category;
 import Objects.Item;
 import Objects.Seller;
 
@@ -56,4 +57,10 @@ public interface DBQueries {
     public boolean updateItem(Item it);
 
     public boolean deletAllItemsForSeller(int idexOfSeller);
+
+    public boolean addCategory(Category cat);
+
+    public boolean deleteCategory(Category cat);
+
+    public List<Category> getAllCategories();
 }

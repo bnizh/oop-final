@@ -1,9 +1,6 @@
 package DataBase;
 
-import Objects.Buyer;
-import Objects.Item;
-import Objects.ObjectFactory;
-import Objects.Seller;
+import Objects.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
 
 
 public class AccountDB implements DBQueries {
@@ -359,5 +356,47 @@ public class AccountDB implements DBQueries {
     public boolean deletAllItemsForSeller(int idexOfSeller) {
         String s = "delete from "+ DBInfo.MYSQL_DATABASE_Items_table+" where ownerID =" +idexOfSeller;
         return itemHelper(s);
+    }
+
+    @Override
+    public boolean addCategory(Category cat) {
+        String s = "insert into "+DBInfo.MYSQL_DATABASE_Categories_table+" (categoryName) values ('"+cat.getName()+ "')";
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            stm.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteCategory(Category cat) {
+        String s = "delete from "+DBInfo.MYSQL_DATABASE_Categories_table+" where categoryID="+cat.getID();
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            stm.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
+        List<Category> ls = new ArrayList<Category>();
+        String s = "select * from "+DBInfo.MYSQL_DATABASE_Categories_table;
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    ls.add(ObjectFactory.getNewCategory(rs.getInt("categoryID"), rs.getString("categoryName")));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ls;
     }
 }

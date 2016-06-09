@@ -1,6 +1,7 @@
 package DataBase;
 
 import Objects.Buyer;
+import Objects.Category;
 import Objects.Item;
 import Objects.Seller;
 
@@ -361,5 +362,20 @@ public class DBConnection implements  DBQueries{
     @Override
     public boolean deletAllItemsForSeller(int idexOfSeller) {
         return false;
+    }
+
+    @Override
+    public boolean addCategory(Category cat) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteCategory(Category cat) {
+        return false;
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
+        return null;
     }
 }

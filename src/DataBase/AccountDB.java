@@ -281,9 +281,9 @@ public class AccountDB implements DBQueries {
         try (PreparedStatement stm = con.prepareStatement(s)) {
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
-                    /*ls.add(ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
+                    ls.add(ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
                             rs.getString("itemImageUrl"), rs.getInt("price"), rs.getInt("categoryID"), rs.getInt("rating"),
-                            rs.getInt("voters")));*/
+                            rs.getInt("voters")));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -299,9 +299,9 @@ public class AccountDB implements DBQueries {
         try (PreparedStatement stm = con.prepareStatement(s)) {
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next()) {
-                    /*return ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
+                    return ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
                             rs.getString("itemImageUrl"), rs.getInt("price"), rs.getInt("categoryID"), rs.getInt("rating"),
-                            rs.getInt("voters"));*/
+                            rs.getInt("voters"));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

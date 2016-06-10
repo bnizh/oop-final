@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-         pageEncoding="ISO-8859-1"%>
+
 <html>
 <head>
     <title>Cart</title>
@@ -7,6 +6,7 @@
     <link href="main.css" rel="stylesheet">
     <script src="script.js"></script>
     <script src="AjaxSending.js"></script>
+    <script src="passwordscheck.js"></script>
 </head>
 <body>
 <!-- Header -->
@@ -131,7 +131,16 @@
                     </div>
                     <div>
                         <label class="reg-label">Password:</label>
-                        <input type="password" class=" search-form-control reg-form "
+                        <input id="reg-buy-pass" type="password" class=" search-form-control reg-form "
+                               name="password"
+                               value=""
+                               placeholder="Password">
+                        <span id="resultb"></span>
+
+                    </div>
+                    <div>
+                        <label class="reg-label">confirm Password:</label>
+                        <input id="reg-buy-pass-con" type="password" class=" search-form-control reg-form "
                                name="password"
                                value=""
                                placeholder="Password">
@@ -188,7 +197,15 @@
                     </div>
                     <div>
                         <label class="reg-label">Password:</label>
-                        <input type="password" class=" search-form-control reg-form "
+                        <input  id="reg-sel-pass" type="password" class=" search-form-control reg-form "
+                               name="password"
+                               value=""
+                               placeholder="Password">
+                        <span id="results"></span>
+                    </div>
+                    <div>
+                        <label class="reg-label">confirm Password:</label>
+                        <input type="password" id="reg-sel-pass-con" class=" search-form-control reg-form "
                                name="password"
                                value=""
                                placeholder="Password">

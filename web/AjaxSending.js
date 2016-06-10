@@ -2,6 +2,14 @@
     $(document).ready(function () {
         $("#buyer-registration").submit(function (event) {
             //disable the default form submission
+            if(!ispasswordgood){
+                $('#reg-buy-pass').css("background-color","#D08080");
+                return;
+            }
+            if(!passwordmatch){
+                $('#reg-buy-pass-con').css("background-color","#D08080");
+                return;
+            }
             event.preventDefault();
             var formData = new FormData($(this)[0]);
 
@@ -26,6 +34,14 @@
 
         $("#seller-registration").submit(function (event) {
             //disable the default form submission
+            if(!ispasswordgood){
+                $('#reg-sel-pass').css("background-color","#D08080");
+                return;
+            }
+            if(!passwordmatch){
+                $('#reg-sel-pass-con').css("background-color","#D08080");
+                return;
+            }
             event.preventDefault();
             var formData = new FormData($(this)[0]);
 
@@ -89,7 +105,7 @@
         });
         function sellerUserNameValidation(response) {
             if (response == "free") {
-                $("#username-reg-s").css('background-color', '9FEF7D');
+                $("#username-reg-s").css('background-color', '#9FEF7D');
                 $("#seller-reg-message").css('display', 'none');
             }
             if (response == "used") {
@@ -100,7 +116,7 @@
         }
         function buyerUserNameValidation(response) {
             if (response == "free") {
-                $("#username-reg-b").css('background-color', '9FEF7D');
+                $("#username-reg-b").css('background-color', '#9FEF7D');
                 $("#buyer-reg-message").css('display', 'none');
             }
             if (response == "used") {

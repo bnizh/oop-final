@@ -1,9 +1,11 @@
 package Servlets;
 
+import Managers.ErrorStatus;
 import Managers.FileManager;
 import Managers.ManagerFactory;
 import Managers.UserManager;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -26,25 +28,44 @@ public class NewAccountServlet extends HttpServlet {
         UserManager um = ManagerFactory.getUserManager();
         FileManager fm = ManagerFactory.getFileManager();
         Part filePart = request.getPart("file");
-        System.out.println(filePart.getClass().getName());
-        System.out.println(filePart.getClass().getSimpleName());
+        ErrorStatus es=ErrorStatus.CORRECT;
+        PrintWriter out = response.getWriter();
+
 
         if (request.getParameter("type").equals("seller"))
             try {
-                System.out.println(  um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
-                        request.getParameter("company"), request.getParameter("mobile"), filePart, request.getParameter("type")));
+               es=   um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
+                        request.getParameter("company"), request.getParameter("mobile"), filePart, request.getParameter("type"));
             } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (MessagingException e) {
                 e.printStackTrace();
             }
         else {
             try {
-                System.out.println(   um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
-                        request.getParameter("name") + " " + request.getParameter("surname"), request.getParameter("mobile"), filePart, request.getParameter("type")));
+                 es= um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
+                        request.getParameter("name") + " " + request.getParameter("surname"), request.getParameter("mobile"),
+                          filePart, request.getParameter("type"));
             } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (MessagingException e) {
                 e.printStackTrace();
             }
         }
-
+        if(es==ErrorStatus.USED_USERNAME){
+            out.write("usedusername");
+        }
+        else if(es==ErrorStatus.INCORRECT_EMAIL_STRUCTURE){
+            out.write("emailstructure");
+        }
+        else if(es==ErrorStatus.WEAK_PASSWORD){
+            out.write("weakpassword");
+        }
+        else if(es==ErrorStatus.USED_EMAIL){
+            out.write("usedemail");
+        }
+        out.write("correct");
+        out.close();
 
     }
 

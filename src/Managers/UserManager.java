@@ -7,6 +7,7 @@ import Objects.ObjectFactory;
 import Objects.Seller;
 import Objects.User;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.Part;
 import java.io.IOException;
@@ -44,6 +45,10 @@ public class UserManager {
         Buyer buyer = db.getBuyerByUsername(userName);
         return seller == null && buyer == null;
     }
+    private boolean sendEmailExistCheck(String email) throws MessagingException {
+        ManagerFactory.getSendMail().sendEmail(email,"mkvdari adga agar dadgao");
+        return true;
+    }
 
     private ErrorStatus validateUser(User user) {
         if (!checkUsernameVacancy(user.getUserName())) return ErrorStatus.USED_USERNAME;
@@ -54,9 +59,10 @@ public class UserManager {
     }
 
     public ErrorStatus createNewUser(String username, String password, String email,
-                                     String name, String mobileNumber, Part filePart, String type) throws NoSuchAlgorithmException, IOException, ServletException {
+                                     String name, String mobileNumber, Part filePart, String type) throws NoSuchAlgorithmException, IOException, ServletException, MessagingException {
         User user = getNewUser(username, password, email, name, mobileNumber, type);
         ErrorStatus result = validateUser(user);
+        sendEmailExistCheck(email);
         if (result == ErrorStatus.CORRECT) {
             initUser(user, getImageUrl(username, filePart), hash(password));
             result = saveUser(user);
@@ -122,7 +128,7 @@ public class UserManager {
         return matcher.matches();
     }
 
-    private boolean checkPassword(String password) {
+    public boolean checkPassword(String password) {
         return enoughLength(password, 6);
     }
 

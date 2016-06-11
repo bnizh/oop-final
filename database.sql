@@ -8,10 +8,10 @@ DROP TABLE IF EXISTS usersComments;
 DROP TABLE IF EXISTS gallery;
 DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS categories;
- 
+
 
 CREATE TABLE Users (
-    userID int auto_increment not null,
+    userID int auto_increment not null ,
     password varchar(128) not null,
     userName varchar(128) not null unique,
     name varchar(128),
@@ -65,7 +65,7 @@ Create table usersComments(
 
 create table gallery(
 	id int auto_increment not null,
-    url varchar (256),
+    url varchar (256) unique,
     ownerID int not null,
     typeOf int not null,
     primary key (id),
@@ -78,6 +78,3 @@ create table tags(
     tagType int not null,
     ownerID int not null
 );
-
-
-SELECT * FROM users;

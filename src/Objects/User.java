@@ -77,7 +77,7 @@ public abstract class User {
 
     private String password;
 
-    public void inceaseRating(int rating) {
+    public void increaseRating(int rating) {
         this.rating += rating;
         this.voters++;
     }

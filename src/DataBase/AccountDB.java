@@ -153,7 +153,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public Buyer getBuyerByUsername(String userName) {
-        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM "+ DBInfo.MYSQL_DATABASE_Users_table+" where username = \""+userName+"\" AND typeOfUser=0")) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM "+ DBInfo.MYSQL_DATABASE_Users_table+" where username = '"+userName+"' AND typeOfUser=0")) {
             return getBuyerFromBase(stm);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -31,12 +31,13 @@ public class ObjectFactory {
     public static Item getNewItem(String name, int ID, int ownerID, String image, int price, int categoryID, int rating, int voters){
         return new Item(name, ID,ownerID,image,price, categoryID,rating, voters);
     }
-    public static Item getNewItemWithoutID(String name, int ownerID, String image, int price, int categoryID, int rating, int voters){
+    public static Item getNewItemWithout(String name, int ownerID, String image, int price, int categoryID, int rating, int voters){
         return new Item(name,ownerID,image,price, categoryID,rating, voters);
     }
 
     public static Comment getNewComment(int ownerID, int writerID, int commentID, String comment, Date dateOfWrite){
         return new Comment(ownerID,writerID,commentID,comment,dateOfWrite);
+
     }
 
 

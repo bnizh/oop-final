@@ -1,39 +1,40 @@
-passwordmatch=false;
-ispasswordgood=false;
+passwordmatch = false;
+ispasswordgood = false;
 $(document).ready(function () {
     $('#reg-buy-pass').keyup(function () {
-        $('#resultb').html(checkStrength($('#reg-buy-pass').val(),'#resultb'))
+        $('#resultb').html(checkStrength($('#reg-buy-pass').val(), '#resultb'))
     })
     $('#reg-sel-pass').keyup(function () {
-        $('#results').html(checkStrength($('#reg-sel-pass').val(),'#results'))
+        $('#results').html(checkStrength($('#reg-sel-pass').val(), '#results'))
     })
     $('#reg-sel-pass-con').keyup(function () {
-        var pas1=$('#reg-sel-pass').val();
-        var pas2=$(this).val();
-       
-        if(pas1!=pas2){
-            $(this).css("background-color","#D08080")
-        }
-        else{
+        var pas1 = $('#reg-sel-pass').val();
+        var pas2 = $(this).val();
 
-            $(this).css("background-color","#9FEF7D");
+        if (pas1 != pas2) {
+            $(this).css("background-color", "#D08080");
+            passwordmatch = false;
+        }
+        else {
+            passwordmatch = true;
+            $(this).css("background-color", "#9FEF7D");
         }
     });
     $('#reg-buy-pass-con').keyup(function () {
-        var pas1=$('#reg-buy-pass').val();
-        var pas2=$(this).val();
+        var pas1 = $('#reg-buy-pass').val();
+        var pas2 = $(this).val();
 
-        if(pas1!=pas2){
-            $(this).css("background-color","#D08080");
-            passwordmatch=false;
+        if (pas1 != pas2) {
+            $(this).css("background-color", "#D08080");
+            passwordmatch = false;
         }
-        else{
-            passwordmatch=true;
-            $(this).css("background-color","#9FEF7D");
+        else {
+            passwordmatch = true;
+            $(this).css("background-color", "#9FEF7D");
         }
     });
-    
-    
+
+
     function checkStrength(password, id) {
         var strength = 0;
         if (password.length < 6) {
@@ -55,17 +56,17 @@ $(document).ready(function () {
         if (strength < 2) {
             $(id).removeClass();
             $(id).addClass('weak');
-            ispasswordgood=true;
+            ispasswordgood = true;
             return 'Weak'
         } else if (strength == 2) {
             $(id).removeClass();
             $(id).addClass('good');
-            ispasswordgood=true;
+            ispasswordgood = true;
             return 'Good'
         } else {
             $(id).removeClass();
             $(id).addClass('strong');
-            ispasswordgood=true;
+            ispasswordgood = true;
             return 'Strong'
         }
     }

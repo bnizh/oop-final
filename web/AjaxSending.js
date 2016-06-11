@@ -18,7 +18,6 @@
                 type: 'POST',
                 data: formData,
                 success: function (data) {
-                    alert(data);
                     if(data=="usedusername"){
                         buyerUserNameValidation(data);
                     }
@@ -59,9 +58,8 @@
                         sellerUserNameValidation(data)
                     }
                     else{
-                        alert(data)
                         $('#login-form').replaceWith(data);
-                        $('#myModal').style.display = "none";
+                        $('#myModal').css("display", "none");
 
                     }
                 },

@@ -21,6 +21,7 @@ public class FileManager {
         if (Files.notExists(folder)) {
             new File(uploadDirectory).mkdir();
         }
+
         String filename = getSubmittedFileName(filePart);
         InputStream fileContent = filePart.getInputStream();
         String extension = FilenameUtils.getExtension(filename);

@@ -101,7 +101,7 @@ public class UserManager {
     }
 
     private String getImageUrl(String username, Part filePart) throws IOException, ServletException {
-        if(filePart==null){
+        if(filePart.getSize()==0){
             return "";
         }
         FileManager fm = ManagerFactory.getFileManager();

@@ -18,26 +18,30 @@ import java.util.regex.Pattern;
 public class UserManager {
     DBConnection db = DBFactory.getDBConnection();
 
-    public boolean checkUserLoginValidation(String userName, String password) throws NoSuchAlgorithmException {
+    public Seller checkSellerLoginValidation(String userName, String password) throws NoSuchAlgorithmException {
         String hashedPassword = HashCreator.getHash(password);
         Seller seller = db.getSellerByEmail(userName);
         if (seller != null) {
-            if (seller.getPassword().equals(hashedPassword)) return true;
+            if (seller.getPassword().equals(hashedPassword)) return seller;
         }
         seller = db.getSellerByUsername(userName);
         if (seller != null) {
-            if (seller.getPassword().equals(hashedPassword)) return true;
+            if (seller.getPassword().equals(hashedPassword)) return seller;
         }
+        return null;
+    }
+    public Buyer checkBuyerLoginValidation(String userName, String password) throws NoSuchAlgorithmException {
+        String hashedPassword = HashCreator.getHash(password);
         Buyer buyer = db.getBuyerByUsername(userName);
         if (buyer != null) {
-            if (buyer.getPassword().equals(hashedPassword)) return true;
+            if (buyer.getPassword().equals(hashedPassword)) return buyer;
         }
         buyer = db.getBuyerByEmail(userName);
         if (buyer != null) {
-            if (buyer.getPassword().equals(hashedPassword)) return true;
+            if (buyer.getPassword().equals(hashedPassword)) return buyer;
         }
 
-        return false;
+        return null;
     }
 
     public boolean checkUsernameVacancy(String userName) {
@@ -97,6 +101,9 @@ public class UserManager {
     }
 
     private String getImageUrl(String username, Part filePart) throws IOException, ServletException {
+        if(filePart==null){
+            return "";
+        }
         FileManager fm = ManagerFactory.getFileManager();
         return fm.saveFile(username, filePart);
     }

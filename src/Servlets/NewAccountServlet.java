@@ -1,9 +1,13 @@
 package Servlets;
 
+import DataBase.DBConnection;
+import DataBase.DBFactory;
 import Managers.ErrorStatus;
 import Managers.FileManager;
 import Managers.ManagerFactory;
 import Managers.UserManager;
+import Objects.Buyer;
+import Objects.Seller;
 
 import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
@@ -25,14 +29,16 @@ public class NewAccountServlet extends HttpServlet {
             throws ServletException, IOException {
         UserManager um = ManagerFactory.getUserManager();
         Part filePart = request.getPart("file");
-        ErrorStatus es=ErrorStatus.CORRECT;
+        ErrorStatus es = ErrorStatus.CORRECT;
         PrintWriter out = response.getWriter();
+        String type = request.getParameter("type");
 
 
         if (request.getParameter("type").equals("seller"))
             try {
-               es=   um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
+                es = um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
                         request.getParameter("company"), request.getParameter("mobile"), filePart, request.getParameter("type"));
+                System.out.println(es);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             } catch (MessagingException e) {
@@ -40,35 +46,50 @@ public class NewAccountServlet extends HttpServlet {
             }
         else {
             try {
-                 es= um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
+                es = um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
                         request.getParameter("name") + " " + request.getParameter("surname"), request.getParameter("mobile"),
-                          filePart, request.getParameter("type"));
+                        filePart, request.getParameter("type"));
+                System.out.println(es);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             } catch (MessagingException e) {
                 e.printStackTrace();
             }
         }
-        if(es==ErrorStatus.USED_USERNAME){
+        if (es == ErrorStatus.USED_USERNAME) {
             out.write("usedusername");
             out.close();
-        }
-        else if(es==ErrorStatus.INCORRECT_EMAIL_STRUCTURE){
+            return;
+        } else if (es == ErrorStatus.INCORRECT_EMAIL_STRUCTURE) {
             out.write("emailstructure");
             out.close();
-        }
-        else if(es==ErrorStatus.WEAK_PASSWORD){
+            return;
+        } else if (es == ErrorStatus.WEAK_PASSWORD) {
             out.write("weakpassword");
             out.close();
-        }
-        else if(es==ErrorStatus.USED_EMAIL){
+            return;
+        } else if (es == ErrorStatus.USED_EMAIL) {
             out.write("usedemail");
             out.close();
+            return;
         }
-        HttpSession session = request.getSession();
-        session.setAttribute("UserName", request.getParameter("username"));
-        RequestDispatcher dispatch = request.getRequestDispatcher("user-panel.jsp");
-        dispatch.forward(request, response);
+        DBConnection dbc = DBFactory.getDBConnection();
+        if (type.equals("seller")) {
+            Seller seller = dbc.getSellerByUsername(request.getParameter("username"));
+            HttpSession session = request.getSession();
+            session.setAttribute("user", seller);
+            session.setAttribute("type", "seller");
+            RequestDispatcher dispatch = request.getRequestDispatcher("user-panel.jsp");
+            dispatch.forward(request, response);
+        }
+        else{
+            Buyer buyer = dbc.getBuyerByUsername(request.getParameter("username"));
+            HttpSession session = request.getSession();
+            session.setAttribute("user", buyer);
+            session.setAttribute("type", "buyer");
+            RequestDispatcher dispatch = request.getRequestDispatcher("user-panel.jsp");
+            dispatch.forward(request, response);
+        }
 
     }
 

@@ -16,7 +16,7 @@
             $.ajax({
                 url: "NewAccountServlet",
                 type: 'POST',
-                data: formData, 
+                data: formData,
                 success: function (data) {
                     alert(data);
                     if(data=="usedusername"){

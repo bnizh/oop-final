@@ -403,10 +403,6 @@ button:focus {
     padding-left: 10px;
 }
 
-label.myLabel input[type="file"] {
-    position: fixed;
-    top: -1000px;
-}
 
     .short {
     font-weight: bold;
@@ -431,7 +427,17 @@ label.myLabel input[type="file"] {
     color: limegreen;
     font-size: larger;
 }
-
+.user-panel{
+    height: 100%;
+    float:right;
+    padding: auto;
+    line-height: 90px;
+}
+.profile-info{
+    color:#ff5e01;
+    font-size:20px;
+    margin-right: 20px;
+}
 #footer {
     position: relative;
     margin-right: 15px;

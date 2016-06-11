@@ -16,10 +16,15 @@
             $.ajax({
                 url: "NewAccountServlet",
                 type: 'POST',
-                data: formData,
+                data: formData, 
                 success: function (data) {
-                    if(data=="used"){
+                    alert(data);
+                    if(data=="usedusername"){
                         buyerUserNameValidation(data);
+                    }
+                    else{
+                        $('#login-form').replaceWith(data);
+                        $('#myModal').css("display", "none");
                     }
                 },
                 cache: false,
@@ -54,7 +59,10 @@
                         sellerUserNameValidation(data)
                     }
                     else{
-                        
+                        alert(data)
+                        $('#login-form').replaceWith(data);
+                        $('#myModal').style.display = "none";
+
                     }
                 },
                 cache: false,

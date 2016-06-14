@@ -19,7 +19,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);DBFactory.getAccountDB(con);
             Buyer s = ObjectFactory.getNewBuyer("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewBuyer(s);
             s = acc.getBuyerByUsername("username");
@@ -38,7 +38,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             Category c = ObjectFactory.getNewCategory("category");
             acc.addCategory(c);
             c = acc.getCategory(c.getName());
@@ -61,7 +61,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             Category c = ObjectFactory.getNewCategory("category");
             acc.addCategory(c);
             c = acc.getCategory(c.getName());
@@ -84,7 +84,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             Category c = ObjectFactory.getNewCategory("category");
             acc.addCategory(c);
             c = acc.getCategory(c.getName());
@@ -111,7 +111,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             int num = 10;
             Category c = ObjectFactory.getNewCategory("category");
             acc.addCategory(c);
@@ -143,7 +143,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             int num = 10;
             Category c = ObjectFactory.getNewCategory("category");
             acc.addCategory(c);
@@ -175,7 +175,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             int num = 10;
             Category c = ObjectFactory.getNewCategory("category");
             acc.addCategory(c);
@@ -213,7 +213,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             Category c = ObjectFactory.getNewCategory("category");
             acc.addCategory(c);
             c = acc.getCategory(c.getName());
@@ -243,7 +243,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             int num = 10;
             Category c = ObjectFactory.getNewCategory("category");
             acc.addCategory(c);
@@ -272,7 +272,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             Category c = ObjectFactory.getNewCategory("category");
             assertTrue(acc.addCategory(c));
             acc.deleteCategory(c);
@@ -288,7 +288,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             Category c = ObjectFactory.getNewCategory("category");
             acc.addCategory(c);
             assertTrue(acc.deleteCategory(c));
@@ -304,7 +304,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             int num = 10;
             for (int i =1 ; i<=num; i++) {
                Category c = ObjectFactory.getNewCategory("category"+i);
@@ -328,7 +328,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -341,7 +341,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -354,7 +354,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -367,7 +367,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -380,7 +380,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -393,7 +393,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -406,7 +406,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             Seller s = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewSeller(s);
             s = acc.getSellerByUsername("username");
@@ -427,7 +427,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             Seller s = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewSeller(s);
             s.setID(1);
@@ -447,7 +447,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             Seller s = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewSeller(s);
             s.setID(1);
@@ -467,7 +467,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             int num = 10;
             for (int i =1 ; i<=num; i++) {
                 Seller s = ObjectFactory.getNewSeller("username"+i, "password", "email"+i, "name", 0, "112", 0, "image");
@@ -491,7 +491,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             acc.addNewSeller(ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image"));
             Seller s = acc.getSellerByUsername("username");
             assertTrue(s.equals(acc.getSellerByID(s.getID())));
@@ -508,7 +508,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             acc.addNewSeller(ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image"));
             Seller s = acc.getSellerByUsername("username");
             assertTrue(s != null);
@@ -525,7 +525,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
 
             int num = 10;
             for (int i =1 ; i<=num; i++) {
@@ -550,7 +550,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             Seller s = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewSeller(s);
             s = acc.getSellerByUsername("username");
@@ -570,7 +570,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             Buyer b = ObjectFactory.getNewBuyer("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewBuyer(b);
             b.setID(1);
@@ -590,7 +590,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             Buyer b = ObjectFactory.getNewBuyer("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewBuyer(b);
             b.setID(1);
@@ -610,7 +610,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             acc.addNewBuyer(ObjectFactory.getNewBuyer("username", "password", "email", "name", 0, "112", 0, "image"));
             Buyer b = acc.getBuyerByUsername("username");
             assertTrue(b.equals(acc.getBuyerByID(b.getID())));
@@ -627,7 +627,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             int num = 10;
             for (int i =1 ; i<=num; i++) {
                 Buyer b = ObjectFactory.getNewBuyer("username"+i, "password", "email"+i, "name", 0, "112", 0, "image");
@@ -651,7 +651,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             acc.addNewBuyer(ObjectFactory.getNewBuyer("username", "password", "email", "name", 0, "112", 0, "image"));
             Buyer b = acc.getBuyerByUsername("username");
             assertTrue(b != null);
@@ -668,7 +668,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             Buyer b = ObjectFactory.getNewBuyer("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewBuyer(b);
             b = acc.getBuyerByUsername("username");
@@ -688,7 +688,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
 
             int num = 10;
             for (int i =1 ; i<=num; i++) {
@@ -713,7 +713,7 @@ public class AccountDBTest extends TestCase {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            AccountDB acc = new AccountDB(con);
+            AccountDB acc = DBFactory.getAccountDB(con);
             Seller s = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewSeller(s);
             s = acc.getSellerByUsername("username");

@@ -14,7 +14,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getSellerByUsername(companyName);
+            return  DBFactory.getAccountDB(con).getSellerByUsername(companyName);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         }finally {
@@ -33,7 +33,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getSellerByEmail(email);
+            return  DBFactory.getAccountDB(con).getSellerByEmail(email);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -53,7 +53,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getSellerByName(name);
+            return  DBFactory.getAccountDB(con).getSellerByName(name);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -73,7 +73,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getSellerByID(ID);
+            return  DBFactory.getAccountDB(con).getSellerByID(ID);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -93,7 +93,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return DBFactory.getDBQueries(con).addNewSeller(seller);
+            return DBFactory.getAccountDB(con).addNewSeller(seller);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -105,7 +105,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getAllSeller();
+            return  DBFactory.getAccountDB(con).getAllSeller();
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -125,7 +125,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).updateSeller(seller);
+            return  DBFactory.getAccountDB(con).updateSeller(seller);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -145,7 +145,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).deleteSeller(sellerID);
+            return  DBFactory.getAccountDB(con).deleteSeller(sellerID);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -165,7 +165,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).deleteBuyer(buyerID);
+            return  DBFactory.getAccountDB(con).deleteBuyer(buyerID);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -185,7 +185,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getBuyerByUsername(userName);
+            return  DBFactory.getAccountDB(con).getBuyerByUsername(userName);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -205,7 +205,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getBuyerByEmail(email);
+            return  DBFactory.getAccountDB(con).getBuyerByEmail(email);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -225,7 +225,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getBuyerByID(ID);
+            return  DBFactory.getAccountDB(con).getBuyerByID(ID);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -245,7 +245,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getBuyerByName(name);
+            return  DBFactory.getAccountDB(con).getBuyerByName(name);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -265,7 +265,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).addNewBuyer(buyer);
+            return  DBFactory.getAccountDB(con).addNewBuyer(buyer);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -285,7 +285,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).updateBuyer(buyer);
+            return  DBFactory.getAccountDB(con).updateBuyer(buyer);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -305,7 +305,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getAllBuyer();
+            return  DBFactory.getAccountDB(con).getAllBuyer();
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -325,7 +325,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).addItem(it);
+            return  DBFactory.getAccountDB(con).addItem(it);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -345,7 +345,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).deleteItem(id);
+            return  DBFactory.getAccountDB(con).deleteItem(id);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -365,7 +365,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getItemById(id);
+            return  DBFactory.getAccountDB(con).getItemById(id);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -385,7 +385,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getItemsBySeller(sellerID);
+            return  DBFactory.getAccountDB(con).getItemsBySeller(sellerID);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -405,7 +405,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getItemsByName(name);
+            return  DBFactory.getAccountDB(con).getItemsByName(name);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -425,7 +425,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getTopItems(numberOfItems);
+            return  DBFactory.getAccountDB(con).getTopItems(numberOfItems);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -445,7 +445,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).updateItem(it);
+            return  DBFactory.getAccountDB(con).updateItem(it);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -465,7 +465,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).deleteAllItemsForSeller(indexOfSeller);
+            return  DBFactory.getAccountDB(con).deleteAllItemsForSeller(indexOfSeller);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -485,7 +485,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).addCategory(cat);
+            return  DBFactory.getAccountDB(con).addCategory(cat);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -505,7 +505,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return DBFactory.getDBQueries(con).deleteCategory(cat);
+            return DBFactory.getAccountDB(con).deleteCategory(cat);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -524,7 +524,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getAllCategories();
+            return  DBFactory.getAccountDB(con).getAllCategories();
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         }finally {
@@ -543,7 +543,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).addCommentToUser(c);
+            return  DBFactory.getAccountDB(con).addCommentToUser(c);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         }finally {
@@ -562,7 +562,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getUserCommentByID(id);
+            return  DBFactory.getAccountDB(con).getUserCommentByID(id);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         }finally {
@@ -581,7 +581,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getUserCommentsByOwner(userID);
+            return  DBFactory.getAccountDB(con).getUserCommentsByOwner(userID);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         }finally {
@@ -600,7 +600,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).updateUserComment(c);
+            return  DBFactory.getAccountDB(con).updateUserComment(c);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         }finally {
@@ -620,7 +620,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).deleteUserComment(id);
+            return  DBFactory.getAccountDB(con).deleteUserComment(id);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         }finally {
@@ -640,7 +640,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).deleteAllCommentForUser(userID);
+            return  DBFactory.getAccountDB(con).deleteAllCommentForUser(userID);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         }finally {
@@ -659,7 +659,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getUserCommentsByWriter(userID);
+            return  DBFactory.getAccountDB(con).getUserCommentsByWriter(userID);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         }finally {
@@ -678,7 +678,7 @@ public class DBConnection implements  DBQueries{
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).getCategory(name);
+            return  DBFactory.getAccountDB(con).getCategory(name);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         }finally {

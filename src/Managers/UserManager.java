@@ -102,7 +102,7 @@ public class UserManager {
 
     private String getImageUrl(String username, Part filePart) throws IOException, ServletException {
         if(filePart.getSize()==0){
-            return "";
+            return "D:\\\\prog\\\\Final-Project\\\\oop-final\\\\web\\\\defaultProfile.png";
         }
         FileManager fm = ManagerFactory.getFileManager();
         return fm.saveFile(username, filePart);

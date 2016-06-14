@@ -2,15 +2,6 @@
 
     <!--  opening modal-->
     $(document).ready(function () {
-        $('#profile-down-menu').mouseover(function () {
-            alert("movda");
-            $('#profile-menu').css("display", "block");
-        });
-        $('#profile-down-menu').mouseout(function () {
-            alert("movda");
-            $('#profile-menu').css("display", "none");
-        });
-
         // Get the modal
         var modal = document.getElementById('myModal');
 

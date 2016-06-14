@@ -24,14 +24,6 @@ CREATE TABLE Users (
     primary key (userID)
 );
 
-create table itemsComments(
-    commentID int auto_increment not null,
-    writerID int not null,
-    ownerID int not null,
-    dateOfComment date,
-    primary key(commentID),
-    foreign key(writerID)  references Users(userID)
-);
 
 create table categories(
     categoryID int auto_increment not null,
@@ -49,7 +41,18 @@ Create table items(
     rating int,
     voters int,
     primary key(itemID),
-    foreign key(ownerID) references Users(userID)
+    foreign key(ownerID) references Users(userID),
+    foreign key(categoryID) references categories(categoryID)
+);
+
+create table itemsComments(
+    commentID int auto_increment not null,
+    writerID int not null,
+    ownerID int not null,
+    dateOfComment date,
+    primary key(commentID),
+    foreign key(writerID)  references Users(userID),
+    foreign key(ownerID) REFERENCES items(itemID)
 );
 
 Create table usersComments(
@@ -57,7 +60,7 @@ Create table usersComments(
     writerID int not null,
     ownerID int not null,
     comm varchar (2048),
-    dateOfComment date,
+    dateOfComment DATE,
     primary key (commentID),
     foreign key(writerID)  references Users(userID),
     foreign key(ownerID)  references Users(userID)
@@ -65,7 +68,7 @@ Create table usersComments(
 
 create table gallery(
 	id int auto_increment not null,
-    url varchar (256) unique,
+    url varchar (128) unique,
     ownerID int not null,
     typeOf int not null,
     primary key (id),

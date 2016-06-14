@@ -1,9 +1,6 @@
 package DataBase;
 
-import Objects.Buyer;
-import Objects.Category;
-import Objects.Item;
-import Objects.Seller;
+import Objects.*;
 
 import java.util.List;
 
@@ -44,7 +41,7 @@ public interface DBQueries {
 
     public boolean addItem(Item it);
 
-    public boolean deletItem(int id );
+    public boolean deleteItem(int id );
 
     public Item getItemById(int id);
 
@@ -56,11 +53,27 @@ public interface DBQueries {
 
     public boolean updateItem(Item it);
 
-    public boolean deletAllItemsForSeller(int idexOfSeller);
+    public boolean deleteAllItemsForSeller(int idexOfSeller);
 
     public boolean addCategory(Category cat);
 
     public boolean deleteCategory(Category cat);
 
     public List<Category> getAllCategories();
+
+    public boolean addCommentToUser(Comment c);
+
+    public Comment getUserCommentByID(int id);
+
+    public List<Comment> getUserCommentsByOwner(int userID);
+
+    public boolean updateUserComment(Comment c);
+
+    public boolean deleteUserComment(int id);
+
+    public boolean deleteAllCommentForUser(int userID);
+
+    public List<Comment> getUserCommentsByWriter(int userID);
+
+    public Category getCategory(String name) ;
 }

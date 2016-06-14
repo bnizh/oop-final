@@ -1,9 +1,6 @@
 package DataBase;
 
-import Objects.Buyer;
-import Objects.Category;
-import Objects.Item;
-import Objects.Seller;
+import Objects.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -344,11 +341,11 @@ public class DBConnection implements  DBQueries{
     }
 
     @Override
-    public boolean deletItem(int id) {
+    public boolean deleteItem(int id) {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).deletItem(id);
+            return  DBFactory.getDBQueries(con).deleteItem(id);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -464,11 +461,11 @@ public class DBConnection implements  DBQueries{
     }
 
     @Override
-    public boolean deletAllItemsForSeller(int idexOfSeller) {
+    public boolean deleteAllItemsForSeller(int indexOfSeller) {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getDBQueries(con).deletAllItemsForSeller(idexOfSeller);
+            return  DBFactory.getDBQueries(con).deleteAllItemsForSeller(indexOfSeller);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -528,6 +525,160 @@ public class DBConnection implements  DBQueries{
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
             return  DBFactory.getDBQueries(con).getAllCategories();
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean addCommentToUser(Comment c) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getDBQueries(con).addCommentToUser(c);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public Comment getUserCommentByID(int id) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getDBQueries(con).getUserCommentByID(id);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<Comment> getUserCommentsByOwner(int userID) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getDBQueries(con).getUserCommentsByOwner(userID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean updateUserComment(Comment c) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getDBQueries(con).updateUserComment(c);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean deleteUserComment(int id) {
+
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getDBQueries(con).deleteUserComment(id);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean deleteAllCommentForUser(int userID) {
+
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getDBQueries(con).deleteAllCommentForUser(userID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<Comment> getUserCommentsByWriter(int userID) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getDBQueries(con).getUserCommentsByWriter(userID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public Category getCategory(String name) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getDBQueries(con).getCategory(name);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         }finally {

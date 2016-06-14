@@ -7,6 +7,7 @@ public class Comment {
     private int writerID;
     private String comment;
     private int commentID;
+    Date dateOfWrite;
 
     public Comment(int ownerID, int writerID, int commentID, String comment, Date dateOfWrite) {
         this.ownerID = ownerID;
@@ -14,6 +15,12 @@ public class Comment {
         this.commentID = commentID;
         this.comment = comment;
         this.dateOfWrite = dateOfWrite;
+    }
+    public Comment(int ownerID, int writerID, String comment) {
+        this.ownerID = ownerID;
+        this.writerID = writerID;
+        this.comment = comment;
+
     }
 
     public Date getDateOfWrite() {
@@ -56,5 +63,10 @@ public class Comment {
         this.ownerID = ownerID;
     }
 
-    Date dateOfWrite;
+    public boolean equals(Comment c){
+        return (this.writerID==c.getWriterID()&&this.ownerID ==c.getOwnerID()
+                &&this.commentID==c.commentID&&this.comment.equals(c.comment)&&
+                this.dateOfWrite.equals(c.dateOfWrite));
+    }
+
 }

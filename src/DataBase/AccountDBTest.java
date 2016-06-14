@@ -1,14 +1,13 @@
 package DataBase;
 
-import Objects.Buyer;
-import Objects.ObjectFactory;
-import Objects.Seller;
+import Objects.*;
 import junit.framework.TestCase;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,6 +15,414 @@ import java.util.List;
  */
 
 public class AccountDBTest extends TestCase {
+    public void testDeleteBuyer() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+            Buyer s = ObjectFactory.getNewBuyer("username", "password", "email", "name", 0, "112", 0, "image");
+            acc.addNewBuyer(s);
+            s = acc.getBuyerByUsername("username");
+            acc.deleteBuyer(s.getID());
+            s = acc.getBuyerByID(s.getID());
+            assertTrue(s == null);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testAddItem() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+            Category c = ObjectFactory.getNewCategory("category");
+            acc.addCategory(c);
+            c = acc.getCategory(c.getName());
+            Seller sel = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            acc.addNewSeller(sel);
+            sel = acc.getSellerByUsername(sel.getUserName());
+            assertTrue(acc.addItem(ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0)));
+            acc.deleteItem(acc.getItemsBySeller(sel.getID()).get(0).getID());
+            acc.deleteCategory(c);
+            acc.deleteSeller(sel.getID());
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testDeleteItem() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+            Category c = ObjectFactory.getNewCategory("category");
+            acc.addCategory(c);
+            c = acc.getCategory(c.getName());
+            Seller sel = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            acc.addNewSeller(sel);
+            sel = acc.getSellerByUsername(sel.getUserName());
+            acc.addItem(ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0));
+            assertTrue(acc.deleteItem(acc.getItemsBySeller(sel.getID()).get(0).getID()));
+            acc.deleteCategory(c);
+            acc.deleteSeller(sel.getID());
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testGetItemById() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+            Category c = ObjectFactory.getNewCategory("category");
+            acc.addCategory(c);
+            c = acc.getCategory(c.getName());
+            Seller sel = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            acc.addNewSeller(sel);
+            sel = acc.getSellerByUsername(sel.getUserName());
+            Item it =ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0);
+            acc.addItem(it);
+            it = (acc.getItemsBySeller(sel.getID()).get(0));
+            Item it1 =acc.getItemById(it.getID());
+            assertTrue(it.equals(it1));
+            acc.deleteItem(acc.getItemsBySeller(sel.getID()).get(0).getID());
+            acc.deleteCategory(c);
+            acc.deleteSeller(sel.getID());
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testGetItemsBySeller() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+            int num = 10;
+            Category c = ObjectFactory.getNewCategory("category");
+            acc.addCategory(c);
+            c = acc.getCategory(c.getName());
+            Seller sel = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            acc.addNewSeller(sel);
+            sel = acc.getSellerByUsername(sel.getUserName());
+            for (int i =1 ; i<=num; i++) {
+                Item it =ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0);
+                acc.addItem(it);
+            }
+            List<Item> ls  = acc.getItemsBySeller(sel.getID());
+            assertTrue(ls.size() == num);
+            for (int i =1 ; i<=num; i++) {
+                acc.deleteItem(ls.get(0).getID());
+                ls.remove(0);
+            }
+            acc.deleteCategory(c);
+            acc.deleteSeller(sel.getID());
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testGetItemsByName() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+            int num = 10;
+            Category c = ObjectFactory.getNewCategory("category");
+            acc.addCategory(c);
+            c = acc.getCategory(c.getName());
+            Seller sel = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            acc.addNewSeller(sel);
+            sel = acc.getSellerByUsername(sel.getUserName());
+            for (int i =1 ; i<=num; i++) {
+                Item it = ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0);
+                acc.addItem(it);
+            }
+            List<Item> ls  = acc.getItemsByName("item");
+            assertTrue(ls.size() == num);
+            for (int i =1 ; i<=num; i++) {
+                acc.deleteItem(ls.get(0).getID());
+                ls.remove(0);
+            }
+            acc.deleteCategory(c);
+            acc.deleteSeller(sel.getID());
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testGetTopItems() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+            int num = 10;
+            Category c = ObjectFactory.getNewCategory("category");
+            acc.addCategory(c);
+            c = acc.getCategory(c.getName());
+            Seller sel = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            acc.addNewSeller(sel);
+            sel = acc.getSellerByUsername(sel.getUserName());
+            List<Item> list = new ArrayList<Item>();
+            for (int i =1 ; i<=num; i++) {
+                Item it = ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),i,1);
+                acc.addItem(it);
+                list.add(it);
+            }
+            int k = 2;
+            list = acc.getItemsBySeller(sel.getID());
+            List<Item> ls = acc.getTopItems(k);
+            for (int i = 0; i<k; i++){
+                assertTrue(ls.get(i).equals(list.get(list.size()-1-i)));
+            }
+            for (int i =1 ; i<=num; i++) {
+                acc.deleteItem(list.get(0).getID());
+                list.remove(0);
+            }
+            acc.deleteCategory(c);
+            acc.deleteSeller(sel.getID());
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testUpdateItem() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+            Category c = ObjectFactory.getNewCategory("category");
+            acc.addCategory(c);
+            c = acc.getCategory(c.getName());
+            Seller sel = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            acc.addNewSeller(sel);
+            sel = acc.getSellerByUsername(sel.getUserName());
+            Item it = ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0);
+            acc.addItem(it);
+            it = acc.getItemsBySeller(sel.getID()).get(0);
+            it.setName("item1");
+            it.setImage("image1");
+            it.setPrice(10);
+            acc.updateItem(it);
+            assertTrue(it.equals(acc.getItemById(it.getID())));
+            acc.deleteItem(it.getID());
+            acc.deleteCategory(c);
+            acc.deleteSeller(sel.getID());
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testDeleteAllItemsForSeller() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+            int num = 10;
+            Category c = ObjectFactory.getNewCategory("category");
+            acc.addCategory(c);
+            c = acc.getCategory(c.getName());
+            Seller sel = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            acc.addNewSeller(sel);
+            sel = acc.getSellerByUsername(sel.getUserName());
+            for (int i =1 ; i<=num; i++) {
+                Item it =ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0);
+                acc.addItem(it);
+            }
+            acc.deleteAllItemsForSeller(sel.getID());
+            List<Item> ls  = acc.getItemsBySeller(sel.getID());
+            assertTrue(ls.size() == 0);
+            acc.deleteCategory(c);
+            acc.deleteSeller(sel.getID());
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testAddCategory() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+            Category c = ObjectFactory.getNewCategory("category");
+            assertTrue(acc.addCategory(c));
+            acc.deleteCategory(c);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testDeleteCategory() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+            Category c = ObjectFactory.getNewCategory("category");
+            acc.addCategory(c);
+            assertTrue(acc.deleteCategory(c));
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testGetAllCategories() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+            int num = 10;
+            for (int i =1 ; i<=num; i++) {
+               Category c = ObjectFactory.getNewCategory("category"+i);
+                acc.addCategory(c);
+            }
+            List<Category> list = acc.getAllCategories();
+            assertTrue(list.size() == num);
+            for (int i =1 ; i<=num; i++) {
+                acc.deleteCategory(list.get(0));
+                list.remove(0);
+            }
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testGetUserCommentByID() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testGetUserCommentsByOwner() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testDeleteUserComment() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testDeleteAllCommentForUser() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testGetUserCommentsByWriter() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testUpdateUserComment() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
+    public void testAddCommentToUser() throws Exception {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            AccountDB acc = new AccountDB(con);
+            Seller s = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            acc.addNewSeller(s);
+            s = acc.getSellerByUsername("username");
+            Comment c = ObjectFactory.getNewComment(s.getID(),s.getID(),"bla");
+            acc.addCommentToUser(c);
+            c = acc.getUserCommentsByOwner(s.getID()).get(0);
+            acc.deleteUserComment(c.getCommentID());
+            acc.deleteSeller(s.getID());
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null)
+                con.close();
+        }
+    }
+
     public void testGetSellerByUsername() throws Exception {
         Connection con = null;
         try {
@@ -61,7 +468,6 @@ public class AccountDBTest extends TestCase {
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
             AccountDB acc = new AccountDB(con);
-
             int num = 10;
             for (int i =1 ; i<=num; i++) {
                 Seller s = ObjectFactory.getNewSeller("username"+i, "password", "email"+i, "name", 0, "112", 0, "image");

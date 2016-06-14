@@ -21,13 +21,17 @@ public class Category {
 
     int ID;
 
-    public Category(String name, int ID) {
+    public Category(String name) {
         this.name = name;
-        this.ID = ID;
     }
 
     public Category(int ID, String name) {
         this.ID = ID;
         this.name = name;
+    }
+
+
+    public boolean equals(Category c) {
+       return (this.name.equals(c.getName()));
     }
 }

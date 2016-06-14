@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class AccountDB implements DBQueries {
@@ -79,13 +78,7 @@ public class AccountDB implements DBQueries {
         String s = "insert into "+DBInfo.MYSQL_DATABASE_Users_table+" (password, userName, name, typeOfUser, rating, voters, mobileNumber, imageUrl, email) values("+"\""+seller.getPassword()+"\""+","+
                 "\"" +seller.getUserName()+"\""+","+"\""+seller.getName()+"\""+","+1+","+seller.getRating()
                 +","+seller.getVoters()+","+"\""+seller.getMobileNumber()+"\""+","+"\""+seller.getImage()+"\""+","+"\""+seller.getEmail()+"\""+")";
-        try (PreparedStatement stm = con.prepareStatement(s)) {
-            stm.execute();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return Helper(s);
     }
 
     private void getSeveralSellersFromBase(List<Seller> list, PreparedStatement stm){
@@ -118,37 +111,19 @@ public class AccountDB implements DBQueries {
         String s = "update "+DBInfo.MYSQL_DATABASE_Users_table +" set userName ="+'\"'+seller.getUserName()+'\"'+", password ="+'\"'+seller.getPassword()+'\"'
                 +", name ="+'\"'+seller.getName()+'\"'+",email ="+'\"'+seller.getEmail()+'\"'+", mobileNumber="+'\"'+
                 seller.getMobileNumber()+'\"'+", imageUrl ="+'\"'+seller.getImage()+'\"'+" where userID ="+seller.getID();
-        try (PreparedStatement stm = con.prepareStatement(s)) {
-            stm.execute();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return Helper(s);
     }
 
     @Override
     public boolean deleteSeller(int sellerID) {
         String s ="DELETE FROM "+DBInfo.MYSQL_DATABASE_Users_table +" where userID ="+ sellerID;
-        try (PreparedStatement stm = con.prepareStatement(s)) {
-            stm.execute();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return  Helper(s);
     }
 
     @Override
     public boolean deleteBuyer(int buyerID) {
         String s ="DELETE FROM "+DBInfo.MYSQL_DATABASE_Users_table +" where userID ="+ buyerID;
-        try (PreparedStatement stm = con.prepareStatement(s)) {
-            stm.execute();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return Helper(s);
     }
 
     @Override
@@ -211,13 +186,7 @@ public class AccountDB implements DBQueries {
         String s = "insert into "+DBInfo.MYSQL_DATABASE_Users_table+" (password, userName, name, typeOfUser, rating, voters, mobileNumber, imageUrl, email) values("+"\""+buyer.getPassword()+"\""+","+
                 "\"" +buyer.getUserName()+"\""+","+"\""+buyer.getName()+"\""+","+0+","+buyer.getRating()
                 +","+buyer.getVoters()+","+"\""+buyer.getMobileNumber()+"\""+","+"\""+buyer.getImage()+"\""+","+"\""+buyer.getEmail()+"\""+")";
-        try (PreparedStatement stm = con.prepareStatement(s)) {
-            stm.execute();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return Helper(s);
     }
 
     @Override
@@ -225,13 +194,7 @@ public class AccountDB implements DBQueries {
         String s = "update "+DBInfo.MYSQL_DATABASE_Users_table +" set userName ="+'\"'+buyer.getUserName()+'\"'+", password ="+'\"'+buyer.getPassword()+'\"'
                 +", name ="+'\"'+buyer.getName()+'\"'+",email ="+'\"'+buyer.getEmail()+'\"'+", mobileNumber="+'\"'+
                 buyer.getMobileNumber()+'\"'+", imageUrl ="+'\"'+buyer.getImage()+'\"'+" where userID ="+buyer.getID();
-        try (PreparedStatement stm = con.prepareStatement(s)) {
-            stm.execute();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return Helper(s);
     }
     private void getSeveralBuyersFromBase(List<Buyer> list, PreparedStatement stm){
         try (ResultSet rs = stm.executeQuery()) {
@@ -260,13 +223,13 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean addItem(Item it) {
-       String s = "Insert into " + DBInfo.MYSQL_DATABASE_Items_table+" values ('"+it.getName()+"','"+it.getImage()+"',"
+       String s = "Insert into " + DBInfo.MYSQL_DATABASE_Items_table+" (itemName, itemImageUrl,categoryID,ownerID,price,rating, voters) values ('"+it.getName()+"','"+it.getImage()+"',"
                +it.getCategoryID()+","+it.getOwnerID()+","+it.getPrice()+","+it.getRating()+","+it.getVoters()+")";
-        return itemHelper(s);
+        return Helper(s);
     }
 
     @Override
-    public boolean deletItem(int id) {
+    public boolean deleteItem(int id) {
         String s = "Delete from "+DBInfo.MYSQL_DATABASE_Items_table+" where itemID ="+id;
         try (PreparedStatement stm = con.prepareStatement(s)) {
             stm.execute();
@@ -323,12 +286,12 @@ public class AccountDB implements DBQueries {
     @Override
     public List<Item> getItemsByName(String name) {
         List<Item> ls = new ArrayList<Item>();
-        String s = "select * from "+DBInfo.MYSQL_DATABASE_Items_table+" where ItemName ="+name;
+        String s = "select * from "+DBInfo.MYSQL_DATABASE_Items_table+" where ItemName ='"+name+"'";
         getItems(ls,s);
         return ls;
     }
 
-    private boolean itemHelper(String s){
+    private boolean Helper(String s){
         try (PreparedStatement stm = con.prepareStatement(s)) {
             stm.execute();
             return true;
@@ -340,8 +303,10 @@ public class AccountDB implements DBQueries {
 
     @Override
     public List<Item> getTopItems(int numberOfItems) {
-        String s ="Select *, (rating / voters) as avg from "+ DBInfo.MYSQL_DATABASE_Items_table+" order by avg desc limit" +numberOfItems;
-        return null;
+        List<Item> ls = new ArrayList<Item>();
+        String s ="Select *, (rating / voters) as avg from "+ DBInfo.MYSQL_DATABASE_Items_table+" order by avg desc limit " +numberOfItems;
+        getItems(ls,s);
+        return ls;
     }
 
     @Override
@@ -349,13 +314,13 @@ public class AccountDB implements DBQueries {
         String s = "update "+DBInfo.MYSQL_DATABASE_Items_table+" set itemName ='"+it.getName()+"',itemImageUrl ='"+it.getImage()+
                 "',categoryID ="+it.getCategoryID()+", ownerID="+it.getOwnerID()+", price="+it.getPrice()+", rating="+it.getRating()
                 +",voters ="+it.getVoters()+" where itemID="+it.getID();
-        return itemHelper(s);
+        return Helper(s);
     }
 
     @Override
-    public boolean deletAllItemsForSeller(int idexOfSeller) {
-        String s = "delete from "+ DBInfo.MYSQL_DATABASE_Items_table+" where ownerID =" +idexOfSeller;
-        return itemHelper(s);
+    public boolean deleteAllItemsForSeller(int indexOfSeller) {
+        String s = "delete from "+ DBInfo.MYSQL_DATABASE_Items_table+" where ownerID =" +indexOfSeller;
+        return Helper(s);
     }
 
     @Override
@@ -372,7 +337,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean deleteCategory(Category cat) {
-        String s = "delete from "+DBInfo.MYSQL_DATABASE_Categories_table+" where categoryID="+cat.getID();
+        String s = "delete from "+DBInfo.MYSQL_DATABASE_Categories_table+" where categoryName= '"+cat.getName()+"'";
         try (PreparedStatement stm = con.prepareStatement(s)) {
             stm.execute();
             return true;
@@ -398,5 +363,99 @@ public class AccountDB implements DBQueries {
             e.printStackTrace();
         }
         return ls;
+    }
+
+
+    @Override
+    public Comment getUserCommentByID(int id) {
+        String s = "select * from "+ DBInfo.MYSQL_DATABASE_UsersComments_table+" where commentID ="+id;
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    return ObjectFactory.getNewComment(rs.getInt("ownerID"),rs.getInt("writerID"),
+                            rs.getInt("commentID"),rs.getString("comm"),
+                            new java.util.Date(rs.getDate("dateOfComment").getTime()));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Comment> getUserCommentsByOwner(int userID) {
+        List<Comment> ls = new ArrayList<Comment>();
+        String s = "select * from "+DBInfo.MYSQL_DATABASE_UsersComments_table+" where ownerID ="+userID;
+        commentHelper(ls,s);
+        return ls;
+    }
+
+    @Override
+    public boolean deleteUserComment(int id) {
+        String s = "Delete from "+DBInfo.MYSQL_DATABASE_UsersComments_table+ " where commentID =" + id;
+        return Helper(s);
+    }
+
+    @Override
+    public boolean deleteAllCommentForUser(int userID) {
+        String s = " Delete from "+DBInfo.MYSQL_DATABASE_UsersComments_table+" where ownerID ="+userID;
+        return Helper(s);
+    }
+
+    private void commentHelper(List<Comment> ls, String s){
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    ls.add(ObjectFactory.getNewComment(rs.getInt("ownerID"),rs.getInt("writerID"),
+                            rs.getInt("commentID"),rs.getString("comm"),
+                            new java.util.Date(rs.getDate("dateOfComment").getTime())));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public List<Comment> getUserCommentsByWriter(int userID) {
+        List<Comment> ls = new ArrayList<Comment>();
+        String s = "select * from "+DBInfo.MYSQL_DATABASE_UsersComments_table+" where writerID ="+userID;
+        commentHelper(ls, s);
+        return ls;
+    }
+
+    @Override
+    public boolean updateUserComment(Comment c) {
+        String s = "Update "+ DBInfo.MYSQL_DATABASE_UsersComments_table+" set comm ='"+c.getComment()+", ownerID ="+
+                c.getOwnerID()+" writerID="+c.getWriterID()+" dateOfComment ='"+new java.sql.Date(System.currentTimeMillis())+"'";
+        return Helper(s);
+    }
+
+    @Override
+    public boolean addCommentToUser(Comment c) {
+        String s = "Insert into "+DBInfo.MYSQL_DATABASE_UsersComments_table+ " ( writerID, ownerID, comm , dateOfComment ) values ( "+
+                c.getWriterID()+" ,"+c.getOwnerID()+" ,'"+c.getComment()+"', '"+new java.sql.Date(System.currentTimeMillis())+"' )";
+       return Helper(s);
+
+    }
+
+    public Category getCategory(String name) {
+        String s = "select * from "+DBInfo.MYSQL_DATABASE_Categories_table+ " where categoryName = '"+name+"'";
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                if(rs.next()) {
+                    return  ObjectFactory.getNewCategory(rs.getInt("categoryID"), rs.getString("categoryName"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -4,10 +4,8 @@ import Objects.*;
 import junit.framework.TestCase;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -329,6 +327,19 @@ public class AccountDBTest extends TestCase {
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
             AccountDB acc = DBFactory.getAccountDB(con);
+            Seller s = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            Seller sel = ObjectFactory.getNewSeller("username1", "password1", "email1", "name1", 0, "112", 0, "image1");
+            acc.addNewSeller(s);
+            acc.addNewSeller(sel);
+            s = acc.getSellerByUsername("username");
+            sel = acc.getSellerByUsername("username1");
+            Comment c = ObjectFactory.getNewComment(s.getID(),sel.getID(),"bla");
+            acc.addCommentToUser(c);
+            c = acc.getUserCommentsByWriter(sel.getID()).get(0);
+            assertTrue(c.equals(acc.getUserCommentByID(c.getCommentID())));
+            acc.deleteUserComment(c.getCommentID());
+            acc.deleteSeller(s.getID());
+            acc.deleteSeller(sel.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -342,6 +353,21 @@ public class AccountDBTest extends TestCase {
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
             AccountDB acc = DBFactory.getAccountDB(con);
+            Seller s = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            Seller sel = ObjectFactory.getNewSeller("username1", "password1", "email1", "name1", 0, "112", 0, "image1");
+            acc.addNewSeller(s);
+            acc.addNewSeller(sel);
+            s = acc.getSellerByUsername("username");
+            sel = acc.getSellerByUsername("username1");
+            Comment c = ObjectFactory.getNewComment(s.getID(),sel.getID(),"bla");
+            acc.addCommentToUser(c);
+            Comment c1 = acc.getUserCommentsByOwner(s.getID()).get(0);
+            c.setCommentID(c1.getCommentID());
+            c.setDateOfWrite(c1.getDateOfWrite());
+            assertTrue(c.equals(c1));
+            acc.deleteUserComment(c.getCommentID());
+            acc.deleteSeller(s.getID());
+            acc.deleteSeller(sel.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -355,6 +381,14 @@ public class AccountDBTest extends TestCase {
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
             AccountDB acc = DBFactory.getAccountDB(con);
+            Seller s = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            acc.addNewSeller(s);
+            s = acc.getSellerByUsername("username");
+            Comment c = ObjectFactory.getNewComment(s.getID(),s.getID(),"bla");
+            acc.addCommentToUser(c);;
+            c = acc.getUserCommentsByOwner(s.getID()).get(0);
+            assertTrue(acc.deleteUserComment(c.getCommentID()));
+            acc.deleteSeller(s.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -368,6 +402,19 @@ public class AccountDBTest extends TestCase {
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
             AccountDB acc = DBFactory.getAccountDB(con);
+            Seller s = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            Seller sel = ObjectFactory.getNewSeller("username1", "password1", "email1", "name1", 0, "112", 0, "image1");
+            acc.addNewSeller(s);
+            acc.addNewSeller(sel);
+            s = acc.getSellerByUsername("username");
+            sel = acc.getSellerByUsername("username1");
+            for(int i = 0; i < 10; i++){
+                Comment c = ObjectFactory.getNewComment(s.getID(),sel.getID(),"bla"+i);
+                acc.addCommentToUser(c);
+            }
+            assertTrue(acc.deleteAllCommentForUser(s.getID()));
+            acc.deleteSeller(s.getID());
+            acc.deleteSeller(sel.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -381,6 +428,21 @@ public class AccountDBTest extends TestCase {
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
             AccountDB acc = DBFactory.getAccountDB(con);
+            Seller s = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            Seller sel = ObjectFactory.getNewSeller("username1", "password1", "email1", "name1", 0, "112", 0, "image1");
+            acc.addNewSeller(s);
+            acc.addNewSeller(sel);
+            s = acc.getSellerByUsername("username");
+            sel = acc.getSellerByUsername("username1");
+            Comment c = ObjectFactory.getNewComment(s.getID(),sel.getID(),"bla");
+            acc.addCommentToUser(c);
+            Comment c1 = acc.getUserCommentsByWriter(sel.getID()).get(0);
+            c.setCommentID(c1.getCommentID());
+            c.setDateOfWrite(c1.getDateOfWrite());
+            assertTrue(c.equals(c1));
+            acc.deleteUserComment(c.getCommentID());
+            acc.deleteSeller(s.getID());
+            acc.deleteSeller(sel.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -394,6 +456,19 @@ public class AccountDBTest extends TestCase {
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
             AccountDB acc = DBFactory.getAccountDB(con);
+            Seller s = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
+            acc.addNewSeller(s);
+            s = acc.getSellerByUsername("username");
+            Comment c = ObjectFactory.getNewComment(s.getID(),s.getID(),"bla");
+            acc.addCommentToUser(c);
+            c.setComment("comment");
+            acc.updateUserComment(c);
+            Comment c1 = acc.getUserCommentsByOwner(s.getID()).get(0);
+            c.setCommentID(c1.getCommentID());
+            c.setDateOfWrite(c1.getDateOfWrite());
+            assertTrue(c.equals(c1));
+            acc.deleteUserComment(c.getCommentID());
+            acc.deleteSeller(s.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {

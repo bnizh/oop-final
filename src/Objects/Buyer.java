@@ -10,11 +10,25 @@ public class Buyer extends User {
         super(username, password, email,name,rating,mobileNumber,voters,image);
     }
 
-    public boolean equals(Buyer u){
-        return (this.getID() == u.getID() && this.getUserName().equals(u.getUserName()) && this.getEmail().equals(u.getEmail())
-                && this.getImage().equals( u.getImage()) && this.getMobileNumber().equals(u.getMobileNumber())
-                && this.getName().equals(u.getName()) && this.getPassword().equals(u.getPassword())
-                && this.getRating() == u.getRating() && this.getVoters() == u.getVoters());
+    @Override
+    public boolean equals(Object u) {
+        if(u.getClass()!= this.getClass())
+            return false;
+        return (this.getID() ==((Buyer) u).getID() && this.getUserName().equals(((Buyer) u).getUserName()) && this.getEmail().equals(((Buyer) u).getEmail())
+                && this.getImage().equals( ((Buyer) u).getImage()) && this.getMobileNumber().equals(((Buyer) u).getMobileNumber())
+                && this.getName().equals(((Buyer) u).getName()) && this.getPassword().equals(((Buyer) u).getPassword())
+                && this.getRating() == ((Buyer) u).getRating() && this.getVoters() == ((Buyer) u).getVoters());
+
+    }
+
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        for (int i = 0; i < this.getUserName().length(); i++) {
+            hash = hash*31 + this.getUserName().charAt(i);
+        }
+        return hash;
 
     }
 

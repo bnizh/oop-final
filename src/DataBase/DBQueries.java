@@ -37,8 +37,6 @@ public interface DBQueries {
 
     public List<Buyer> getAllBuyer();
 
-
-
     public boolean addItem(Item it);
 
     public boolean deleteItem(int id );
@@ -71,9 +69,18 @@ public interface DBQueries {
 
     public boolean deleteUserComment(int id);
 
+    /**
+     * delete all comment for user(owner) get's ownerID (int)
+     */
     public boolean deleteAllCommentForUser(int userID);
 
     public List<Comment> getUserCommentsByWriter(int userID);
 
-    public Category getCategory(String name) ;
+    public Category getCategory(String name);
+
+    public boolean addHashTagToUser(int userID, String tag);
+
+    public boolean addHashTagToItem(int userID, String tag);
+
+
 }

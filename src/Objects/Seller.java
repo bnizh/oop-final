@@ -1,6 +1,9 @@
 package Objects;
 
 
+import Managers.HashCreator;
+
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class Seller extends User {
@@ -12,12 +15,25 @@ public class Seller extends User {
         super(username, password, email,name,rating,mobileNumber,voters,image);
     }
 
-    public boolean equals(Seller u){
-        return (this.getID() == u.getID() && this.getUserName().equals(u.getUserName()) && this.getEmail().equals(u.getEmail())
-                && this.getImage().equals( u.getImage()) && this.getMobileNumber().equals(u.getMobileNumber())
-                && this.getName().equals(u.getName()) && this.getPassword().equals(u.getPassword())
-                && this.getRating() == u.getRating() && this.getVoters() == u.getVoters());
+    @Override
+    public boolean equals(Object u) {
+        if(u.getClass()!= this.getClass())
+            return false;
+        return (this.getID() ==((Seller) u).getID() && this.getUserName().equals(((Seller) u).getUserName()) && this.getEmail().equals(((Seller) u).getEmail())
+                && this.getImage().equals( ((Seller) u).getImage()) && this.getMobileNumber().equals(((Seller) u).getMobileNumber())
+                && this.getName().equals(((Seller) u).getName()) && this.getPassword().equals(((Seller) u).getPassword())
+                && this.getRating() == ((Seller) u).getRating() && this.getVoters() == ((Seller) u).getVoters());
 
     }
 
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        for (int i = 0; i < this.getUserName().length(); i++) {
+            hash = hash*31 + this.getUserName().charAt(i);
+        }
+        return hash;
+
+    }
 }

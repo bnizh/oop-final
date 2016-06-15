@@ -40,7 +40,7 @@
                         <label id="input-label" for="img-edit-input">
                             <img id="pic-edit-icon" class="edit-icon" src="edit.png"/>
                         </label>
-                        <input id="img-edit-input" name="simage" accept="image/gif, image/jpeg, image/png" type="file"/>
+                        <input id="img-edit-input" name="simage"  accept="image/gif, image/jpeg, image/png" type="file"/>
                     </div>
                 </form>
             </div>

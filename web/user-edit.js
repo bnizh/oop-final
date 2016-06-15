@@ -1,8 +1,8 @@
 (function () {
     $(document).ready(function () {
         $('#img-edit-input').change(function () {
-            $('#img-edit-input').prop("readonly",true);
-            alert($('#img-edit-input').className);
+            el = document.getElementById("img-edit-input");
+            el.setAttribute("readOnly","readOnly");
             $('#img-edit').submit();
         });
 
@@ -20,6 +20,7 @@
                     var newDoc = document.open("text/html", "replace");
                     newDoc.write(data);
                     newDoc.close();
+                    el.setAttribute("readOnly","");
                 },
                 cache: false,
                 contentType: false,
@@ -30,10 +31,10 @@
             return false;
 
         });
-        
+
         $(".edit-name img").click(function () {
             alert("blah");
-           $(".edit-name:input").prop('readonly','');
+            $(".edit-name:input").prop('readonly', '');
 
         });
     });

@@ -1,36 +1,44 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <html>
 <head>
     <title>Cart</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <link href="main.css" rel="stylesheet">
+    <script src="script.js"></script>
     <script src="AjaxSending.js"></script>
     <script src="passwordscheck.js"></script>
     <script src="loginAjax.js"></script>
 </head>
 <body>
-<!-- Header -->
+<!-- Header --->
 <div class="header">
     <div class="header1">
         <a href="#" id="logo">Food-Online</a>
     </div>
-    <%
-        Boolean b=(Boolean) session.getAttribute("loggedIn");
-        if (!b) {
-    %>
-    <script src="script.js"></script>
-    <%@include file="visitor.jsp" %>
+    <div class="user-panel">
+        <img class="profile-user-panel" style="margin-right: 20px" src="/defaultProfile.png">
+        <span class="profile-info">jangizai</span>
+        <div id="profile-menu">
+            <a href="#" id="profile-down-menu" class="profile-info">Profile <img id="arrow" src="arrow.png">
+            </a>
+            <div id="profile-menu-content">
+                <div style="width: 100%;text-align: center">
+                    <span href="">You Are: di best </span></div>
+                <img style="width:50px; height: 50px; margin-left: 75px" class="profile-user-panel"
+                     src="ImageLoader?FileName=<%=user.getImage()%>">
+                <div style=""><span href="">jangizai</span></div>
+                <div style="width: 100%;text-align: center"><a href="">Go to private page</a></div>
+                <form action="/logOut" method="get">
+                    <button id="login-btn" type="submit" class="login-button login-input">Log Out</button>
+                </form>
+            </div>
+        </div>
 
-    <% } else {
-    %>
-    <%@include file="user-panel.jsp" %>
-    <% }%>
+    </div>
 </div>
 <!-- Header -->
 <!-- Main -->
 <div>
-    <div id="main">
+    <div id="co">
         <div class="left-menu">
             <a class="left-menu-item" href="#">dradad</a>
             <a class="left-menu-item" href="#">dradad</a>

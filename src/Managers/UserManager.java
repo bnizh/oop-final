@@ -49,6 +49,13 @@ public class UserManager {
         Buyer buyer = db.getBuyerByUsername(userName);
         return seller == null && buyer == null;
     }
+    public boolean editImageSeller(Part filePart, Seller seller ) throws IOException {
+        FileManager fm = ManagerFactory.getFileManager();
+       String newURL= fm.editProfile(seller.getUserName(),filePart,seller.getImage());
+        seller.setImage(newURL);
+        db.updateSeller(seller);
+        return true;
+    }
     private boolean sendEmailExistCheck(String email) throws MessagingException {
         ManagerFactory.getSendMail().sendEmail(email,"mkvdari adga agar dadgao");
         return true;
@@ -105,7 +112,7 @@ public class UserManager {
             return "D:\\\\prog\\\\Final-Project\\\\oop-final\\\\web\\\\defaultProfile.png";
         }
         FileManager fm = ManagerFactory.getFileManager();
-        return fm.saveFile(username, filePart);
+        return fm.saveProfilePicture(username, filePart);
     }
 
     private boolean saveSellerToBase(Seller seller) {

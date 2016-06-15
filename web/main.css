@@ -145,7 +145,10 @@ button:focus {
     background-color: #ff5e01;
     color: #e2e4e7;
 }
-
+.edit-icon{
+    width: 20px;
+    height: 20px;
+}
 #product-list {
     width: 75%;
     overflow: auto;
@@ -458,9 +461,17 @@ button:focus {
 
 #profile-menu-content div {
     width: 100%;
+    margin-bottom: 5px;
+    margin-top: 5px;
     font-size: 15px;
     min-height: 20px;
     text-align: center
+}
+#profile-menu-content div a {
+  text-decoration: none;
+}
+#profile-menu-content div a:hover {
+    color:#990099;
 }
 
 #profile-menu:hover #profile-menu-content {

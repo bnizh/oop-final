@@ -16,7 +16,7 @@ import java.nio.file.StandardCopyOption;
 
 public class FileManager {
     public String saveProfilePicture(String userName, Part filePart) throws IOException, ServletException {
-        String uploadDirectory = "D:\\\\prog\\\\OOP\\\\files\\\\" + userName;
+        String uploadDirectory = "C:\\\\Users\\\\Boris\\\\Desktop\\\\final project\\\\oop-final\\\\users\\\\" + userName;
         Path folder = Paths.get(uploadDirectory);
         if (Files.notExists(folder)) {
             new File(uploadDirectory).mkdir();
@@ -40,9 +40,9 @@ public class FileManager {
     * */
     public String editProfile(String userName, Part filePart, String currentImg) throws IOException {
         String ext = FilenameUtils.getExtension(currentImg);
-        String uploadDirectory = "D:\\\\prog\\\\OOP\\\\files\\\\" + userName;
+        String uploadDirectory = "C:\\\\Users\\\\Boris\\\\Desktop\\\\final project\\\\oop-final\\\\users\\\\" + userName;
         Path folder = Paths.get(uploadDirectory);
-        Path curPath = Paths.get(uploadDirectory + "\\\\profile" + ext);
+        Path curPath = Paths.get(uploadDirectory + "\\\\profile." + ext);
         System.out.println(curPath);
         if (Files.notExists(folder)) {
             new File(uploadDirectory).mkdir();

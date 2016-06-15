@@ -12,7 +12,7 @@ public class ConnectionPool {
     private static BasicDataSource eventDataSource;
     private static ConnectionPool connectionPool;
 
-    public ConnectionPool() throws SQLException{
+    private ConnectionPool() throws SQLException{
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl(DBInfo.MYSQL_DATABASE_SERVER);

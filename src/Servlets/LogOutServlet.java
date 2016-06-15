@@ -29,6 +29,7 @@ public class LogOutServlet extends HttpServlet {
                 }
                 request.getSession().setAttribute(LOGGED_IN, false);
             }
-            response.sendRedirect("/index.jsp");    }
+            response.sendRedirect("/index.jsp");
+        }
     }
 }

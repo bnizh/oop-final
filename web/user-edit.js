@@ -1,26 +1,23 @@
 (function () {
     $(document).ready(function () {
         $('#img-edit-input').change(function () {
-            alert("submit gamoidzaxa");
             $('#img-edit').submit();
-        })
+        });
+
+
         $("#img-edit").submit(function (event) {
             //disable the default form submission
-            alert("submit gamoidzaxa");
             event.preventDefault();
             var formData = new FormData($(this)[0]);
 
             $.ajax({
-                url: "Edit",
+                url: "edit",
                 type: 'POST',
                 data: formData,
                 success: function (data) {
-                    if(data=="failed"){
-                      
-                    }
-                    else{
-                        $('#login-form').replaceWith(data);
-                    }
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(data);
+                    newDoc.close();
                 },
                 cache: false,
                 contentType: false,
@@ -29,6 +26,11 @@
             });
 
             return false;
+
+        });
+        
+        $(".edit-name img").click(function () {
+           $(".edit-name:input").attr("readonly",true);
 
         });
     });

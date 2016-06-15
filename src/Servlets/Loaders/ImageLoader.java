@@ -15,8 +15,6 @@ import java.io.OutputStream;
  */
 @WebServlet("/ImageLoader")
 public class ImageLoader extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */

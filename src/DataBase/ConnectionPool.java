@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class ConnectionPool {
     private int maxActive = 100;
     private int maxWait = 10000;
-    private int maxIdle = 10;
+    private int maxIdle = 50;
     private static BasicDataSource eventDataSource;
     private static ConnectionPool connectionPool;
 

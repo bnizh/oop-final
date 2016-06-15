@@ -60,9 +60,33 @@ public class AccountDB implements DBQueries {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        s = "Select ownerID from "+DBInfo.MYSQL_DATABASE__Tags_table+" where tagType ='user'";
+        List<Integer> ls = getIDsByTag(s);
+        for(int i = 0; i< ls.size(); i++){
+            Seller sel = getSellerByID(ls.get(i));
+            if(!list.contains(sel)){
+                list.add(sel);
+            }
+        }
         return list;
     }
 
+    private List<Integer> getIDsByTag(String s){
+        ArrayList<Integer> ls = new ArrayList<Integer>();
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()){
+                    ls.add(rs.getInt("ownerID"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ls;
+    }
     @Override
     public Seller getSellerByID(int ID) {
         try (PreparedStatement stm = con.prepareStatement("SELECT * FROM "+ DBInfo.MYSQL_DATABASE_Users_table+" where userID = "+ID)) {
@@ -399,6 +423,7 @@ public class AccountDB implements DBQueries {
         return Helper(s);
     }
 
+
     @Override
     public boolean deleteAllCommentForUser(int userID) {
         String s = " Delete from "+DBInfo.MYSQL_DATABASE_UsersComments_table+" where ownerID ="+userID;
@@ -430,8 +455,8 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean updateUserComment(Comment c) {
-        String s = "Update "+ DBInfo.MYSQL_DATABASE_UsersComments_table+" set comm ='"+c.getComment()+", ownerID ="+
-                c.getOwnerID()+" writerID="+c.getWriterID()+" dateOfComment ='"+new java.sql.Date(System.currentTimeMillis())+"'";
+        String s = "Update "+ DBInfo.MYSQL_DATABASE_UsersComments_table+" set comm ='"+c.getComment()+"', ownerID ="+
+                c.getOwnerID()+", writerID="+c.getWriterID()+" ,dateOfComment ='"+new java.sql.Date(System.currentTimeMillis())+"'";
         return Helper(s);
     }
 
@@ -457,5 +482,17 @@ public class AccountDB implements DBQueries {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean addHashTagToUser(int userID, String tag) {
+        String s = "insert into "+ DBInfo.MYSQL_DATABASE__Tags_table + " (tagName, tagType, ownerID) values( '"+tag+"' ,'user',"+userID+")";
+        return Helper(s);
+    }
+
+    @Override
+    public boolean addHashTagToItem(int itemID, String tag) {
+        String s = "insert into "+ DBInfo.MYSQL_DATABASE__Tags_table + " (tagName, tagType, ownerID) values ('"+tag+"', 'item',"+itemID+")";
+        return Helper(s);
     }
 }

@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DBConnection implements  DBQueries{
+public class DBConnection implements DBQueries{
 
     @Override
     public Seller getSellerByUsername(String companyName) {
@@ -690,5 +690,15 @@ public class DBConnection implements  DBQueries{
                 }
             }
         }
+    }
+
+    @Override
+    public boolean addHashTagToUser(int userID, String tag) {
+        return false;
+    }
+
+    @Override
+    public boolean addHashTagToItem(int userID, String tag) {
+        return false;
     }
 }

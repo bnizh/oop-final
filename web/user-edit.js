@@ -1,6 +1,8 @@
 (function () {
     $(document).ready(function () {
         $('#img-edit-input').change(function () {
+            $('#img-edit-input').prop("readonly",true);
+            alert($('#img-edit-input').className);
             $('#img-edit').submit();
         });
 
@@ -30,7 +32,8 @@
         });
         
         $(".edit-name img").click(function () {
-           $(".edit-name:input").attr("readonly",true);
+            alert("blah");
+           $(".edit-name:input").prop('readonly','');
 
         });
     });

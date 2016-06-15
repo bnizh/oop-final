@@ -34,9 +34,11 @@ public class LoginFilter implements Filter {
         if(cookies != null){
             for(Cookie cookie : cookies){
                if( cookie.getName().equals(USER)) userName=cookie.getValue();
+                if( cookie.getName().equals("JSESSIONID")) System.out.println(cookie.getValue());
             }
             if(userName!=null) loggedIn =true;
         }
+        System.out.println("session"+req.getSession().getId());
         if(loggedIn){
             req.getSession().setAttribute(LOGGED_IN,true);
             DBConnection db= DBFactory.getDBConnection();

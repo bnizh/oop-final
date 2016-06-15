@@ -10,5 +10,5 @@ public class DBFactory {
     public static DBConnection getDBConnection(){
         return new DBConnection();
     }
-    public static ConnectionPool getConnectionPool () throws SQLException {return new ConnectionPool();}
+    public static ConnectionPool getConnectionPool () throws SQLException {return ConnectionPool.getInstance();}
 }

@@ -21,6 +21,10 @@
                     if(data=="usedusername"){
                         buyerUserNameValidation(data);
                     }
+                    else if(data=="usedemail"){
+                        $('#email-reg-msg').css("display","block");
+                        $('#buyer-email-msg').css("background-color","D08080");
+                    }
                     else{
                         $('#login-form').replaceWith(data);
                         $('#myModal').css("display", "none");
@@ -56,6 +60,10 @@
                 success: function (data) {
                     if(data=="used"){
                         sellerUserNameValidation(data)
+                    }
+                    else if(data=="usedemail"){
+                        $('#email-reg-msg-sel').css("display","block");
+                        $('#seller-email-msg').css("background-color","D08080");
                     }
                     else{
                         $('#login-form').replaceWith(data);

@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static Managers.SiteConstants.*;
@@ -18,18 +19,18 @@ import static Managers.SiteConstants.*;
 @WebFilter("/LoginFilter")
 public class LoginFilter implements Filter {
 
-    private ServletContext context;
-
     public void init(FilterConfig fConfig) throws ServletException {
-        this.context = fConfig.getServletContext();
-        this.context.log("RequestLoggingFilter initialized");
+        ServletContext context = fConfig.getServletContext();
+        context.log("RequestLoggingFilter initialized");
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
         boolean loggedIn=false;
         String userName=null;
+        String uri = req.getRequestURI();
         Cookie[] cookies = req.getCookies();
         if(cookies != null){
             for(Cookie cookie : cookies){
@@ -55,6 +56,11 @@ public class LoginFilter implements Filter {
         }
         else{
             req.getSession().setAttribute(LOGGED_IN,false);
+        }
+        System.out.println(uri);
+        if(!loggedIn&&(uri.endsWith("user-page.jsp")||uri.endsWith("user-panel.jsp"))){
+            res.sendRedirect("/index.jsp");
+            return;
         }
         // pass the request along the filter chain
         chain.doFilter(request, response);

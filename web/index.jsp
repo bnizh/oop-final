@@ -16,7 +16,7 @@
         <a href="\index.jsp" id="logo">Food-Online</a>
     </div>
     <%
-        Boolean b=(Boolean) session.getAttribute("loggedIn");
+        Boolean b = (Boolean) session.getAttribute("loggedIn");
         if (!b) {
     %>
     <script src="script.js"></script>
@@ -123,10 +123,11 @@
                     </div>
                     <div>
                         <label class=" reg-label">E-Mail:</label>
-                        <input type="email" class=" search-form-control reg-form"
+                        <input id="buyer-email-eg" type="email" class=" search-form-control reg-form"
                                name="email"
                                value=""
                                placeholder="E-mail">
+                        <label style="display: none; color:red" id="email-reg-msg">email is already used</label>
                     </div>
                     <div>
                         <label class="reg-label">Password:</label>
@@ -189,10 +190,14 @@
                     </div>
                     <div>
                         <label class=" reg-label">E-Mail:</label>
-                        <input type="email" class=" search-form-control reg-form"
+                        <input id="seller-email-msg" type="email" class=" search-form-control reg-form"
                                name="email"
                                value=""
                                placeholder="E-mail">
+                        <label style="display: none; color:red" id="email-reg-msg-sel">email
+                            is already used</label>
+
+
                     </div>
                     <div>
                         <label class="reg-label">Password:</label>

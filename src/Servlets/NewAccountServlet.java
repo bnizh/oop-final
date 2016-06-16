@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
 
+import static Managers.SiteConstants.USER;
+
 @MultipartConfig
 @WebServlet("/NewAccountServlet")
 public class NewAccountServlet extends HttpServlet {
@@ -77,6 +79,9 @@ public class NewAccountServlet extends HttpServlet {
         if (type.equals("seller")) {
             Seller seller = dbc.getSellerByUsername(request.getParameter("username"));
             HttpSession session = request.getSession();
+            Cookie username = new Cookie(USER, seller.getUserName());
+            username.setMaxAge(3*60*60);
+            response.addCookie(username);
             session.setAttribute("user", seller);
             session.setAttribute("type", "seller");
             RequestDispatcher dispatch = request.getRequestDispatcher("user-panel.jsp");
@@ -87,6 +92,9 @@ public class NewAccountServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", buyer);
             session.setAttribute("type", "buyer");
+            Cookie username = new Cookie(USER, buyer.getUserName());
+            username.setMaxAge(3*60*60);
+            response.addCookie(username);
             RequestDispatcher dispatch = request.getRequestDispatcher("user-panel.jsp");
             dispatch.forward(request, response);
         }

@@ -14,7 +14,7 @@
             <img style="width:80px; height: 60px; margin-left: 60px" class="profile-user-panel"
                  src="ImageLoader?FileName=<%=user.getImage()%>">
             <div style=""><span href=""><%=user.getName()%></span></div>
-            <div style="width: 100%;text-align: center"><a href="">Go to private page</a></div>
+            <div style="width: 100%;text-align: center"><a href="\user-page.jsp">Go to private page</a></div>
                 <div style="width: 100%;text-align: center"><a  href="/logout?">Log Out</a></div>
         </div>
     </div>

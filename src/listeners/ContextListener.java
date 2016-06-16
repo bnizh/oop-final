@@ -1,5 +1,6 @@
 package listeners;
 import DataBase.DBFactory;
+import Managers.SiteConstants;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -13,7 +14,7 @@ public class ContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         // TODO Auto-generated method stub
         ServletContext servletCont = servletContextEvent.getServletContext();
-        servletCont.setAttribute("dataBase", DBFactory.getDBConnection());
+        servletCont.setAttribute("constants", new SiteConstants());
     }
 
     /**

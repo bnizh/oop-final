@@ -32,17 +32,17 @@ public class EditServlet extends HttpServlet {
             System.out.println(seller);
             um.editImageSeller(filePart, seller);
             request.setAttribute(USER,seller);
-            RequestDispatcher dispatch = request.getRequestDispatcher("SellerPage.jsp");
-            dispatch.forward(request, response);
+            response.sendRedirect("/SellerPage.jsp");
+
 
         }
         if(sname!=null){
             Seller seller = (Seller) request.getSession().getAttribute(USER);
             seller.setName(sname);
-            db.updateSeller(seller);
+            db.updateSellerWithoutImage(seller);
             request.setAttribute(USER,seller);
-            RequestDispatcher dispatch = request.getRequestDispatcher("SellerPage.jsp");
-            dispatch.forward(request, response);
+            response.sendRedirect("/SellerPage.jsp");
+
         }
     }
 

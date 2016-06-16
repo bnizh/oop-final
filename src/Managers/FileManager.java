@@ -18,7 +18,7 @@ import static Managers.SiteConstants.IMAGE_DIRECTORY;
 
 public class FileManager {
     public String saveProfilePicture(String userName, Part filePart) throws IOException, ServletException {
-        String uploadDirectory = "C:\\\\Users\\\\Boris\\\\Desktop\\\\final project\\\\oop-final\\\\users\\\\" + userName;
+        String uploadDirectory = IMAGE_DIRECTORY + userName;
         Path folder = Paths.get(uploadDirectory);
         if (Files.notExists(folder)) {
             new File(uploadDirectory).mkdir();

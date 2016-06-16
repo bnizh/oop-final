@@ -1,33 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Cart</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <link href="main.css" rel="stylesheet">
-    <link href="usercss.css" rel="stylesheet">
-    <script src="AjaxSending.js"></script>
-    <script src="passwordscheck.js"></script>
-    <script src="loginAjax.js"></script>
-    <script src="user-edit.js"></script>
-</head>
-<body>
-<!-- Header -->
-<div class="header">
-    <div class="header1">
-        <a href="#" id="logo">Food-Online</a>
-    </div>
-    <%
-        if (session.getAttribute("loggedIn") == null || !(boolean) session.getAttribute("loggedIn")) {
-    %>
-    <script src="script.js"></script>
-    <%@include file="visitor.jsp" %>
-    <script src="script.js"></script>
-    <% } else {
-    %>
-    <%@include file="user-panel.jsp" %>
-
-    <% }%>
-</div>
+<%@ page import="Objects.User" %>
 <div>
     <div class="user-container">
         <div class="type-header">
@@ -40,7 +11,7 @@
                         <label id="input-label" for="img-edit-input">
                             <img id="pic-edit-icon" class="edit-icon" src="edit.png"/>
                         </label>
-                        <input id="img-edit-input" name="simage"  accept="image/gif, image/jpeg, image/png" type="file"/>
+                        <input id="img-edit-input" name="simage" accept="image/gif, image/jpeg, image/png" type="file"/>
                     </div>
                 </form>
             </div>
@@ -57,24 +28,24 @@
             <div>
                 <span style="font-size: 30px"><%=us.getUserName()%></span>
             </div>
-            <form id="edit-name">
+            <form id="edit-name" class="edit-forms">
                 <input type="text" name='sname' class="user-fields" value="<%=us.getName()%>" readonly>
                 <img src="edit.png" class="edit-icon edit-icon-uname">
             </form>
-            <form id="edit-email">
-                <input type="text" name="semail" class="user-fields" value="email:<%=us.getEmail()%>" readonly>
+            <form class="edit-forms" id="edit-email">
+                <input type="text" name="semail" class="user-fields" value="<%=us.getEmail()%>" readonly>
                 <img src="edit.png" class="edit-icon edit-icon-email">
 
             </form>
-            <form id="edit-mob">
-                <input type="text" name="smob"  class="user-fields" value="Mobile: <%=us.getMobileNumber()%>" readonly>
+            <form class="edit-forms" id="edit-mob">
+                <input type="text" name="smob" class="user-fields" value=" <%=us.getMobileNumber()%>" readonly>
                 <img src="edit.png" class="edit-icon ">
 
             </form>
         </div>
         <div class="right-side-user">
             <div>
-                <span>Add New Product</span>
+                <a href="#">Add New Product</a>
             </div>
             <div>
                 <span>mobile:571119644</span>
@@ -82,11 +53,231 @@
         </div>
     </div>
 </div>
+<div class="div-separator"></div>
+<div>
+    <div class="user-container">
+        <div class="type-header">
+            <span>Statistics</span>
+        </div>
+        <div>
+            <div class="wrapper" id="stats">
 
+                <div class="table">
 
-<div id="footer" style="top:40%"></div>
-<!-- Footer -->
+                    <div class="row header">
+                        <div class="cell">
+                            Product Name
+                        </div>
+                        <div class="cell">
+                            Product Price
+                        </div>
+                        <div class="cell">
+                            Overall Sell
+                        </div>
+                        <div class="cell">
+                            Sold Today
+                        </div>
+                        <div class="cell">
+                            Per Day
+                        </div>
+                    </div>
 
+                    <div class="row">
+                        <div class="cell">
+                            Pizza
+                        </div>
+                        <div class="cell">
+                            7₾
+                        </div>
+                        <div class="cell">
+                            200
+                        </div>
+                        <div class="cell">
+                            8
+                        </div>
+                        <div class="cell">
+                            11.6
+                        </div>
+                    </div>
 
-</body>
-</html>
+                    <div class="row">
+                        <div class="cell">
+                            Khchapuri
+                        </div>
+                        <div class="cell">
+                            2₾
+                        </div>
+                        <div class="cell">
+                            300
+                        </div>
+                        <div class="cell">
+                            5
+                        </div>
+                        <div class="cell">
+                            13,4
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="cell">
+                            Khchapuri
+                        </div>
+                        <div class="cell">
+                            2₾
+                        </div>
+                        <div class="cell">
+                            300
+                        </div>
+                        <div class="cell">
+                            5
+                        </div>
+                        <div class="cell">
+                            13,4
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="cell">
+                            Khchapuri
+                        </div>
+                        <div class="cell">
+                            2₾
+                        </div>
+                        <div class="cell">
+                            300
+                        </div>
+                        <div class="cell">
+                            5
+                        </div>
+                        <div class="cell">
+                            13,4
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="cell">
+                            Khchapuri
+                        </div>
+                        <div class="cell">
+                            2₾
+                        </div>
+                        <div class="cell">
+                            300
+                        </div>
+                        <div class="cell">
+                            5
+                        </div>
+                        <div class="cell">
+                            13,4
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="div-separator"></div>
+
+<div>
+    <div id="main">
+        <div class="type-header">
+            <span>My Products</span>
+        </div>
+        <div id="product-list-user">
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="div-separator"></div>

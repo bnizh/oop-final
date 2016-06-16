@@ -54,7 +54,8 @@ public class UserManager {
         FileManager fm = ManagerFactory.getFileManager();
        String newURL= fm.editProfile(seller.getUserName(),filePart,seller.getImage());
         seller.setImage(newURL);
-        db.updateSeller(seller);
+        System.out.println(newURL);
+        db.updateSellerImage(seller.getID(),newURL);
         return true;
     }
     private boolean sendEmailExistCheck(String email) throws MessagingException {

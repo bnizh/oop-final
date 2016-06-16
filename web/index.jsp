@@ -13,7 +13,7 @@
 <!-- Header -->
 <div class="header">
     <div class="header1">
-        <a href="#" id="logo">Food-Online</a>
+        <a href="\index.jsp" id="logo">Food-Online</a>
     </div>
     <%
         Boolean b=(Boolean) session.getAttribute("loggedIn");

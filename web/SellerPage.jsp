@@ -57,20 +57,20 @@
             <div>
                 <span style="font-size: 30px"><%=us.getUserName()%></span>
             </div>
-            <div class="edit-name">
-                <input type="text" class="user-fields" value="<%=us.getName()%>" readonly>
+            <form id="edit-name">
+                <input type="text" name='sname' class="user-fields" value="<%=us.getName()%>" readonly>
                 <img src="edit.png" class="edit-icon edit-icon-uname">
-            </div>
-            <div class="edit-email">
-                <input type="text" class="user-fields" value="email:<%=us.getEmail()%>" readonly>
+            </form>
+            <form id="edit-email">
+                <input type="text" name="semail" class="user-fields" value="email:<%=us.getEmail()%>" readonly>
                 <img src="edit.png" class="edit-icon edit-icon-email">
 
-            </div>
-            <div class="edit-mob">
-                <input type="text" class="user-fields" value="Mobile: <%=us.getMobileNumber()%>" readonly>
+            </form>
+            <form id="edit-mob">
+                <input type="text" name="smob"  class="user-fields" value="Mobile: <%=us.getMobileNumber()%>" readonly>
                 <img src="edit.png" class="edit-icon ">
 
-            </div>
+            </form>
         </div>
         <div class="right-side-user">
             <div>

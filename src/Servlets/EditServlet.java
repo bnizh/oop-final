@@ -23,11 +23,11 @@ import static Managers.SiteConstants.USER;
 public class EditServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part filePart = request.getPart("simage");
+        String sname=request.getParameter("sname");
+        System.out.println(sname);
         UserManager um = ManagerFactory.getUserManager();
-        System.out.println(request.getPart("simage").getName());
-        System.out.println(filePart.getSize());
-        if (filePart != null) {
-            System.out.println("gacda null shemowmebas");
+        DBConnection db = DBFactory.getDBConnection();
+        if (filePart!=null) {
             Seller seller = (Seller) request.getSession().getAttribute(USER);
             System.out.println(seller);
             um.editImageSeller(filePart, seller);
@@ -35,6 +35,14 @@ public class EditServlet extends HttpServlet {
             RequestDispatcher dispatch = request.getRequestDispatcher("SellerPage.jsp");
             dispatch.forward(request, response);
 
+        }
+        if(sname!=null){
+            Seller seller = (Seller) request.getSession().getAttribute(USER);
+            seller.setName(sname);
+            db.updateSeller(seller);
+            request.setAttribute(USER,seller);
+            RequestDispatcher dispatch = request.getRequestDispatcher("SellerPage.jsp");
+            dispatch.forward(request, response);
         }
     }
 

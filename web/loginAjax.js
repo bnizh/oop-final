@@ -2,7 +2,6 @@
     $(document).ready(function () {
         $('#login-input-container').submit(function (event) {
             event.preventDefault();
-            var formData = new FormData($(this)[0]);
             $.ajax({
                 url: 'login',
                 type: 'POST',

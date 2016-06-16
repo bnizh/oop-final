@@ -6,4 +6,5 @@ public class SiteConstants {
     public static String BUYER="buyer";
     public static String USER="user";
     public static String TYPE="type";
+    public static String IMAGE_DIRECTORY="D:\\\\prog\\\\OOP\\\\files\\\\";
 }

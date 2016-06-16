@@ -134,10 +134,28 @@ public class AccountDB implements DBQueries {
 
 
     @Override
-    public boolean updateSeller(Seller seller) {
+    public boolean updateSellerWithoutImage(Seller seller) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Users_table + " set userName =" + '\"' + seller.getUserName() + '\"' + ", password =" + '\"' + seller.getPassword() + '\"'
                 + ", name =" + '\"' + seller.getName() + '\"' + ",email =" + '\"' + seller.getEmail() + '\"' + ", mobileNumber=" + '\"' +
-                seller.getMobileNumber() + '\"' + ", imageUrl =" + '\"' + seller.getImage() + '\"' + " where userID =" + seller.getID();
+                seller.getMobileNumber() + '\"'  + " where userID =" + seller.getID();
+        return Helper(s);
+    }
+
+    @Override
+    public boolean updateSellerImage(int sellerID, String path) {
+        String s = "update " + DBInfo.MYSQL_DATABASE_Users_table + " set imageUrl ='"+  path + "' where userID =" +sellerID;
+        return Helper(s);
+    }
+
+    @Override
+    public boolean updateBuyerImage(int buyerID, String path) {
+        String s = "update " + DBInfo.MYSQL_DATABASE_Users_table + " set imageUrl ='"+  path + "' where userID =" +buyerID;
+        return Helper(s);
+    }
+
+    @Override
+    public boolean updateItemImage(int itemID, String path) {
+        String s = "update " + DBInfo.MYSQL_DATABASE_Items_table + " set itemImageUrl  ='"+  path + "' where itemID =" +itemID;
         return Helper(s);
     }
 
@@ -230,10 +248,10 @@ public class AccountDB implements DBQueries {
     }
 
     @Override
-    public boolean updateBuyer(Buyer buyer) {
+    public boolean updateBuyerWithoutImage(Buyer buyer) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Users_table + " set userName =" + '\"' + buyer.getUserName() + '\"' + ", password =" + '\"' + buyer.getPassword() + '\"'
                 + ", name =" + '\"' + buyer.getName() + '\"' + ",email =" + '\"' + buyer.getEmail() + '\"' + ", mobileNumber=" + '\"' +
-                buyer.getMobileNumber() + '\"' + ", imageUrl =" + '\"' + buyer.getImage() + '\"' + " where userID =" + buyer.getID();
+                buyer.getMobileNumber() + '\"'  + " where userID =" + buyer.getID();
         return Helper(s);
     }
 
@@ -361,8 +379,8 @@ public class AccountDB implements DBQueries {
     }
 
     @Override
-    public boolean updateItem(Item it) {
-        String s = "update " + DBInfo.MYSQL_DATABASE_Items_table + " set itemName ='" + it.getName() + "',itemImageUrl ='" + it.getImage() +
+    public boolean updateItemWithoutImage(Item it) {
+        String s = "update " + DBInfo.MYSQL_DATABASE_Items_table + " set itemName ='" + it.getName()  +
                 "',categoryID =" + it.getCategoryID() + ", ownerID=" + it.getOwnerID() + ", price=" + it.getPrice() + ", rating=" + it.getRating()
                 + ",voters =" + it.getVoters() + " where itemID=" + it.getID();
         return Helper(s);

@@ -224,7 +224,8 @@ public class AccountDBTest extends TestCase {
             it.setName("item1");
             it.setImage("image1");
             it.setPrice(10);
-            acc.updateItem(it);
+            acc.updateItemWithoutImage(it);
+            acc.updateItemImage(it.getID(), it.getImage());
             assertTrue(it.equals(acc.getItemById(it.getID())));
             acc.deleteItem(it.getID());
             acc.deleteCategory(c);
@@ -630,7 +631,7 @@ public class AccountDBTest extends TestCase {
             acc.addNewSeller(s);
             s = acc.getSellerByUsername("username");
             s.setUserName("us");
-            acc.updateSeller(s);
+            acc.updateSellerWithoutImage(s);
             assertEquals(s.getUserName(), acc.getSellerByEmail("email").getUserName());
             acc.deleteSeller(s.getID());
         } catch (SQLException ex) {
@@ -748,7 +749,7 @@ public class AccountDBTest extends TestCase {
             acc.addNewBuyer(b);
             b = acc.getBuyerByUsername("username");
             b.setUserName("us");
-            acc.updateBuyer(b);
+            acc.updateBuyerWithoutImage(b);
             assertEquals(b.getUserName(), acc.getBuyerByEmail("email").getUserName());
             acc.deleteBuyer(b.getID());
         } catch (SQLException ex) {

@@ -3,7 +3,6 @@ package DataBase;
 import Objects.*;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -121,12 +120,71 @@ public class DBConnection implements DBQueries{
     }
 
     @Override
-    public boolean updateSeller(Seller seller) {
+    public boolean updateSellerWithoutImage(Seller seller) {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getAccountDB(con).updateSeller(seller);
+            return  DBFactory.getAccountDB(con).updateSellerWithoutImage(seller);
 
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean updateSellerImage(int sellerID, String path) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).updateSellerImage(sellerID, path);
+
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean updateBuyerImage(int buyerID, String path) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).updateBuyerImage(buyerID, path);
+
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean updateItemImage(int itemID, String path) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).updateItemImage(itemID, path);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         }finally {
@@ -281,11 +339,11 @@ public class DBConnection implements DBQueries{
     }
 
     @Override
-    public boolean updateBuyer(Buyer buyer) {
+    public boolean updateBuyerWithoutImage(Buyer buyer) {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getAccountDB(con).updateBuyer(buyer);
+            return  DBFactory.getAccountDB(con).updateBuyerWithoutImage(buyer);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -441,11 +499,11 @@ public class DBConnection implements DBQueries{
     }
 
     @Override
-    public boolean updateItem(Item it) {
+    public boolean updateItemWithoutImage(Item it) {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getAccountDB(con).updateItem(it);
+            return  DBFactory.getAccountDB(con).updateItemWithoutImage(it);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -694,11 +752,43 @@ public class DBConnection implements DBQueries{
 
     @Override
     public boolean addHashTagToUser(int userID, String tag) {
-        return false;
+
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).addHashTagToUser(userID,tag);
+
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
-    public boolean addHashTagToItem(int userID, String tag) {
-        return false;
+    public boolean addHashTagToItem(int itemID, String tag) {
+
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).addHashTagToItem(itemID, tag);
+
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

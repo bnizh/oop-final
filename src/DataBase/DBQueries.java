@@ -17,7 +17,13 @@ public interface DBQueries {
 
     public List<Seller> getAllSeller();
 
-    public boolean updateSeller(Seller seller);
+    public boolean updateSellerWithoutImage(Seller seller);
+
+    public boolean updateSellerImage(int sellerID, String path);
+
+    public boolean updateBuyerImage(int buyerID, String path);
+
+    public boolean updateItemImage(int itemID, String path);
 
     public boolean deleteSeller(int sellerID);
 
@@ -33,7 +39,7 @@ public interface DBQueries {
 
     public boolean addNewBuyer(Buyer buyer);
 
-    public boolean updateBuyer(Buyer buyer);
+    public boolean updateBuyerWithoutImage(Buyer buyer);
 
     public List<Buyer> getAllBuyer();
 
@@ -49,7 +55,7 @@ public interface DBQueries {
 
     public List<Item> getTopItems (int numberOfItems);
 
-    public boolean updateItem(Item it);
+    public boolean updateItemWithoutImage(Item it);
 
     public boolean deleteAllItemsForSeller(int idexOfSeller);
 
@@ -80,7 +86,7 @@ public interface DBQueries {
 
     public boolean addHashTagToUser(int userID, String tag);
 
-    public boolean addHashTagToItem(int userID, String tag);
+    public boolean addHashTagToItem(int itemID, String tag);
 
 
 }

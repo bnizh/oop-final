@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Managers.SiteConstants.*;
+
 
 public class AccountDB implements DBQueries {
     private Connection con;
@@ -32,7 +34,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public Seller getSellerByUsername(String username) {
-        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Users_table + " where username = \"" + username + "\" AND typeOfUser=1")) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Users_table + " where username = \"" + username + "\" AND typeOfUser="+SellerType)) {
             return getSellerFromBase(stm);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,7 +45,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public Seller getSellerByEmail(String email) {
-        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Users_table + " where email = \"" + email + "\" AND typeOfUser=1")) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Users_table + " where email = \"" + email + "\" AND typeOfUser="+SellerType)) {
             return getSellerFromBase(stm);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,14 +56,15 @@ public class AccountDB implements DBQueries {
     @Override
     public List<Seller> getSellerByName(String name) {
         ArrayList<Seller> list = new ArrayList<Seller>();
-        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Users_table + " where typeOfUser =" + 1 + " and name =" + '\"' + name + '\"';
+        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Users_table + " where typeOfUser =" + SellerType + " and name =" + '\"' + name + '\"';
         try (PreparedStatement stm = con.prepareStatement(s)) {
             getSeveralSellersFromBase(list, stm);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='user'";
+        s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='"+HashTagTypeUser+"'";
+
         List<Integer> ls = getIDsByTag(s);
         for (int i = 0; i < ls.size(); i++) {
             Seller sel = getSellerByID(ls.get(i));
@@ -103,7 +106,7 @@ public class AccountDB implements DBQueries {
     @Override
     public boolean addNewSeller(Seller seller) {
         String s = "insert into " + DBInfo.MYSQL_DATABASE_Users_table + " (password, userName, name, typeOfUser, rating, voters, mobileNumber, imageUrl, email) values(" + "\"" + seller.getPassword() + "\"" + "," +
-                "\"" + seller.getUserName() + "\"" + "," + "\"" + seller.getName() + "\"" + "," + 1 + "," + seller.getRating()
+                "\"" + seller.getUserName() + "\"" + "," + "\"" + seller.getName() + "\"" + "," + SellerType + "," + seller.getRating()
                 + "," + seller.getVoters() + "," + "\"" + seller.getMobileNumber() + "\"" + "," + "\"" + seller.getImage() + "\"" + "," + "\"" + seller.getEmail() + "\"" + ")";
         return Helper(s);
     }
@@ -123,7 +126,7 @@ public class AccountDB implements DBQueries {
     @Override
     public List<Seller> getAllSeller() {
         ArrayList<Seller> list = new ArrayList<Seller>();
-        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Users_table + " where typeOfUser =" + 1;
+        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Users_table + " where typeOfUser =" + SellerType;
         try (PreparedStatement stm = con.prepareStatement(s)) {
             getSeveralSellersFromBase(list, stm);
         } catch (SQLException e) {
@@ -173,7 +176,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public Buyer getBuyerByUsername(String userName) {
-        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Users_table + " where username = '" + userName + "' AND typeOfUser=0")) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Users_table + " where username = '" + userName + "' AND typeOfUser="+ BuyerType)) {
             return getBuyerFromBase(stm);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -198,7 +201,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public Buyer getBuyerByEmail(String email) {
-        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Users_table + " where email = \"" + email + "\" AND typeOfUser=0")) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Users_table + " where email = \"" + email + "\" AND typeOfUser="+BuyerType)) {
             return getBuyerFromBase(stm);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -219,7 +222,7 @@ public class AccountDB implements DBQueries {
     @Override
     public List<Buyer> getBuyerByName(String name) {
         ArrayList<Buyer> list = new ArrayList<>();
-        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Users_table + " where typeOfUser =" + 0 + " and name =" + '\"' + name + '\"';
+        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Users_table + " where typeOfUser =" + BuyerType + " and name =" + '\"' + name + '\"';
         try (PreparedStatement stm = con.prepareStatement(s)) {
             getSeveralBuyersFromBase(list, stm);
         } catch (SQLException e) {
@@ -242,7 +245,7 @@ public class AccountDB implements DBQueries {
     @Override
     public boolean addNewBuyer(Buyer buyer) {
         String s = "insert into " + DBInfo.MYSQL_DATABASE_Users_table + " (password, userName, name, typeOfUser, rating, voters, mobileNumber, imageUrl, email) values(" + "\"" + buyer.getPassword() + "\"" + "," +
-                "\"" + buyer.getUserName() + "\"" + "," + "\"" + buyer.getName() + "\"" + "," + 0 + "," + buyer.getRating()
+                "\"" + buyer.getUserName() + "\"" + "," + "\"" + buyer.getName() + "\"" + "," + BuyerType + "," + buyer.getRating()
                 + "," + buyer.getVoters() + "," + "\"" + buyer.getMobileNumber() + "\"" + "," + "\"" + buyer.getImage() + "\"" + "," + "\"" + buyer.getEmail() + "\"" + ")";
         return Helper(s);
     }
@@ -271,7 +274,7 @@ public class AccountDB implements DBQueries {
     @Override
     public List<Buyer> getAllBuyer() {
         ArrayList<Buyer> list = new ArrayList<>();
-        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Users_table + " where typeOfUser =" + 0;
+        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Users_table + " where typeOfUser =" + BuyerType;
         try (PreparedStatement stm = con.prepareStatement(s)) {
             getSeveralBuyersFromBase(list, stm);
         } catch (SQLException e) {
@@ -347,7 +350,7 @@ public class AccountDB implements DBQueries {
         List<Item> ls = new ArrayList<Item>();
         String s = "select * from " + DBInfo.MYSQL_DATABASE_Items_table + " where ItemName ='" + name + "'";
         getItems(ls, s);
-        s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='item'";
+        s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='"+HashTagTypeItem +"'";
         List<Integer> list = getIDsByTag(s);
         for (int i = 0; i < list.size(); i++) {
             Item it = getItemById(list.get(i));
@@ -532,13 +535,13 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean addHashTagToUser(int userID, String tag) {
-        String s = "insert into " + DBInfo.MYSQL_DATABASE__Tags_table + " (tagName, tagType, ownerID) values( '" + tag + "' ,'user'," + userID + ")";
+        String s = "insert into " + DBInfo.MYSQL_DATABASE__Tags_table + " (tagName, tagType, ownerID) values( '" + tag + "' , '" +HashTagTypeUser+"' ," + userID + ")";
         return Helper(s);
     }
 
     @Override
     public boolean addHashTagToItem(int itemID, String tag) {
-        String s = "insert into " + DBInfo.MYSQL_DATABASE__Tags_table + " (tagName, tagType, ownerID) values ('" + tag + "', 'item'," + itemID + ")";
+        String s = "insert into " + DBInfo.MYSQL_DATABASE__Tags_table + " (tagName, tagType, ownerID) values ('" + tag + "', '"+HashTagTypeItem+"' ," + itemID + ")";
         return Helper(s);
     }
 }

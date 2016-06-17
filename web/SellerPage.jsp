@@ -71,7 +71,7 @@
 
                 <div class="table">
 
-                    <div  class="row header">
+                    <div  class="row-stat header">
                         <div class="cell">
                             Product Name
                         </div>
@@ -89,7 +89,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row-stat">
                         <div class="cell">
                             Pizza
                         </div>
@@ -107,7 +107,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row-stat">
                         <div class="cell">
                             Khchapuri
                         </div>
@@ -124,7 +124,7 @@
                             13,4
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row-stat">
                         <div class="cell">
                             Khchapuri
                         </div>
@@ -141,7 +141,7 @@
                             13,4
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row-stat">
                         <div class="cell">
                             Khchapuri
                         </div>
@@ -158,7 +158,7 @@
                             13,4
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row-stat">
                         <div class="cell">
                             Khchapuri
                         </div>

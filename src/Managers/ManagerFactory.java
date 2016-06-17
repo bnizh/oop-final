@@ -8,7 +8,12 @@ public class ManagerFactory {
     public static UserManager getUserManager() {
         return new UserManager();
     }
-    public static SendMail getSendMail(){
+
+    public static ItemManager getItemManager() {
+        return new ItemManager();
+    }
+
+    public static SendMail getSendMail() {
         return new SendMail();
     }
 }

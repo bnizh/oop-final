@@ -168,7 +168,7 @@
                     </div>
                     <div>
                         <label class=" reg-label">Profile Picture</label>
-                        <input type="file" name="file">
+                        <input type="file" accept="image/gif, image/jpeg, image/png" name="file">
                     </div>
                     <div>
                         <button type="submit" class="button registration-submit-buy">Confirm</button>
@@ -231,7 +231,7 @@
                     </div>
                     <div>
                         <label class=" reg-label">Profile Picture</label>
-                        <input type="file" name="file">
+                        <input type="file" accept="image/gif, image/jpeg, image/png" name="file">
                     </div>
                     <div>
                         <button type="submit" class="button registration-submit-buy">Confirm</button>

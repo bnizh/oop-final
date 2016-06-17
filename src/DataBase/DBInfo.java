@@ -13,8 +13,5 @@ public class DBInfo {
     public static final String MYSQL_DATABASE_UsersComments_table = "usersComments";
     public static final String MYSQL_DATABASE_ItemsComments_table = "itemsComments";
     public static final String MYSQL_DATABASE_Categories_table = "categories";
-
-
-
-
+    public static final String MYSQL_DATABASE_Rating_table = "rating";
 }

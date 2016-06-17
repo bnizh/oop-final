@@ -111,23 +111,23 @@
     }
 }
 
-.row {
+.row-stat {
     display: table-row;
     background: #f6f6f6;
 }
 
-.row:nth-of-type(odd) {
+.row-stat:nth-of-type(odd) {
     background: #990099;
 }
 
-.row.header {
+.row-stat.header {
     font-weight: 900;
     color: #ffffff;
     background: #ff5e01;
 }
 
 @media screen and (max-width: 580px) {
-    .row {
+    .row-stat {
         padding: 8px 0;
         display: block;
     }

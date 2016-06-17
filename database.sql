@@ -37,7 +37,7 @@ Create table items(
     itemImageUrl varchar(256),
     categoryID int not null,
     ownerID int not null,
-    price int,
+    price float,
     rating int,
     voters int,
     primary key(itemID),

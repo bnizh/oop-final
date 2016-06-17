@@ -7,7 +7,7 @@ public class Item {
     int voters;
     int ownerID;
     String image;
-    int price;
+    double price;
     String description;
 
     public int getCategoryID() {
@@ -66,17 +66,17 @@ public class Item {
         this.image = image;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
     int categoryID;
 
-    public Item(String name, int ownerID, String image, int price, int categoryID, int rating, int voters, String desc) {
+    public Item(String name, int ownerID, String image, double price, int categoryID, int rating, int voters, String desc) {
         this.name = name;
         this.ownerID = ownerID;
         this.image = image;
@@ -88,7 +88,7 @@ public class Item {
         this.description = desc;
     }
 
-    public Item(String name, int ID, int ownerID, String image, int price, int categoryID, int rating, int voters, String desc) {
+    public Item(String name, int ID, int ownerID, String image, double price, int categoryID, int rating, int voters, String desc) {
         this.name = name;
         this.ownerID = ownerID;
         this.image = image;

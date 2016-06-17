@@ -307,7 +307,7 @@ public class AccountDB implements DBQueries {
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
                     ls.add(ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
-                            rs.getString("itemImageUrl"), rs.getInt("price"), rs.getInt("categoryID"), rs.getInt("rating"),
+                            rs.getString("itemImageUrl"), rs.getFloat("price"), rs.getInt("categoryID"), rs.getInt("rating"),
                             rs.getInt("voters"), rs.getString("description")));
                 }
             } catch (SQLException e) {
@@ -325,7 +325,7 @@ public class AccountDB implements DBQueries {
             try (ResultSet rs = stm.executeQuery()) {
                 if (rs.next()) {
                     return ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
-                            rs.getString("itemImageUrl"), rs.getInt("price"), rs.getInt("categoryID"), rs.getInt("rating"),
+                            rs.getString("itemImageUrl"), rs.getFloat("price"), rs.getInt("categoryID"), rs.getInt("rating"),
                             rs.getInt("voters"), rs.getString("description"));
                 }
             } catch (SQLException e) {

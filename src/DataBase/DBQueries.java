@@ -43,7 +43,7 @@ public interface DBQueries {
 
     public List<Buyer> getAllBuyer();
 
-    public boolean addItem(Item it);
+    public Item addItem(Item it);
 
     public boolean deleteItem(int id );
 

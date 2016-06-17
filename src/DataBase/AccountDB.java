@@ -284,10 +284,26 @@ public class AccountDB implements DBQueries {
     }
 
     @Override
-    public boolean addItem(Item it) {
+    public Item addItem(Item it) {
         String s = "Insert into " + DBInfo.MYSQL_DATABASE_Items_table + " (itemName, itemImageUrl,categoryID,ownerID,price,rating, voters, description) values ('" + it.getName() + "','" + it.getImage() + "',"
                 + it.getCategoryID() + "," + it.getOwnerID() + "," + it.getPrice() + "," + it.getRating() + "," + it.getVoters() + ", '"+it.getDescription()+"' )";
-        return Helper(s);
+        Helper(s);
+        Item item = null;
+        s = "select * from " + DBInfo.MYSQL_DATABASE_Items_table + " where ownerID =" + it.getOwnerID()+" and ItemName ='"+it.getName()+"'";
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    item = ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
+                            rs.getString("itemImageUrl"), rs.getFloat("price"), rs.getInt("categoryID"), rs.getInt("rating"),
+                            rs.getInt("voters"), rs.getString("description"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return item;
     }
 
     @Override

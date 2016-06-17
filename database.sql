@@ -42,6 +42,7 @@ Create table items(
     voters int,
     primary key(itemID),
     description VARCHAR(2048),
+    UNIQUE KEY combination (ownerID, ItemName),
     foreign key(ownerID) references Users(userID),
     foreign key(categoryID) references categories(categoryID)
 );

@@ -379,7 +379,7 @@ public class DBConnection implements DBQueries{
     }
 
     @Override
-    public boolean addItem(Item it) {
+    public Item addItem(Item it) {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();

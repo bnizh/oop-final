@@ -32,7 +32,8 @@ public class EditServlet extends HttpServlet {
             System.out.println(seller);
             um.editImageSeller(filePart, seller);
             request.setAttribute(USER,seller);
-            response.sendRedirect("/SellerPage.jsp");
+            RequestDispatcher dispatch = request.getRequestDispatcher("/user-page.jsp");
+            dispatch.forward(request, response);
 
 
         }
@@ -41,8 +42,13 @@ public class EditServlet extends HttpServlet {
             seller.setName(sname);
             db.updateSellerWithoutImage(seller);
             request.setAttribute(USER,seller);
-            response.sendRedirect("/SellerPage.jsp");
-
+            RequestDispatcher dispatch = request.getRequestDispatcher("/user-page.jsp");
+            dispatch.forward(request, response);
+        }
+        if(request.getParameter("smob")!=null){
+            Seller seller = (Seller) request.getSession().getAttribute(USER);
+            seller.setMobileNumber(request.getParameter("smob"));
+            db.updateSellerWithoutImage(seller);
         }
     }
 

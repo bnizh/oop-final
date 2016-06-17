@@ -6,7 +6,7 @@
         </div>
         <div class="left-side-user">
             <div style="float:right;">
-                <form id="img-edit" method="" action="">
+                <form id="img-edit">
                     <div class="image-upload">
                         <label id="input-label" for="img-edit-input">
                             <img id="pic-edit-icon" class="edit-icon" src="edit.png"/>
@@ -19,8 +19,8 @@
             <%User us = (User) request.getSession().getAttribute("user"); %>
             <img src="ImageLoader?FileName=<%=us.getImage()%>" style="width: 200px; height: 200px">
             <div style="color: #990099">
-                <span>Rating 8/10    </span>
-                <span>voters:100</span>
+                <span><%=us.getRating()%>  </span>
+                <span><%=us.getVoters()%></span>
             </div>
         </div>
         <div class="center-side-user">
@@ -32,13 +32,14 @@
                 <input type="text" name='sname' class="user-fields" value="<%=us.getName()%>" readonly>
                 <img src="edit.png" class="edit-icon edit-icon-uname">
             </form>
-            <form class="edit-forms" id="edit-email">
+            <form class="edit-forms">
+                <label> Email:</label>
                 <input type="text" name="semail" class="user-fields" value="<%=us.getEmail()%>" readonly>
-                <img src="edit.png" class="edit-icon edit-icon-email">
-
             </form>
             <form class="edit-forms" id="edit-mob">
-                <input type="text" name="smob" class="user-fields" value=" <%=us.getMobileNumber()%>" readonly>
+                <label> Mobil:</label>
+                <input type="text" name="smob" class="user-fields" value=" <%=us.getMobileNumber()%>" readonly
+                       title="Mobile">
                 <img src="edit.png" class="edit-icon ">
 
             </form>
@@ -48,7 +49,13 @@
                 <a href="#">Add New Product</a>
             </div>
             <div>
-                <span>mobile:571119644</span>
+                <a href="#my-prod">My Products</a>
+            </div>
+            <div>
+                <a href="#stats">My statistics</a>
+            </div>
+            <div>
+                <a href="#com">Comments</a>
             </div>
         </div>
     </div>
@@ -57,14 +64,14 @@
 <div>
     <div class="user-container">
         <div class="type-header">
-            <span>Statistics</span>
+            <span id="stats">Statistics</span>
         </div>
         <div>
-            <div class="wrapper" id="stats">
+            <div class="wrapper" >
 
                 <div class="table">
 
-                    <div class="row header">
+                    <div  class="row header">
                         <div class="cell">
                             Product Name
                         </div>
@@ -178,7 +185,7 @@
 <div>
     <div id="main">
         <div class="type-header">
-            <span>My Products</span>
+            <span id="my-prod">My Products</span>
         </div>
         <div id="product-list-user">
             <div class="product-user">
@@ -281,3 +288,10 @@
     </div>
 </div>
 <div class="div-separator"></div>
+<div>
+    <div class="user-container">
+        <div class="type-header">
+            <span id="com">Comments</span>
+        </div>
+    </div>
+</div>

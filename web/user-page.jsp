@@ -36,7 +36,7 @@
 <%@include file="SellerPage.jsp" %>
 <% } else {
 %>
-<%@include file="BuyerPage.html" %>
+<%@include file="BuyerPage.jsp" %>
 
 <% }%>
 

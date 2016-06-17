@@ -39,7 +39,18 @@
     overflow: auto;
     float: left;
 }
+.center-side-user label{
+    float: left;
+    width:15%;
+}
+.center-side-user form{
+    width:98%;
 
+}
+
+.center-side-user form input{
+    width:70%;
+}
 .right-side-user {
     color: #990099;
     text-align: center;
@@ -54,12 +65,13 @@
 .user-fields,
 .user-fields:hover,
 .user-fields:active,
-.user-fields:focus{
+.user-fields:focus {
     border: none;
     background-color: white;
     outline: none;
     text-align: left;
     color: #990099;
+    margin-bottom: 5px;
     font-size: 20px;
 }
 
@@ -68,11 +80,12 @@
     margin-bottom: 10%;
 
 }
-.image-upload > input
-{
+
+.image-upload > input {
     display: none;
 }
-.div-separator{
+
+.div-separator {
     margin-right: -15px;
     margin-left: -15px;
     margin-top: 30px;
@@ -91,6 +104,7 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     display: table;
 }
+
 @media screen and (max-width: 580px) {
     .table {
         display: block;
@@ -101,9 +115,11 @@
     display: table-row;
     background: #f6f6f6;
 }
+
 .row:nth-of-type(odd) {
     background: #990099;
 }
+
 .row.header {
     font-weight: 900;
     color: #ffffff;
@@ -121,6 +137,7 @@
     padding: 6px 12px;
     display: table-cell;
 }
+
 @media screen and (max-width: 580px) {
     .cell {
         padding: 2px 12px;
@@ -128,12 +145,13 @@
     }
 }
 
-#product-list-user{
+#product-list-user {
     margin-left: 8%;
     width: 90%;
     overflow: auto;
     float: left;
 }
+
 .product-user {
     height: 200px;
     width: 200px;
@@ -142,6 +160,7 @@
     float: left;
     margin: 10px 10px 10px 10px;
 }
+
 .product-user img {
     width: 100px;
     height: 100px;
@@ -171,4 +190,45 @@
     color: #990099;
     letter-spacing: 2px;
     font-size: 15px;
+}
+
+.rating {
+    float: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 30px;
+}
+
+.rating span {
+    float: right;
+    position: relative;
+}
+
+.rating span input {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+}
+
+.rating span label {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    color: #FFF;
+    background: #ccc;
+    font-size: 30px;
+    margin-right: 2px;
+    line-height: 30px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.rating span:hover ~ span label,
+.rating span:hover label,
+.rating span.checked label,
+.rating span.checked ~ span label {
+    background: #F90;
+    color: #FFF;
 }

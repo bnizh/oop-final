@@ -384,8 +384,7 @@ public class AccountDB implements DBQueries {
     @Override
     public boolean updateItemWithoutImage(Item it) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Items_table + " set itemName ='" + it.getName()  +
-                "',categoryID =" + it.getCategoryID() + ", ownerID=" + it.getOwnerID() + ", price=" + it.getPrice() + ", rating=" + it.getRating()
-                + ",voters =" + it.getVoters() + " where itemID=" + it.getID();
+                "',categoryID =" + it.getCategoryID() + ", ownerID=" + it.getOwnerID() + ", price=" + it.getPrice()  + " where itemID=" + it.getID();
         return Helper(s);
     }
 

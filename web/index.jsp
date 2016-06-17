@@ -1,3 +1,8 @@
+<%@ page import="java.util.List" %>
+<%@ page import="Objects.Item" %>
+<%@ page import="DataBase.DBConnection" %>
+<%@ page import="DataBase.DBFactory" %>
+<%@ page import="Objects.Seller" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -40,51 +45,31 @@
             <a class="left-menu-item" style="border: none" href="#">dradad</a>
         </div>
         <div id="product-list">
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
+            <%
+                DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
+                List<Item> list = dbc.getTopItems(20);
+                for (Item item : list) {
+                    System.out.println(item.getName());
+                    Seller owner = dbc.getSellerByID(item.getOwnerID());
+                    String ownerName = owner.getName();
+                    String itemName = item.getName();
+                    String itemImage = item.getImage();
+                    if (ownerName == null) ownerName = "";
+                    if (itemName == null) itemName = "";
+                    if (itemImage == null) itemImage = "";
+                    System.out.println(owner);
+                    System.out.println(owner.getUserName());
+                    out.println("<div class=\"product\">\n" +
+                            "                <div>" + ownerName + "</div>\n" +
+                            "                <img src=\"ImageLoader?FileName=" + itemImage + "\">\n" +
+                            "               " +"<div>"+item.getName()+"</div>\n" +
+                            "                <div>Price:"+item.getPrice()+"</div>"+
+                            " <button class=\"button\"> დეტალურად</button>\n" +
+                            "            </div>");
+                }
+
+
+            %>
         </div>
 
     </div>

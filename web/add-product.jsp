@@ -2,7 +2,7 @@
 <%@ page import="Objects.Category" %>
 <html>
 <head>
-    <title>Cart</title>
+    <title>Food-Online</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <link href="main.css" rel="stylesheet">
     <link href="usercss.css" rel="stylesheet">

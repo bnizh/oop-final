@@ -100,7 +100,11 @@ public class Item {
         this.ID = ID;
     }
 
+    public void increaseRating(int r){
+        this.setRating(this.getRating()+r);
+        this.setVoters(this.getVoters()+1);
 
+    }
 
     public boolean equals(Item it) {
        return (this.ID == it.getID() && this.categoryID == it.getCategoryID()&&

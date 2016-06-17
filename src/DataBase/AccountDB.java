@@ -63,7 +63,7 @@ public class AccountDB implements DBQueries {
             e.printStackTrace();
         }
 
-        s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='"+HashTagTypeUser+"'";
+        s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='"+USER+"'";
 
         List<Integer> ls = getIDsByTag(s);
         for (int i = 0; i < ls.size(); i++) {
@@ -350,7 +350,7 @@ public class AccountDB implements DBQueries {
         List<Item> ls = new ArrayList<Item>();
         String s = "select * from " + DBInfo.MYSQL_DATABASE_Items_table + " where ItemName ='" + name + "'";
         getItems(ls, s);
-        s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='"+HashTagTypeItem +"'";
+        s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='"+ITEM +"'";
         List<Integer> list = getIDsByTag(s);
         for (int i = 0; i < list.size(); i++) {
             Item it = getItemById(list.get(i));
@@ -535,13 +535,67 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean addHashTagToUser(int userID, String tag) {
-        String s = "insert into " + DBInfo.MYSQL_DATABASE__Tags_table + " (tagName, tagType, ownerID) values( '" + tag + "' , '" +HashTagTypeUser+"' ," + userID + ")";
+        String s = "insert into " + DBInfo.MYSQL_DATABASE__Tags_table + " (tagName, tagType, ownerID) values( '" + tag + "' , '" +USER+"' ," + userID + ")";
         return Helper(s);
     }
 
     @Override
     public boolean addHashTagToItem(int itemID, String tag) {
-        String s = "insert into " + DBInfo.MYSQL_DATABASE__Tags_table + " (tagName, tagType, ownerID) values ('" + tag + "', '"+HashTagTypeItem+"' ," + itemID + ")";
+        String s = "insert into " + DBInfo.MYSQL_DATABASE__Tags_table + " (tagName, tagType, ownerID) values ('" + tag + "', '"+ITEM+"' ," + itemID + ")";
         return Helper(s);
     }
+
+    @Override
+    public boolean addWrittenRatingToBase(Rating r) {
+        String s = "insert into " + DBInfo.MYSQL_DATABASE_Rating_table + " (writerID, ownerID, rating, ownerType) values ("+r.getWriterID()+","+r.getOwnerID()+","+r.getValue()+", '"+r.getOwnerType()+ "' )";
+        String st ="";
+        if(r.getOwnerType().equals(USER)) {
+            User u = getBuyerByID(r.getOwnerID());
+            if(u==null)
+                u=getSellerByID(r.getOwnerID());
+            u.increaseRating(r.getValue());
+            st = "Update " + DBInfo.MYSQL_DATABASE_Users_table + " set rating ="+u.getRating() + ", voters =" +u.getVoters()+ "where userID=" + u.getID();
+        }else if(r.getOwnerType().equals(ITEM)){
+            Item it = getItemById(r.getID());
+            it.increaseRating(r.getValue());
+            st = "Update " + DBInfo.MYSQL_DATABASE_Users_table + " set rating ="+it.getID() + ", voters ="+it.getVoters() + "where itemID=" + it.getID();
+        }else{
+            return false;
+        }
+        return Helper(s)&&Helper(st);
+    }
+
+    @Override
+    public Rating getRating(int ownerID, int writerID, String ownerType) {
+        String s = "select * from " + DBInfo.MYSQL_DATABASE_Rating_table + " where ownerID ="+ownerID+" and writerID ="+writerID+" and ownerType ='"+ownerType+"'";
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    return ObjectFactory.getNewRating(rs.getInt("ID"),rs.getInt("ownerID"),rs.getInt("writerID"),rs.getInt("rating"),rs.getString("ownerType"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public boolean deleteRating(int id) {
+        String s = " Delete from " + DBInfo.MYSQL_DATABASE_Rating_table + " where ID =" + id;
+        return Helper(s);
+    }
+
+    @Override
+    public boolean updateRating(Rating r) {
+        Rating rat = getRating(r.getOwnerID(), r.getWriterID(), r.getOwnerType());
+        int value = r.getValue()-rat.getValue();
+        String s = "update " + DBInfo.MYSQL_DATABASE_Rating_table + " set rating  = "+value+" where ID =" +r.getID();
+        return Helper(s);
+    }
+
+
 }

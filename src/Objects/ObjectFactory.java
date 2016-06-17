@@ -67,5 +67,13 @@ public class ObjectFactory {
 
     }
 
+    public static Rating getNewRating(int ID, int ownerID, int writerID, int value, String ownerType){
+        return new Rating(ID,ownerID,writerID,value,ownerType);
+    }
+
+    public static Rating getNewRating(int ownerID, int writerID, int value, String ownerType){
+        return new Rating(ownerID,writerID,value,ownerType);
+    }
+
 
 }

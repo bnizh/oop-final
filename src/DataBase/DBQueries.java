@@ -88,5 +88,12 @@ public interface DBQueries {
 
     public boolean addHashTagToItem(int itemID, String tag);
 
+    public boolean addWrittenRatingToBase(Rating r);
+
+    public Rating getRating(int ownerID, int writerID, String ownerType);
+
+    public boolean deleteRating(int id);
+
+    public boolean updateRating(Rating r);
 
 }

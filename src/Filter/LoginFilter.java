@@ -57,7 +57,6 @@ public class LoginFilter implements Filter {
         else{
             req.getSession().setAttribute(LOGGED_IN,false);
         }
-        System.out.println(uri);
         if(!loggedIn&&(uri.endsWith("user-page.jsp")||uri.endsWith("user-panel.jsp"))){
             res.sendRedirect("/index.jsp");
             return;

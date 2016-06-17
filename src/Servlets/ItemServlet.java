@@ -1,7 +1,10 @@
 package Servlets;
 
+import DataBase.DBConnection;
 import Managers.ItemManager;
 import Managers.ManagerFactory;
+import Objects.Item;
+import Objects.Seller;
 import Objects.User;
 
 import javax.servlet.RequestDispatcher;
@@ -38,6 +41,19 @@ public class ItemServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        int id = Integer.valueOf(request.getParameter("ID"));
+        DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
+        Item item = dbc.getItemById(id);
+        Seller seller = dbc.getSellerByID(item.getOwnerID());
+        User user = (User) request.getSession().getAttribute(USER);
+        request.getSession().setAttribute("itemID",id);
+        if(user.getID()==seller.getID()){
+            RequestDispatcher dispatch = request.getRequestDispatcher("item-owner.jsp");
+            dispatch.forward(request, response);
+        }
+        else{
+            RequestDispatcher dispatch = request.getRequestDispatcher("item.jsp");
+            dispatch.forward(request, response);
+        }
     }
 }

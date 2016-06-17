@@ -1,9 +1,6 @@
-<%@ page import="java.util.List" %>
-<%@ page import="Objects.Item" %>
 <%@ page import="DataBase.DBConnection" %>
-<%@ page import="DataBase.DBFactory" %>
+<%@ page import="Objects.Item" %>
 <%@ page import="Objects.Seller" %>
-<%@ page import="Objects.Category" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -11,9 +8,12 @@
     <title>Cart</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <link href="css/main.css" rel="stylesheet">
+    <link href="css/usercss.css" rel="stylesheet">
+    <link href="css/item-css.css" rel="stylesheet">
     <script src="Javascript/AjaxSending.js"></script>
     <script src="Javascript/passwordscheck.js"></script>
     <script src="Javascript/loginAjax.js"></script>
+    <script src="Javascript/item.js"></script>
 </head>
 <body>
 <!-- Header -->
@@ -34,50 +34,76 @@
     <% }%>
 </div>
 <!-- Header -->
+<%
+    DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
+    Item item = dbc.getItemById((Integer) request.getSession().getAttribute("itemID"));
+    Seller seller = dbc.getSellerByID(item.getOwnerID());
+
+%>
 <!-- Main -->
 <div>
-    <div id="main">
-        <div class="left-menu">
-            <% List<Category> categoryList = (List<Category>) getServletConfig().getServletContext().getAttribute("categories");
-                for (Category category : categoryList) {
-                    out.println(" <a class=\"left-menu-item\" href=\"#\">" + category.getName() + "</a>");
-                }
-            %>
+    <div class="user-container">
+        <div class="type-header">
+            <span><%=item.getName()%></span>
+        </div>
+        <div class="type-header">
 
         </div>
-        <div id="product-list">
-            <%
-                DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
-                List<Item> list = dbc.getTopItems(20);
-                for (Item item : list) {
-                    System.out.println(item.getName());
-                    Seller owner = dbc.getSellerByID(item.getOwnerID());
-                    String ownerName = owner.getName();
-                    String itemName = item.getName();
-                    String itemImage = item.getImage();
-                    if (ownerName == null) ownerName = "";
-                    if (itemName == null) itemName = "";
-                    if (itemImage == null) itemImage = "";
-                    System.out.println(owner);
-                    System.out.println(owner.getUserName());
-                    out.println("<div class=\"product\">\n" +
-                            "                <div>" + ownerName + "</div>\n" +
-                            "                <img src=\"ImageLoader?FileName=" + itemImage + "\">\n" +
-                            "               " + "<div>" + itemName + "</div>\n" +
-                            "                <div>Price:" + item.getPrice() + "</div>" +
-                            "<form action=\"item\" method=\"get\">" +
-                            "<input name=\"ID\" type=\"hidden\" value=\""+item.getID()+"\">\n" +
-                            "<button  type=\"submit\" class=\"button\"> დეტალურად</button>\n" +
-                            "</form>" + "</div>");
-                }
+        <div class="left-side-item">
+            <div style="float:right;">
+                <form id="img-edit">
+                    <div class="image-upload">
+                        <label id="input-label" for="img-edit-input">
+                            <img id="pic-edit-icon" class="edit-icon" src="edit.png"/>
+                        </label>
+                        <input id="img-edit-input" name="image" accept="image/gif, image/jpeg, image/png" type="file"/>
+                        <input name="ID" type="hidden" value="<%=item.getID()%>">
+                    </div>
+                </form>
+            </div>
 
-
-            %>
+            <img id="item-page-main-pic" src="ImageLoader?FileName=<%=item.getImage()%>">
+            <div style="color: #990099">
+                <span style="margin-right: 5px">rating: <%=item.getRating()%></span>
+                <span>voters: <%=item.getVoters()%></span>
+            </div>
+        </div>
+        <div class="center-side-item">
+            <form class="edit-forms">
+                <label> Company:</label>
+                <input type="text" name="company-name" class="user-fields" value="<%=seller.getName()%>" readonly
+                       title="Mobile">
+            </form>
+            <form class="edit-forms" id="edit-price" style="">
+                <label> Price:</label>
+                <input name="ID" type="hidden" value="<%=item.getID()%>">
+                <input type="number" step="0.01" style="width: 80px" name="price" value="<%=item.getPrice()%>"
+                       class="user-fields"
+                       readonly
+                       title="Mobile">
+                <img src="edit.png" class="edit-icon ">
+            </form>
+            <form class="edit-forms" id="edit-desc" style="">
+                <label> Description:</label>
+                <input name="ID" type="hidden" value="<%=item.getID()%>">
+                <textarea type="number" style="resize: none;font-size: 15px" rows="8" cols="60" name="description"
+                          class="user-fields"
+                          readonly
+                          title="Description"><%=item.getDescription()%></textarea>
+                <img src="edit.png" style="float:right;" class="edit-icon ">
+            </form>
         </div>
 
     </div>
 </div>
-<!-- Main -->
+<div class="div-separator"></div>
+<div>
+    <div class="user-container">
+        <div class="type-header">
+            <span id="com">Comments</span>
+        </div>
+    </div>
+</div>
 
 
 <div id="footer"></div>

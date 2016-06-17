@@ -37,7 +37,7 @@ Create table items(
     itemImageUrl varchar(256),
     categoryID int not null,
     ownerID int not null,
-    price DOUBLE PRECISION(15,2),
+    price float(15,2),
     rating int,
     voters int,
     primary key(itemID),
@@ -46,7 +46,7 @@ Create table items(
     foreign key(ownerID) references Users(userID),
     foreign key(categoryID) references categories(categoryID)
 );
- SELECT *FROM items;
+ SELECT *FROM  users;
 create table itemsComments(
     commentID int auto_increment not null,
     writerID int not null,

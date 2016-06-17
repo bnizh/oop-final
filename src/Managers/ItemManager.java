@@ -41,7 +41,7 @@ public class ItemManager {
         db.updateItemImage(itemID, newUrl);
     }
 
-    public void editItemPrice(Item it, int price) {
+    public void editItemPrice(Item it, Double price) {
         it.setPrice(price);
         db.updateItemWithoutImage(it);
     }

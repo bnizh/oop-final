@@ -4,12 +4,12 @@
 <head>
     <title>Cart</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <link href="main.css" rel="stylesheet">
-    <link href="usercss.css" rel="stylesheet">
-    <script src="AjaxSending.js"></script>
-    <script src="passwordscheck.js"></script>
-    <script src="loginAjax.js"></script>
-    <script src="user-edit.js"></script>
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/usercss.css" rel="stylesheet">
+    <script src="Javascript/AjaxSending.js"></script>
+    <script src="Javascript/passwordscheck.js"></script>
+    <script src="Javascript/loginAjax.js"></script>
+    <script src="Javascript/user-edit.js"></script>
 </head>
 <body>
 <!-- Header -->
@@ -20,9 +20,9 @@
     <%
         if (session.getAttribute("loggedIn") == null || !(boolean) session.getAttribute("loggedIn")) {
     %>
-    <script src="script.js"></script>
+    <script src="Javascript/script.js"></script>
     <%@include file="visitor.jsp" %>
-    <script src="script.js"></script>
+    <script src="Javascript/script.js"></script>
     <% } else {
     %>
     <%@include file="user-panel.jsp" %>

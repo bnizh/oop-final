@@ -1,0 +1,41 @@
+
+#item-page-main-pic {
+    border-radius: 10%;
+    width: 90%;
+    height: 200px;
+    float: left;
+    margin-left: 5%;
+}
+.left-side-item{
+    text-align: center;
+    border: 2px solid #ff5e01;
+    width: 30%;
+    margin-left: 3%;
+    border-radius: 6px;
+    overflow: auto;
+    float: left;
+}
+.center-side-item{
+    color: #990099;
+    text-align: center;
+    font-size: 20px;
+    width: 50%;
+    margin-left: 3%;
+    overflow: auto;
+    float: left;
+}
+.center-side-item label{
+    margin-right:10px;
+}
+.edit-forms{
+    width: 96%;
+    float: left;
+}
+.edit-forms label{
+    float: left;
+    margin-right: 20px;
+}
+
+.edit-forms label, .edit-forms input, .edit-forms img{
+    float: left;
+}

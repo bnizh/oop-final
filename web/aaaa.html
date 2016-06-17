@@ -2,11 +2,12 @@
 <head>
     <title>Cart</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <link href="main.css" rel="stylesheet">
-    <script src="script.js"></script>
-    <script src="AjaxSending.js"></script>
-    <script src="passwordscheck.js"></script>
-    <script src="loginAjax.js"></script>
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/usercss.css" rel="stylesheet">
+    <script src="Javascript/AjaxSending.js"></script>
+    <script src="Javascript/passwordscheck.js"></script>
+    <script src="Javascript/loginAjax.js"></script>
+    <script src="Javascript/user-edit.js"></script>
 </head>
 <body>
 <!-- Header --->
@@ -38,70 +39,60 @@
 <!-- Header -->
 <!-- Main -->
 <div>
-    <div id="co">
-        <div class="left-menu">
-            <a class="left-menu-item" href="#">dradad</a>
-            <a class="left-menu-item" href="#">dradad</a>
-            <a class="left-menu-item" href="#">dradad</a>
-            <a class="left-menu-item" href="#">dradad</a>
-            <a class="left-menu-item" href="#">dradad</a>
-            <a class="left-menu-item" href="#">dradad</a>
-            <a class="left-menu-item" style="border: none" href="#">dradad</a>
+    <div class="user-container">
+        <div class="type-header">
+            <span><%=item.getName()%></span>
         </div>
-        <div id="product-list">
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <div>ხინკალი</div>
-                <div>Price: 10$</div>
-                <button class="button"> დეტალურად</button>
+        <div class="type-header">
+
+        </div>
+        <div class="left-side-item">
+            <div style="float:right;">
+                <form id="img-edit">
+                    <div class="image-upload">
+                        <label id="input-label" for="img-edit-input">
+                            <img id="pic-edit-icon" class="edit-icon" src="edit.png"/>
+                        </label>
+                        <input id="img-edit-input" name="image" accept="image/gif, image/jpeg, image/png" type="file"/>
+                        <input name="ID" type="hidden" value="<%=item.getID()%>">
+                    </div>
+                </form>
             </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
+
+            <img id="item-page-main-pic" src="ImageLoader?FileName=<%=item.getImage()%>">
+            <div style="color: #990099">
+                <span style="margin-right: 5px">rating: <%=item.getRating()%></span>
+                <span>voters: <%=item.getVoters()%></span>
             </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product">
-                <div>ხუთი ლულა</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
+        </div>
+        <div class="center-side-item">
+            <form class="edit-forms">
+                <label> Company:</label>
+                <input type="text" name="company-name" class="user-fields" value="<%=seller.getName()%>" readonly
+                       title="Mobile">
+            </form>
+            <form class="edit-forms" id="edit-price" style="">
+                <label> Price:</label>
+                <input name="ID" type="hidden" value="<%=item.getID()%>">
+                <input type="number" step="0.01" style="width: 80px" name="price" value="<%=item.getPrice()%>"
+                       class="user-fields"
+                       readonly
+                       title="Mobile">
+                <img src="edit.png" class="edit-icon ">
+            </form>
+            <form class="edit-forms" id="edit-desc" style="">
+                <label> Description:</label>
+                <input name="ID" type="hidden" value="<%=item.getID()%>">
+                <textarea type="number" style="resize: none;font-size: 15px" rows="8" cols="60" name="description"
+                          class="user-fields"
+                          readonly
+                          title="Description"><%=item.getDescription()%></textarea>
+                <img src="edit.png" style="float:right;" class="edit-icon ">
+            </form>
         </div>
 
     </div>
 </div>
-<!-- Main -->
-
 
 <div id="footer"></div>
 <!-- Footer -->

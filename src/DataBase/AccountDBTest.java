@@ -223,7 +223,7 @@ public class AccountDBTest extends TestCase {
             it = acc.getItemsBySeller(sel.getID()).get(0);
             it.setName("item1");
             it.setImage("image1");
-            it.setPrice(10);
+            it.setPrice((double) 4);
             acc.updateItemWithoutImage(it);
             acc.updateItemImage(it.getID(), it.getImage());
             assertTrue(it.equals(acc.getItemById(it.getID())));

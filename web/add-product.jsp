@@ -4,18 +4,18 @@
 <head>
     <title>Food-Online</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <link href="main.css" rel="stylesheet">
-    <link href="usercss.css" rel="stylesheet">
-    <script src="AjaxSending.js"></script>
-    <script src="passwordscheck.js"></script>
-    <script src="loginAjax.js"></script>
-    <script src="user-edit.js"></script>
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/usercss.css" rel="stylesheet">
+    <script src="Javascript/AjaxSending.js"></script>
+    <script src="Javascript/passwordscheck.js"></script>
+    <script src="Javascript/loginAjax.js"></script>
+    <script src="Javascript/user-edit.js"></script>
 </head>
 <body>
 <!-- Header -->
 <div class="header">
     <div class="header1">
-        <a href="#" id="logo">Food-Online</a>
+        <a href="\index.jsp" id="logo">Food-Online</a>
     </div>
 
 
@@ -64,7 +64,7 @@
                 </div>
                 <div>
                     <label class=" reg-label">Choose Category:</label>
-                    <select name="category" class="search-form-control item-add">
+                    <select name="category" class="search-form-control item-add" title="Categories">
                         <%
                             List<Category> list = (List<Category>) getServletConfig().getServletContext().getAttribute("categories");
                             for (Category cat : list) {

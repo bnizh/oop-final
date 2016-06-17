@@ -15,6 +15,7 @@
                  src="ImageLoader?FileName=<%=user.getImage()%>">
             <div style=""><span href=""><%=user.getName()%></span></div>
             <div style="width: 100%;text-align: center"><a href="\user-page.jsp">Go to private page</a></div>
+            <div style="width: 100%;text-align: center"><a href="\add-product.jsp">Add New Product</a></div>
                 <div style="width: 100%;text-align: center"><a  href="/logout?">Log Out</a></div>
         </div>
     </div>

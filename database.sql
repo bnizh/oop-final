@@ -24,13 +24,13 @@ CREATE TABLE Users (
     primary key (userID)
 );
 
-
 create table categories(
     categoryID int auto_increment not null,
     categoryName varchar(128) unique,
     primary key(categoryID)
 );
-
+INSERT INTO categories (categoryName)
+VALUES ('others');
 Create table items(
 	  itemID int auto_increment not null,
     ItemName varchar(128),
@@ -56,6 +56,7 @@ create table itemsComments(
     foreign key(writerID)  references Users(userID),
     foreign key(ownerID) REFERENCES items(itemID)
 );
+SELECT * FROM items;
 
 Create table usersComments(
 	  commentID int auto_increment not null,

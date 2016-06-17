@@ -1,13 +1,45 @@
 (function () {
     $(document).ready(function () {
+        $("#item-add-form").submit(function (event) {
+            //disable the default form submission
+            event.preventDefault();
+            var formData = new FormData($(this)[0]);
+
+            $.ajax({
+                url: "item",
+                type: 'POST',
+                data: formData,
+                success: function (data) {
+
+                    if (data == "success") {
+                        $("#add-item-err-msg").css("display",'Block');
+                        $("#add-item-err-msg").css("color",'green');
+                        $('#item-add-form')[0].reset();
+                    }
+                    else{
+                        $("#add-item-err-msg").text('Error Has Occurred')
+                        $("#add-item-err-msg").css('color','red');
+                    }
+
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+
+            });
+
+            return false;
+
+        });
+
         $("#buyer-registration").submit(function (event) {
             //disable the default form submission
-            if(!ispasswordgood){
-                $('#reg-buy-pass').css("background-color","#D08080");
+            if (!ispasswordgood) {
+                $('#reg-buy-pass').css("background-color", "#D08080");
                 return;
             }
-            if(!passwordmatch){
-                $('#reg-buy-pass-con').css("background-color","#D08080");
+            if (!passwordmatch) {
+                $('#reg-buy-pass-con').css("background-color", "#D08080");
                 return;
             }
             event.preventDefault();
@@ -18,14 +50,14 @@
                 type: 'POST',
                 data: formData,
                 success: function (data) {
-                    if(data=="usedusername"){
+                    if (data == "usedusername") {
                         buyerUserNameValidation(data);
                     }
-                    else if(data=="usedemail"){
-                        $('#email-reg-msg').css("display","block");
-                        $('#buyer-email-msg').css("background-color","D08080");
+                    else if (data == "usedemail") {
+                        $('#email-reg-msg').css("display", "block");
+                        $('#buyer-email-msg').css("background-color", "D08080");
                     }
-                    else{
+                    else {
                         $('#login-form').replaceWith(data);
                         $('#myModal').css("display", "none");
                     }
@@ -42,12 +74,12 @@
 
         $("#seller-registration").submit(function (event) {
             //disable the default form submission
-            if(!ispasswordgood){
-                $('#reg-sel-pass').css("background-color","#D08080");
+            if (!ispasswordgood) {
+                $('#reg-sel-pass').css("background-color", "#D08080");
                 return;
             }
-            if(!passwordmatch){
-                $('#reg-sel-pass-con').css("background-color","#D08080");
+            if (!passwordmatch) {
+                $('#reg-sel-pass-con').css("background-color", "#D08080");
                 return;
             }
             event.preventDefault();
@@ -58,14 +90,14 @@
                 type: 'POST',
                 data: formData,
                 success: function (data) {
-                    if(data=="used"){
+                    if (data == "used") {
                         sellerUserNameValidation(data)
                     }
-                    else if(data=="usedemail"){
-                        $('#email-reg-msg-sel').css("display","block");
-                        $('#seller-email-msg').css("background-color","D08080");
+                    else if (data == "usedemail") {
+                        $('#email-reg-msg-sel').css("display", "block");
+                        $('#seller-email-msg').css("background-color", "D08080");
                     }
-                    else{
+                    else {
                         $('#login-form').replaceWith(data);
                         $('#myModal').css("display", "none");
 
@@ -128,6 +160,7 @@
                 $("#username-reg-s").css('background-color', '#D08080');
             }
         }
+
         function buyerUserNameValidation(response) {
             if (response == "free") {
                 $("#username-reg-b").css('background-color', '#9FEF7D');

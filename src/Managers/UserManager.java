@@ -15,6 +15,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static Managers.SiteConstants.DEFAULT_USER_IMAGE;
+
 public class UserManager {
     DBConnection db = DBFactory.getDBConnection();
 
@@ -111,7 +113,7 @@ public class UserManager {
 
     private String getImageUrl(String username, Part filePart) throws IOException, ServletException {
         if(filePart.getSize()==0){
-            return "D:\\\\prog\\\\Final-Project\\\\oop-final\\\\web\\\\defaultProfile.png";
+            return DEFAULT_USER_IMAGE;
         }
         FileManager fm = ManagerFactory.getFileManager();
         return fm.saveProfilePicture(username, filePart);

@@ -1,20 +1,24 @@
 package listeners;
+import DataBase.DBConnection;
 import DataBase.DBFactory;
 import Managers.SiteConstants;
+import Objects.Category;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.util.List;
 
 @WebListener()
 public class ContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        // TODO Auto-generated method stub
+        DBConnection dbc= DBFactory.getDBConnection();
+        List<Category> catList= dbc.getAllCategories();
         ServletContext servletCont = servletContextEvent.getServletContext();
-        servletCont.setAttribute("constants", new SiteConstants());
+        servletCont.setAttribute("categories", catList);
     }
 
     /**

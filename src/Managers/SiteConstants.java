@@ -7,7 +7,9 @@ public class SiteConstants {
     public static String USER="user";
     public static String ITEM ="item";
     public static String TYPE="type";
-    public static String IMAGE_DIRECTORY="C:\\\\Users\\\\Boris\\\\Desktop\\\\final project\\\\oop-final\\\\users\\\\";
+    public static String IMAGE_DIRECTORY="D:\\\\prog\\\\OOP\\\\files\\\\";
+    public static String DEFAULT_USER_IMAGE="D:\\\\prog\\\\Final-Project\\\\oop-final\\\\web\\\\defaultProfile.png";
+    public static String DEFAULT_ITEM_IMAGE="D:\\\\prog\\\\Final-Project\\\\oop-final\\\\web\\\\defaultitem.png";
     public static int SellerType = 1;
     public static int BuyerType = 0;
 }

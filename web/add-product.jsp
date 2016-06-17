@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="Objects.Category" %>
 <html>
 <head>
     <title>Cart</title>
@@ -41,9 +43,11 @@
             <span>Add New Product</span>
         </div>
         <div class="row buyer">
-            <form id="buyer-registration" action="/item" method="post" enctype="multipart/form-data">
-
-                <div>
+            <form id="item-add-form" enctype="multipart/form-data">
+                <label id="add-item-err-msg"
+                       style="display:none;color:#5cb85c; font-size: 20px; text-align: center">Product Has
+                    Added Successfully</label>
+                <div style="margin-top: 20px;">
                     <label class="reg-label">Product Name:</label>
                     <input type="text" class=" search-form-control item-add"
                            name="name"
@@ -58,7 +62,19 @@
                            step="0.01"
                            placeholder="Price">
                 </div>
+                <div>
+                    <label class=" reg-label">Choose Category:</label>
+                    <select name="category" class="search-form-control item-add">
+                        <%
+                            List<Category> list = (List<Category>) getServletConfig().getServletContext().getAttribute("categories");
+                            for (Category cat : list) {
+                                out.println(" <option value=\"" + cat.getID() + "\">" + cat.getName());
+                                out.println("</option>");
+                            }
 
+                        %>
+                    </select>
+                </div>
 
                 <div>
                     <label class=" reg-label">Description</label>

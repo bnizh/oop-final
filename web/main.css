@@ -500,9 +500,15 @@ button:focus {
     width: 30%;
     float: left;
     margin-right: 24%;
-
 }
-
+#item-add-form {
+    overflow: auto;
+    margin-top: 20px;
+}
+#item-add-form div{
+    margin-bottom: 10px;
+    overflow: auto;
+}
 #footer {
     position: relative;
     margin-right: 15px;

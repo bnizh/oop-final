@@ -3,8 +3,6 @@ package Managers;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
@@ -67,35 +65,47 @@ public class FileManager {
     }
 
     public String addItemImage(String userName, String itemName, Part filePart) throws IOException {
-        String uploadDirectory = IMAGE_DIRECTORY + userName + "\\\\products";
+        String uploadDirectory = IMAGE_DIRECTORY + userName;
         Path folder = Paths.get(uploadDirectory);
+        Path folder2 = Paths.get(uploadDirectory + "\\\\products");
+        Path folder3 = Paths.get(uploadDirectory + "\\\\products\\\\" + itemName);
         if (Files.notExists(folder)) {
             new File(uploadDirectory).mkdir();
-            new File(uploadDirectory + "\\\\" + itemName).mkdir();
+            new File(uploadDirectory + "\\\\products").mkdir();
+            new File(uploadDirectory + "\\\\products\\\\" + itemName).mkdir();
+        }
+        if (Files.notExists(folder2)) {
+            new File(uploadDirectory + "\\\\products").mkdir();
+            new File(uploadDirectory + "\\\\products\\\\" + itemName).mkdir();
+        }
+        if (Files.notExists(folder3)) {
+            new File(uploadDirectory + "\\\\products\\\\" + itemName).mkdir();
+
         }
         String filename = getSubmittedFileName(filePart);
         InputStream fileContent = filePart.getInputStream();
         String extension = FilenameUtils.getExtension(filename);
         System.out.println(extension);
-        Path file = Paths.get(uploadDirectory + "\\\\" + itemName + "\\\\" + "main." + extension);
+        Path file = Paths.get(uploadDirectory + "\\\\products\\\\" + itemName + "\\\\" + "main." + extension);
         System.out.println(file);
         try (InputStream input = fileContent) {
             Files.copy(input, file, StandardCopyOption.REPLACE_EXISTING);
         }
 
         System.out.println("Uploaded file successfully saved in " + file);
-        return uploadDirectory + "\\\\" + itemName + "\\\\" + "main." + extension;
+        return uploadDirectory + "\\\\products\\\\" + itemName + "\\\\" + "main." + extension;
     }
 
     public String editItemImage(String userName, String itemName, String currentImg, Part filePart) throws IOException {
         String ext = FilenameUtils.getExtension(currentImg);
-        String uploadDirectory = IMAGE_DIRECTORY + userName + "\\\\products";
+        String uploadDirectory = IMAGE_DIRECTORY + userName;
         Path folder = Paths.get(uploadDirectory);
-        Path curPath = Paths.get(uploadDirectory + "\\\\products\\\\"+itemName+"\\\\main." + ext);
+        Path curPath = Paths.get(uploadDirectory + "\\\\products\\\\" + itemName + "\\\\main." + ext);
         System.out.println(curPath);
         if (Files.notExists(folder)) {
             new File(uploadDirectory).mkdir();
-            new File(uploadDirectory + "\\\\" + itemName).mkdir();
+            new File(uploadDirectory + "\\\\products").mkdir();
+            new File(uploadDirectory + "\\\\products\\\\" + itemName).mkdir();
         }
         if (Files.exists(curPath)) {
             Files.delete(curPath);
@@ -104,21 +114,21 @@ public class FileManager {
         InputStream fileContent = filePart.getInputStream();
         String extension = FilenameUtils.getExtension(filename);
         System.out.println(extension);
-        Path file = Paths.get(uploadDirectory + "\\\\" + itemName + "\\\\" + "main." + extension);
+        Path file = Paths.get(uploadDirectory + "\\\\products\\\\" + itemName + "\\\\" + "main." + extension);
         System.out.println(file);
         try (InputStream input = fileContent) {
             Files.copy(input, file, StandardCopyOption.REPLACE_EXISTING);
         }
 
         System.out.println("Uploaded file successfully saved in " + file);
-        return uploadDirectory + "\\\\" + itemName + "\\\\" + "main." + extension;
+        return uploadDirectory + "\\\\products\\\\" + itemName + "\\\\" + "main." + extension;
     }
 
     private String getSubmittedFileName(Part part) {
         for (String cd : part.getHeader("content-disposition").split(";")) {
             if (cd.trim().startsWith("filename")) {
                 String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-                return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE fix.
+                return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1);
             }
         }
         return null;

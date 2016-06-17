@@ -10,6 +10,7 @@ public class Item {
     int ownerID;
     String image;
     int price;
+    String description;
 
     public int getCategoryID() {
         return categoryID;
@@ -77,7 +78,7 @@ public class Item {
 
     int categoryID;
 
-    public Item(String name, int ownerID, String image, int price, int categoryID, int rating, int voters) {
+    public Item(String name, int ownerID, String image, int price, int categoryID, int rating, int voters, String desc) {
         this.name = name;
         this.ownerID = ownerID;
         this.image = image;
@@ -86,9 +87,10 @@ public class Item {
         this.categoryID = categoryID;
         this.rating = rating;
         this.voters = voters;
+        this.description = desc;
     }
 
-    public Item(String name, int ID, int ownerID, String image, int price, int categoryID, int rating, int voters) {
+    public Item(String name, int ID, int ownerID, String image, int price, int categoryID, int rating, int voters, String desc) {
         this.name = name;
         this.ownerID = ownerID;
         this.image = image;
@@ -98,6 +100,7 @@ public class Item {
         this.rating = rating;
         this.voters = voters;
         this.ID = ID;
+        this.description = desc;
     }
 
     public void increaseRating(int r){
@@ -111,5 +114,13 @@ public class Item {
                this.image.equals(it.getImage())&&this.name.equals(it.getName())&&
                this.ownerID == it.getOwnerID()&&this.price == it.getPrice()&&
                this.rating == it.getRating()&&this.voters == it.getVoters());
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

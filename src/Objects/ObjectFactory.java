@@ -43,14 +43,14 @@ public class ObjectFactory {
     /**
      * make new item with id
      */
-    public static Item getNewItem(String name, int ID, int ownerID, String image, int price, int categoryID, int rating, int voters){
-        return new Item(name, ID,ownerID,image,price, categoryID,rating, voters);
+    public static Item getNewItem(String name, int ID, int ownerID, String image, int price, int categoryID, int rating, int voters, String desc){
+        return new Item(name, ID,ownerID,image,price, categoryID,rating, voters, desc);
     }
     /**
      * make new item without id
      */
-    public static Item getNewItem(String name, int ownerID, String image, int price, int categoryID, int rating, int voters){
-        return new Item(name,ownerID,image,price, categoryID,rating, voters);
+    public static Item getNewItem(String name, int ownerID, String image, int price, int categoryID, int rating, int voters, String desc){
+        return new Item(name,ownerID,image,price, categoryID,rating, voters,desc);
     }
 
     /**

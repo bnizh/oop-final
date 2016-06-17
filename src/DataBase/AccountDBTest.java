@@ -43,7 +43,7 @@ public class AccountDBTest extends TestCase {
             Seller sel = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewSeller(sel);
             sel = acc.getSellerByUsername(sel.getUserName());
-            assertTrue(acc.addItem(ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0)));
+            assertTrue(acc.addItem(ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0,"desc")));
             acc.deleteItem(acc.getItemsBySeller(sel.getID()).get(0).getID());
             acc.deleteCategory(c);
             acc.deleteSeller(sel.getID());
@@ -66,7 +66,7 @@ public class AccountDBTest extends TestCase {
             Seller sel = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewSeller(sel);
             sel = acc.getSellerByUsername(sel.getUserName());
-            acc.addItem(ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0));
+            acc.addItem(ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0,"desc"));
             assertTrue(acc.deleteItem(acc.getItemsBySeller(sel.getID()).get(0).getID()));
             acc.deleteCategory(c);
             acc.deleteSeller(sel.getID());
@@ -89,7 +89,7 @@ public class AccountDBTest extends TestCase {
             Seller sel = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewSeller(sel);
             sel = acc.getSellerByUsername(sel.getUserName());
-            Item it =ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0);
+            Item it =ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0,"desc");
             acc.addItem(it);
             it = (acc.getItemsBySeller(sel.getID()).get(0));
             Item it1 =acc.getItemById(it.getID());
@@ -118,7 +118,7 @@ public class AccountDBTest extends TestCase {
             acc.addNewSeller(sel);
             sel = acc.getSellerByUsername(sel.getUserName());
             for (int i =1 ; i<=num; i++) {
-                Item it =ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0);
+                Item it =ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0,"desc");
                 acc.addItem(it);
             }
             List<Item> ls  = acc.getItemsBySeller(sel.getID());
@@ -150,7 +150,7 @@ public class AccountDBTest extends TestCase {
             acc.addNewSeller(sel);
             sel = acc.getSellerByUsername(sel.getUserName());
             for (int i =1 ; i<=num; i++) {
-                Item it = ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0);
+                Item it = ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0,"desc");
                 acc.addItem(it);
             }
             List<Item> ls  = acc.getItemsByName("item");
@@ -183,7 +183,7 @@ public class AccountDBTest extends TestCase {
             sel = acc.getSellerByUsername(sel.getUserName());
             List<Item> list = new ArrayList<Item>();
             for (int i =1 ; i<=num; i++) {
-                Item it = ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),i,1);
+                Item it = ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),i,1,"desc");
                 acc.addItem(it);
                 list.add(it);
             }
@@ -218,7 +218,7 @@ public class AccountDBTest extends TestCase {
             Seller sel = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewSeller(sel);
             sel = acc.getSellerByUsername(sel.getUserName());
-            Item it = ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0);
+            Item it = ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0,"desc");
             acc.addItem(it);
             it = acc.getItemsBySeller(sel.getID()).get(0);
             it.setName("item1");
@@ -251,7 +251,7 @@ public class AccountDBTest extends TestCase {
             acc.addNewSeller(sel);
             sel = acc.getSellerByUsername(sel.getUserName());
             for (int i =1 ; i<=num; i++) {
-                Item it =ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0);
+                Item it =ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0,"desc");
                 acc.addItem(it);
             }
             acc.deleteAllItemsForSeller(sel.getID());

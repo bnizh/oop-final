@@ -285,8 +285,8 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean addItem(Item it) {
-        String s = "Insert into " + DBInfo.MYSQL_DATABASE_Items_table + " (itemName, itemImageUrl,categoryID,ownerID,price,rating, voters) values ('" + it.getName() + "','" + it.getImage() + "',"
-                + it.getCategoryID() + "," + it.getOwnerID() + "," + it.getPrice() + "," + it.getRating() + "," + it.getVoters() + ")";
+        String s = "Insert into " + DBInfo.MYSQL_DATABASE_Items_table + " (itemName, itemImageUrl,categoryID,ownerID,price,rating, voters, description) values ('" + it.getName() + "','" + it.getImage() + "',"
+                + it.getCategoryID() + "," + it.getOwnerID() + "," + it.getPrice() + "," + it.getRating() + "," + it.getVoters() + ", '"+it.getDescription()+"' )";
         return Helper(s);
     }
 
@@ -308,7 +308,7 @@ public class AccountDB implements DBQueries {
                 while (rs.next()) {
                     ls.add(ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
                             rs.getString("itemImageUrl"), rs.getInt("price"), rs.getInt("categoryID"), rs.getInt("rating"),
-                            rs.getInt("voters")));
+                            rs.getInt("voters"), rs.getString("description")));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -326,7 +326,7 @@ public class AccountDB implements DBQueries {
                 if (rs.next()) {
                     return ObjectFactory.getNewItem(rs.getString("ItemName"), rs.getInt("itemID"), rs.getInt("ownerID"),
                             rs.getString("itemImageUrl"), rs.getInt("price"), rs.getInt("categoryID"), rs.getInt("rating"),
-                            rs.getInt("voters"));
+                            rs.getInt("voters"), rs.getString("description"));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -384,7 +384,7 @@ public class AccountDB implements DBQueries {
     @Override
     public boolean updateItemWithoutImage(Item it) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Items_table + " set itemName ='" + it.getName()  +
-                "',categoryID =" + it.getCategoryID() + ", ownerID=" + it.getOwnerID() + ", price=" + it.getPrice()  + " where itemID=" + it.getID();
+                "',categoryID =" + it.getCategoryID() + ", ownerID=" + it.getOwnerID() + ", price=" + it.getPrice() +", description ='"+it.getDescription() + "' where itemID=" + it.getID();
         return Helper(s);
     }
 

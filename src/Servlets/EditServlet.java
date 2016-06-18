@@ -2,8 +2,10 @@ package Servlets;
 
 import DataBase.DBConnection;
 import DataBase.DBFactory;
+import Managers.HashCreator;
 import Managers.ManagerFactory;
 import Managers.UserManager;
+import Objects.Buyer;
 import Objects.Seller;
 
 import javax.servlet.RequestDispatcher;
@@ -13,42 +15,83 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.awt.*;
 import java.io.IOException;
+import java.io.Writer;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
-import static Managers.SiteConstants.LOGGED_IN;
-import static Managers.SiteConstants.USER;
+import static Managers.SiteConstants.*;
 
 @MultipartConfig
 @WebServlet("/edit")
 public class EditServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part filePart = request.getPart("simage");
-        String sname=request.getParameter("sname");
-        System.out.println(sname);
+        String sname = request.getParameter("sname");
+        String curPas = request.getParameter("curpassword");
+        String newPas = request.getParameter("newpassword");
+        System.out.println(curPas);
+        System.out.println(newPas);
         UserManager um = ManagerFactory.getUserManager();
         DBConnection db = DBFactory.getDBConnection();
-        if (filePart!=null) {
+        if (filePart != null) {
             Seller seller = (Seller) request.getSession().getAttribute(USER);
-            System.out.println(seller);
             um.editImageSeller(filePart, seller);
-            request.setAttribute(USER,seller);
+            request.setAttribute(USER, seller);
             RequestDispatcher dispatch = request.getRequestDispatcher("/user-page.jsp");
             dispatch.forward(request, response);
-
-
         }
-        if(sname!=null){
+        if (sname != null) {
             Seller seller = (Seller) request.getSession().getAttribute(USER);
             seller.setName(sname);
             db.updateSellerWithoutImage(seller);
-            request.setAttribute(USER,seller);
             RequestDispatcher dispatch = request.getRequestDispatcher("/user-page.jsp");
             dispatch.forward(request, response);
         }
-        if(request.getParameter("smob")!=null){
+        if (request.getParameter("smob") != null) {
             Seller seller = (Seller) request.getSession().getAttribute(USER);
             seller.setMobileNumber(request.getParameter("smob"));
             db.updateSellerWithoutImage(seller);
+        }
+        if (curPas != null && newPas != null) {
+            String hashedCurPas = null;
+            Writer out = response.getWriter();
+            try {
+                hashedCurPas = HashCreator.getHash(curPas);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            String type = (String) request.getSession().getAttribute(TYPE);
+            if (type.equals(SELLER)) {
+                Seller seller = (Seller) request.getSession().getAttribute(USER);
+                if (seller.getPassword().equals(hashedCurPas)) {
+                    try {
+                        seller.setPassword(HashCreator.getHash(newPas));
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    }
+                    db.updateSellerWithoutImage(seller);
+                    out.write("success");
+                    out.close();
+                } else {
+                    out.write("wrong");
+                    out.close();
+                }
+            } else if (type.equals(BUYER)) {
+                Buyer buyer = (Buyer) request.getSession().getAttribute(USER);
+                if (buyer.getPassword().equals(hashedCurPas)) {
+                    try {
+                        buyer.setPassword(HashCreator.getHash(newPas));
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    }
+                    db.updateBuyerWithoutImage(buyer);
+                    out.write("success");
+                    out.close();
+                } else {
+                    out.write("wrong");
+                    out.close();
+                }
+            }
         }
     }
 

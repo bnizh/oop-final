@@ -43,7 +43,7 @@ public class ItemEditServlet extends HttpServlet {
         } else if (desc != null) {
             im.editItemDesc(desc, item);
         } else if (file != null) {
-            im.editItemImage(item.getID(), user.getUserName(), item.getName(), item.getImage(), file);
+            im.editItemImage(item.getID(), String.valueOf(user.getID()), item.getName(), item.getImage(), file);
         }
         RequestDispatcher dispatch = request.getRequestDispatcher("item-owner.jsp");
         dispatch.forward(request, response);

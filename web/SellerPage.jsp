@@ -41,8 +41,13 @@
                 <input type="text" name="smob" class="user-fields" value=" <%=us.getMobileNumber()%>" readonly
                        title="Mobile">
                 <img src="edit.png" class="edit-icon ">
-
             </form>
+            <form>
+                <input type="text" style="float:left;" id="pass-change-link" class="user-fields" value="Change Password"
+                       readonly
+                       title="change Password">
+            </form>
+
         </div>
         <div class="right-side-user">
             <div>
@@ -59,6 +64,26 @@
             </div>
         </div>
     </div>
+
+    <div class="type-header" style="width:50%; margin-left:25%;font-size: 20px">
+        <div style="width: 100%">
+            <span id="pass-change-err-msg"
+                  style="color:red; display: none ">Error has occurred during password change</span>
+            <span id="pass-change-suc-msg" style="color:green; display: none ">Password has Changed Successfully</span>
+            <span id="pass-change-wrong-msg" style="color:red; display: none ">Current password is wrong</span></div>
+    </div>
+    <form class="edit-forms" id="pass-change"
+          style="display: none; width: 30%;    margin-left: 30%;   margin-bottom: 80px;">
+        <label> Current Password:</label>
+        <input type="password" name="curpassword" class="registration-input"
+               title="current password">
+        <label> New Password:</label>
+        <input type="password" name="newpassword" class="registration-input"
+               title=" NewPassword">
+        <button id="pass-chnage-submit" style="width: 35%;margin-top: 10px " type="submit"
+                class="button registration-submit-buy">Update
+        </button>
+    </form>
 </div>
 <div class="div-separator"></div>
 <div>
@@ -67,11 +92,11 @@
             <span id="stats">Statistics</span>
         </div>
         <div>
-            <div class="wrapper" >
+            <div class="wrapper">
 
                 <div class="table">
 
-                    <div  class="row-stat header">
+                    <div class="row-stat header">
                         <div class="cell">
                             Product Name
                         </div>

@@ -1,9 +1,8 @@
-<%@ page import="java.util.List" %>
-<%@ page import="Objects.Item" %>
 <%@ page import="DataBase.DBConnection" %>
-<%@ page import="DataBase.DBFactory" %>
-<%@ page import="Objects.Seller" %>
 <%@ page import="Objects.Category" %>
+<%@ page import="Objects.Item" %>
+<%@ page import="Objects.Seller" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -50,7 +49,6 @@
                 DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
                 List<Item> list = dbc.getTopItems(20);
                 for (Item item : list) {
-                    System.out.println(item.getName());
                     Seller owner = dbc.getSellerByID(item.getOwnerID());
                     String ownerName = owner.getName();
                     String itemName = item.getName();
@@ -58,8 +56,6 @@
                     if (ownerName == null) ownerName = "";
                     if (itemName == null) itemName = "";
                     if (itemImage == null) itemImage = "";
-                    System.out.println(owner);
-                    System.out.println(owner.getUserName());
                     out.println("<div class=\"product\">\n" +
                             "                <div>" + ownerName + "</div>\n" +
                             "                <img src=\"ImageLoader?FileName=" + itemImage + "\">\n" +

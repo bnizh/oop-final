@@ -36,8 +36,8 @@ public class ItemManager {
         return DEFAULT_ITEM_IMAGE;
     }
 
-    public void editItemImage(int itemID, String userName, String itemName, String curImage, Part image) throws IOException {
-        String newUrl = fm.editItemImage(userName, itemName, curImage, image);
+    public void editItemImage(int itemID, String ownerID, String itemName, String curImage, Part image) throws IOException {
+        String newUrl = fm.editItemImage(ownerID, itemName, curImage, image);
         db.updateItemImage(itemID, newUrl);
     }
 

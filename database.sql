@@ -30,7 +30,7 @@ create table categories(
     primary key(categoryID)
 );
 INSERT INTO categories (categoryName)
-VALUES ('others');
+VALUES ('Sandvich');
 Create table items(
 	  itemID int auto_increment not null,
     ItemName varchar(128),

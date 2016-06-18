@@ -94,6 +94,80 @@
 
             return false;
         });
+        $('#pass-change-link').click(function () {
+            if ($('#pass-change').css("display") == "none") {
+                $('#pass-change').show("slow", function () {
+                });
+            }
+            else {
+                $('#pass-change').hide("slow", function () {
+                });
+                $('#pass-change')[0].reset();
+
+            }
+            $("#pass-change-suc-msg").hide("fast", function () {
+            });
+            $("#pass-change-err-msg").hide("fast", function () {
+            });
+            $("#pass-change-wrong-msg").hide("fast", function () {
+            });
+        });
+
+
+        $("#pass-change").submit(function (event) {
+            //disable the default form submission
+            event.preventDefault();
+            var formData = new FormData($(this)[0]);
+
+            $.ajax({
+                url: "edit",
+                type: 'POST',
+                data: formData,
+                success: function (data) {
+
+                    if (data == "success") {
+                        $("#pass-change-err-msg").hide("fast", function () {
+                        });
+                        $("#pass-change-wrong-msg").hide("fast", function () {
+                        });
+                        $("#pass-change-suc-msg").show("fast", function () {
+                        });
+                        $("#pass-change").hide("slow", function () {
+                        });
+                        $('#pass-change')[0].reset();
+
+                    }
+                    else if (data == "wrong") {
+                        $("#pass-change-wrong-msg").show("fast", function () {
+                        });
+                        $("#pass-change-suc-msg").hide("fast", function () {
+                        });
+                        $("#pass-change-err-msg").hide("fast", function () {
+                        });
+                        $(this).reset();
+                    }
+                    else {
+                        $("#pass-change-err-msg").show("fast", function () {
+                        });
+                        $("#pass-change-suc-msg").hide("fast", function () {
+                        });
+
+                        $("#pass-change-wrong-msg").hide("fast", function () {
+                        });
+                    }
+
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+
+            });
+
+            return false;
+
+        });
+
+        /*  rating               */
         $(".rating input:radio").attr("checked", false);
         $('.rating input').click(function () {
             $(".rating span").removeClass('checked');
@@ -117,10 +191,10 @@
                 });
 
             });
-        $('a[href*="#"]:not([href="#"])').click(function() {
-            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+        $('a[href*="#"]:not([href="#"])').click(function () {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
                 var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
                 if (target.length) {
                     $('html, body').animate({
                         scrollTop: target.offset().top

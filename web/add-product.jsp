@@ -17,25 +17,17 @@
     <div class="header1">
         <a href="\index.jsp" id="logo">Food-Online</a>
     </div>
+    <%
+        Boolean b = (Boolean) session.getAttribute("loggedIn");
+        if (!b) {
+    %>
+    <script src="Javascript/script.js"></script>
+    <%@include file="visitor.jsp" %>
 
-
-    <div class="user-panel">
-        <img class="profile-user-panel" style="margin-right: 20px" src="defaultProfile.png">
-        <span class="profile-info">valiko</span>
-        <div id="profile-menu">
-            <a href="#" id="profile-down-menu" class="profile-info">Profile <img id="arrow" src="arrow.png">
-            </a>
-            <div id="profile-menu-content">
-                <div style="width: 100%;text-align: center">
-                    <span href="">You Are: seller </span></div>
-                <img style="width:80px; height: 60px; margin-left: 60px" class="profile-user-panel"
-                     src="defaultProfile.png">
-                <div style=""><span href="">va</span></div>
-                <div style="width: 100%;text-align: center"><a href="\user-page.jsp">Go to private page</a></div>
-                <div style="width: 100%;text-align: center"><a href="\logout?">Log Out</a></div>
-            </div>
-        </div>
-    </div>
+    <% } else {
+    %>
+    <%@include file="user-panel.jsp" %>
+    <% }%>
 </div>
 <div>
     <div class="user-container">
@@ -97,7 +89,7 @@
 </div>
 
 
-<div id="footer" style="top:40%"></div>
+<div id="footer" ></div>
 <!-- Footer -->
 
 

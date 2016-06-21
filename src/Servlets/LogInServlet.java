@@ -39,7 +39,7 @@ public class LogInServlet extends HttpServlet {
             Cookie username = new Cookie(USER, user.getUserName());
             username.setMaxAge(3*60*60);
             response.addCookie(username);
-            RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
+            RequestDispatcher dispatch = request.getRequestDispatcher("user-panel.jsp");
             dispatch.forward(request, response);
             return;
         }
@@ -55,8 +55,7 @@ public class LogInServlet extends HttpServlet {
             Cookie username = new Cookie(USER, user.getUserName());
             username.setMaxAge(3*60*60);
             response.addCookie(username);
-            RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
-            dispatch.forward(request, response);
+            response.sendRedirect(request.getRequestURI());
             return;
         }
         PrintWriter out = response.getWriter();

@@ -1,30 +1,37 @@
 (function () {
     $(document).ready(function () {
-        $(".star").change(function (event) {
-            //disable the default form submission
-            event.preventDefault();
-            var formData = new FormData($("#rating-form")[0]);
-
-            $.ajax({
-                url: "item-edit",
-                type: 'get',
-                data: formData,
-                success: function (data) {
-                    $("#rating-form").hide();
-                    $("#rate-result").show();
-                    if (data == "success") {
+        $('input:radio').change(
+            function () {
+                var userRating = this.value;
+                event.preventDefault();
+                $.ajax({
+                    url: 'user',
+                    type: 'POST',
+                    data: {
+                        rate: userRating,
+                        ID:$("#user-id-form").val()
+                    },
+                    cache: false,
+                    dataType: "text",
+                }).done(function (response) {
+                    if (response == "success") {
                         $("#rating-form").hide();
                         $("#rate-result").show();
                     }
-                },
-                cache: false,
-                contentType: false,
-                processData: false
+                });
 
             });
-
-            return false;
-
+        $('a[href*="#"]:not([href="#"])').click(function () {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html, body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
         });
 
 
@@ -85,12 +92,9 @@
                 allright = false;
                 $('#buyer-name').css("background-color", "#D08080");
             }
-            if (!usernameIsGood) {
-                allright = false;
-                $('#username-reg-b').css("background-color", "#D08080");
-            }
+
             if (allright) {
-                buyerSend()
+                buyerSend();
             }
         });
 
@@ -118,10 +122,7 @@
                 allright = false;
                 $('#seller-name').css("background-color", "#D08080");
             }
-            if (!usernameIsGood) {
-                allright = false;
-                $('#username-reg-s').css("background-color", "#D08080");
-            }
+          
             if (allright) {
                 sellerSend();
             }
@@ -156,6 +157,7 @@
             return false;
 
         }
+
         function sellerSend() {
             event.preventDefault();
             var formData = new FormData($("#seller-registration")[0]);
@@ -185,6 +187,7 @@
             return false;
 
         }
+
         $("#username-reg-b").change(function () {
             event.preventDefault();
             var arg = $(this).val();

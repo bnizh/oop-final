@@ -101,35 +101,7 @@
             $(this).parent().addClass('checked');
         });
 
-        $('input:radio').change(
-            function () {
-                var userRating = this.value;
-                event.preventDefault();
-                $.ajax({
-                    url: 'rate',
-                    type: 'POST',
-                    data: {
-                        rate: userRating
-                    },
-                    cache: false,
-                    dataType: "text",
-                }).done(function (response) {
-                    $('.rating').replaceWith(response);
-                });
-
-            });
-        $('a[href*="#"]:not([href="#"])').click(function() {
-            if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-                if (target.length) {
-                    $('html, body').animate({
-                        scrollTop: target.offset().top
-                    }, 1000);
-                    return false;
-                }
-            }
-        });
+      
 
     });
 })

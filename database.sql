@@ -82,7 +82,7 @@ create table tags(
     tagType varchar(64) not null,
     ownerID int not null
 );
-SELECT * FROM users;
+DELETE  FROM rating where id>0;
 CREATE TABLE rating(
     ID int AUTO_INCREMENT NOT NULL ,
     writerID int NOT NULL ,

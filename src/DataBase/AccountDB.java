@@ -141,7 +141,7 @@ public class AccountDB implements DBQueries {
     public boolean updateSellerWithoutImage(Seller seller) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Users_table + " set userName =" + '\"' + seller.getUserName() + '\"' + ", password =" + '\"' + seller.getPassword() + '\"'
                 + ", name =" + '\"' + seller.getName() + '\"' + ",email =" + '\"' + seller.getEmail() + '\"' + ", mobileNumber=" + '\"' +
-                seller.getMobileNumber() + '\"'  + " where userID =" + seller.getID();
+                seller.getMobileNumber() + '\"' +",rating =" + '\"' + seller.getRating() + '\"' + ",voters =" + '\"' + seller.getVoters() + '\"' + " where userID =" + seller.getID();
         return Helper(s);
     }
 
@@ -212,7 +212,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public Buyer getBuyerByID(int ID) {
-        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Users_table + " where userID = " + ID)) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Users_table + " where userID = " + ID+" AND typeOfUser="+BuyerType)) {
             return getBuyerFromBase(stm);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -255,7 +255,7 @@ public class AccountDB implements DBQueries {
     public boolean updateBuyerWithoutImage(Buyer buyer) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Users_table + " set userName =" + '\"' + buyer.getUserName() + '\"' + ", password =" + '\"' + buyer.getPassword() + '\"'
                 + ", name =" + '\"' + buyer.getName() + '\"' + ",email =" + '\"' + buyer.getEmail() + '\"' + ", mobileNumber=" + '\"' +
-                buyer.getMobileNumber() + '\"'  + " where userID =" + buyer.getID();
+                buyer.getMobileNumber() + '\"'  + ",rating =" + '\"' + buyer.getRating() + '\"' + ",voters =" + '\"' + buyer.getVoters() + '\"' + " where userID =" + buyer.getID();
         return Helper(s);
     }
 
@@ -401,7 +401,7 @@ public class AccountDB implements DBQueries {
     @Override
     public boolean updateItemWithoutImage(Item it) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Items_table + " set itemName ='" + it.getName()  +
-                "',categoryID =" + it.getCategoryID() + ", ownerID=" + it.getOwnerID() + ", price=" + it.getPrice() +", description ='"+it.getDescription() + "' where itemID=" + it.getID();
+                "',categoryID =" + it.getCategoryID() + ",rating =" + '\"' + it.getRating() + '\"' + ",voters =" + '\"' + it.getVoters() + '\"'+", ownerID=" + it.getOwnerID() + ", price=" + it.getPrice() +", description ='"+it.getDescription() + "' where itemID=" + it.getID();
         return Helper(s);
     }
 
@@ -565,7 +565,7 @@ public class AccountDB implements DBQueries {
     public boolean addWrittenRatingToBase(Rating r) {
         String s = "insert into " + DBInfo.MYSQL_DATABASE_Rating_table + " (writerID, ownerID, rating, ownerType) values ("+r.getWriterID()+","+r.getOwnerID()+","+r.getValue()+", '"+r.getOwnerType()+ "' )";
         String st ="";
-        if(r.getOwnerType().equals(USER)) {
+       /* if(r.getOwnerType().equals(USER)) {
             User u = getBuyerByID(r.getOwnerID());
             if(u==null)
                 u=getSellerByID(r.getOwnerID());
@@ -577,8 +577,8 @@ public class AccountDB implements DBQueries {
             st = "Update " + DBInfo.MYSQL_DATABASE_Users_table + " set rating ="+it.getID() + ", voters ="+it.getVoters() + "where itemID=" + it.getID();
         }else{
             return false;
-        }
-        return Helper(s)&&Helper(st);
+        }*/
+        return Helper(s);
     }
 
     @Override

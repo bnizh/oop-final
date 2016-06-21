@@ -29,6 +29,9 @@ public class LogOutServlet extends HttpServlet {
                 }
                 request.getSession().setAttribute(LOGGED_IN, false);
             }
+            if (request.getSession()!= null) {
+                request.getSession().invalidate();
+            }
             response.sendRedirect("/index.jsp");
         }
     }

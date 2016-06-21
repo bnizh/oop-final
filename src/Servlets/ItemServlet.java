@@ -47,7 +47,7 @@ public class ItemServlet extends HttpServlet {
         Seller seller = dbc.getSellerByID(item.getOwnerID());
         User user = (User) request.getSession().getAttribute(USER);
         request.getSession().setAttribute("itemID",id);
-        if(user.getID()==seller.getID()){
+        if(user!=null&&user.getID()==seller.getID()){
             RequestDispatcher dispatch = request.getRequestDispatcher("item-owner.jsp");
             dispatch.forward(request, response);
         }

@@ -95,7 +95,8 @@ public class AccountDB implements DBQueries {
 
     @Override
     public Seller getSellerByID(int ID) {
-        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Users_table + " where userID = " + ID)) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Users_table + " where userID = " + ID +" AND" +
+                " typeOfUser = 1")) {
             return getSellerFromBase(stm);
         } catch (SQLException e) {
             e.printStackTrace();

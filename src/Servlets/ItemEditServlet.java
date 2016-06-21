@@ -5,6 +5,8 @@ import DataBase.DBFactory;
 import Managers.ItemManager;
 import Managers.ManagerFactory;
 import Objects.Item;
+import Objects.ObjectFactory;
+import Objects.Rating;
 import Objects.User;
 
 import javax.servlet.RequestDispatcher;
@@ -16,8 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.Writer;
 
+import static Managers.SiteConstants.ITEM;
 import static Managers.SiteConstants.USER;
 
 @MultipartConfig
@@ -50,6 +53,25 @@ public class ItemEditServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        Integer rate = null;
+        User user = (User) request.getSession().getAttribute(USER);
+        if (request.getParameter("rate") == null || request.getParameter("ID") == null) return;
+        System.out.println(rate);
+        DBConnection db = DBFactory.getDBConnection();
+        rate = Integer.valueOf(request.getParameter("rate"));
+        int id = Integer.valueOf(request.getParameter("ID"));
+        Item item = db.getItemById(id);
+        int votes = item.getVoters();
+        int rating = item.getRating();
+        int newRating = (votes * rating + rate) / (votes + 1);
+        item.setVoters(votes + 1);
+        Rating rat = db.getRating(item.getID(), user.getID(), ITEM);
+        if (rat == null) return;
+        rat = ObjectFactory.getNewRating(item.getID(), user.getID(), rate, ITEM);
+        db.addWrittenRatingToBase(rat);
+        item.setRating(newRating);
+        Writer out = response.getWriter();
+        out.write("success");
+        out.close();
     }
 }

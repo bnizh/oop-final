@@ -62,7 +62,7 @@
                             "               " + "<div>" + itemName + "</div>\n" +
                             "                <div>Price:" + item.getPrice() + "</div>" +
                             "<form action=\"item\" method=\"get\">" +
-                            "<input name=\"ID\" type=\"hidden\" value=\""+item.getID()+"\">\n" +
+                            "<input name=\"ID\" type=\"hidden\" value=\"" + item.getID() + "\">\n" +
                             "<button  type=\"submit\" class=\"button\"> დეტალურად</button>\n" +
                             "</form>" + "</div>");
                 }
@@ -107,7 +107,7 @@
                     </div>
                     <div>
                         <label class=" reg-label">E-Mail:</label>
-                        <input id="buyer-email-eg" type="email" class=" search-form-control reg-form"
+                        <input id="buyer-email" type="email" class=" search-form-control reg-form"
                                name="email"
                                value=""
                                placeholder="E-mail">
@@ -131,7 +131,7 @@
                     </div>
                     <div>
                         <label class=" reg-label">Name:</label>
-                        <input type="text" class=" search-form-control reg-form"
+                        <input type="text" id="buyer-name" class=" search-form-control reg-form"
                                name="name"
                                value=""
                                placeholder="Name">
@@ -155,7 +155,7 @@
                         <input type="file" accept="image/gif, image/jpeg, image/png" name="file">
                     </div>
                     <div>
-                        <button type="submit" class="button registration-submit-buy">Confirm</button>
+                        <button  id="reg-sub-b" class=" button registration-submit-buy">Confirm</button>
                     </div>
                 </form>
             </div>
@@ -174,7 +174,7 @@
                     </div>
                     <div>
                         <label class=" reg-label">E-Mail:</label>
-                        <input id="seller-email-msg" type="email" class=" search-form-control reg-form"
+                        <input id="seller-email" type="email" class=" search-form-control reg-form"
                                name="email"
                                value=""
                                placeholder="E-mail">
@@ -200,8 +200,8 @@
                     </div>
                     <div>
                         <label class=" reg-label">Company Name:</label>
-                        <input type="text" class=" search-form-control reg-form"
-                               name="company"
+                        <input type="text" id="seller-name" class=" search-form-control reg-form"
+                               name="name"
                                value=""
                                placeholder="Name">
                     </div>
@@ -218,7 +218,7 @@
                         <input type="file" accept="image/gif, image/jpeg, image/png" name="file">
                     </div>
                     <div>
-                        <button type="submit" class="button registration-submit-buy">Confirm</button>
+                        <button  id="reg-sub-s" class="button registration-submit-buy">Confirm</button>
                     </div>
                 </form>
             </div>

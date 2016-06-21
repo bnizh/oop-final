@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.security.NoSuchAlgorithmException;
 
 import static Managers.SiteConstants.USER;
@@ -29,12 +30,21 @@ public class NewAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("shemovdivar");
         UserManager um = ManagerFactory.getUserManager();
         Part filePart = request.getPart("file");
         ErrorStatus es = ErrorStatus.CORRECT;
         PrintWriter out = response.getWriter();
         String type = request.getParameter("type");
-
+        String userName=request.getParameter("username");
+        String email=request.getParameter("email");
+        String password=request.getParameter("password");
+        String name=request.getParameter("name");
+        if(name==null||userName==null||email==null||password==null||type==null){
+            out.write("null");
+            out.close();
+            return;
+        }
 
         if (request.getParameter("type").equals("seller"))
             try {

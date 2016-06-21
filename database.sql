@@ -29,8 +29,7 @@ create table categories(
     categoryName varchar(128) unique,
     primary key(categoryID)
 );
-INSERT INTO categories (categoryName)
-VALUES ('Sandvich');
+
 Create table items(
 	  itemID int auto_increment not null,
     ItemName varchar(128),
@@ -83,7 +82,7 @@ create table tags(
     tagType varchar(64) not null,
     ownerID int not null
 );
-
+SELECT * FROM users;
 CREATE TABLE rating(
     ID int AUTO_INCREMENT NOT NULL ,
     writerID int NOT NULL ,

@@ -76,6 +76,7 @@
 .user-fields:hover,
 .user-fields:active,
 .user-fields:focus {
+    overflow: hidden;
     border: none;
     background-color: white;
     outline: none;

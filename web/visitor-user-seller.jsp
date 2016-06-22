@@ -28,7 +28,7 @@
                                 "                <label class=\"user-fields\" style=\"text-align:center;\">voters: " + us.getVoters() + "</label></div>\n" +
                                 "            <div class=\"stars\" style=\"display: block;\">\n" +
                                 "                <form id=\"rating-form\" action=\"\">\n" +
-                                "                    <input type=\"hidden\" id=\"user-id-form\" name=\"ID\" value=\""+id+"\">\n" +
+                                "                    <input type=\"hidden\" id=\"user-id-form\" name=\"ID\" value=\"" + id + "\">\n" +
                                 "                    <input class=\"star star-5\" id=\"star-5\" value=\"5\" type=\"radio\" name=\"star\"/>\n" +
                                 "                    <label class=\"star star-5\" for=\"star-5\"></label>\n" +
                                 "                    <input class=\"star star-4\" id=\"star-4\" value=\"4\" type=\"radio\" name=\"star\"/>\n" +
@@ -87,17 +87,14 @@
                     out.println("<div class=\"product-user\">" +
                             "                <div>" + item.getName() + "</div>\n" +
                             "                <img src=\"ImageLoader?FileName=" + item.getImage() + " \">\n" +
-                            "                <button class=\"button\"> დეტალურად</button>\n" +
+                            "<form action=\"item\" method=\"get\">" +
+                            "<input name=\"ID\" type=\"hidden\" value=\"" + item.getID() + "\">\n" +
+                            "<button  type=\"submit\" class=\"button\"> Details</button>\n" +
+                            "</form>" +
                             "            </div>");
 
                 }
             %>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-
         </div>
 
     </div>

@@ -1,6 +1,6 @@
 (function () {
     $(document).ready(function () {
-        
+       
 
 
         $("#item-add-form").submit(function (event) {

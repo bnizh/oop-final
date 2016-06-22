@@ -51,7 +51,6 @@
 <div>
     <div class="user-container">
         <div class="type-header">
-            <span style="margin-right: 15px">Seller</span>
             <span><%=item.getName()%></span>
         </div>
         <div class="left-side-user-visitor">
@@ -115,11 +114,6 @@
             </div>
         </div>
 
-    </div>
-</div>
-
-<div>
-    <div id="main">
     </div>
 </div>
 <div class="div-separator"></div>

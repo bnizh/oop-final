@@ -1,4 +1,8 @@
 <%@ page import="Objects.User" %>
+<%@ page import="Objects.Item" %>
+<%@ page import="java.util.List" %>
+<%@ page import="DataBase.DBConnection" %>
+<%@ page import="DataBase.DBFactory" %>
 <div>
     <div class="user-container">
         <div class="type-header">
@@ -18,10 +22,9 @@
 
             <%User us = (User) request.getSession().getAttribute("user"); %>
             <img src="ImageLoader?FileName=<%=us.getImage()%>" style="width: 200px; height: 200px">
-            <div style="color: #990099">
-                <span><%=us.getRating()%>  </span>
-                <span><%=us.getVoters()%></span>
-            </div>
+            <% out.println(" <div id=\"rate-result\">\n" +
+                    "                <label class=\"user-fields\" style=\" text-align:center; margin-right: 10%\">Rating: " + us.getRating() + "</label>\n" +
+                    "                <label class=\"user-fields\" style=\"text-align:center;\">voters: " + us.getVoters() + "</label></div>\n");%>
         </div>
         <div class="center-side-user">
 
@@ -213,103 +216,22 @@
             <span id="my-prod">My Products</span>
         </div>
         <div id="product-list-user">
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
-        </div>
+            <% DBConnection dbc = DBFactory.getDBConnection();
+                List<Item> items = dbc.getItemsBySeller(us.getID());
+                for (Item item : items) {
+                    out.println("<div class=\"product-user\">" +
+                            "                <div>" + item.getName() + "</div>\n" +
+                            "                <img src=\"ImageLoader?FileName=" + item.getImage() + " \">\n" +
+                            "             <form action=\"item\" method=\"get\">" +
+                            "<input name=\"ID\" type=\"hidden\" value=\"" + item.getID() + "\">\n" +
+                            "<button  type=\"submit\" class=\"button\"> Details</button>\n" +
+                            "</form>" +
+                            "            </div>");
 
+                }
+            %>
+
+        </div>
     </div>
 </div>
 <div class="div-separator"></div>

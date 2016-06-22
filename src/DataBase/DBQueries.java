@@ -52,8 +52,9 @@ public interface DBQueries {
     public List<Item> getItemsBySeller(int sellerID);
 
     public List<Item> getItemsByName(String name);
+    public List<Item> getItemsByCategoryId(int ID,int numberOfItems,int offset);
 
-    public List<Item> getTopItems (int numberOfItems);
+    public List<Item> getTopItems (int numberOfItems, int offset);
 
     public boolean updateItemWithoutImage(Item it);
 

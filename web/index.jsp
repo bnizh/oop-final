@@ -3,8 +3,9 @@
 <%@ page import="Objects.Item" %>
 <%@ page import="Objects.Seller" %>
 <%@ page import="java.util.List" %>
+<%@ page import="static Managers.SiteConstants.NUMBER_OF_ITEMS_ON_PAGE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<!DOCTYPE html>
 <html>
 <head>
     <title>Cart</title>
@@ -13,9 +14,12 @@
     <script src="Javascript/AjaxSending.js"></script>
     <script src="Javascript/passwordscheck.js"></script>
     <script src="Javascript/loginAjax.js"></script>
+    <script src="Javascript/scrolling.js"></script>
+
 </head>
 <body>
 <!-- Header -->
+
 <div class="header">
     <div class="header1">
         <a href="\index.jsp" id="logo">Food-Online</a>
@@ -40,14 +44,25 @@
             <% DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
                 List<Category> categoryList = (List<Category>) dbc.getAllCategories();
                 for (Category category : categoryList) {
-                    out.println(" <a class=\"left-menu-item\" href=\"#\">" + category.getName() + "</a>");
+                    out.println(" <a class=\"left-menu-item\" href=\"cat?cat=" + category.getID() + "\">" + category.getName() + "</a>");
                 }
             %>
 
         </div>
         <div id="product-list">
             <%
-                List<Item> list = dbc.getTopItems(20);
+                int currentPage;
+                if (request.getParameter("page") != null) {
+                    currentPage = Integer.valueOf(request.getParameter("page"));
+                } else {
+                    currentPage = 0;
+                }
+                List<Item> list = (List<Item>) request.getSession().getAttribute("itemList");
+                if (list == null) {
+                    list = dbc.getTopItems(NUMBER_OF_ITEMS_ON_PAGE, currentPage * NUMBER_OF_ITEMS_ON_PAGE);
+                } else {
+                    request.getSession().removeAttribute("itemList");
+                }
                 for (Item item : list) {
                     Seller owner = dbc.getSellerByID(item.getOwnerID());
                     String ownerName = owner.getName();
@@ -63,10 +78,15 @@
                             "                <div>Price:" + item.getPrice() + "</div>" +
                             "<form action=\"item\" method=\"get\">" +
                             "<input name=\"ID\" type=\"hidden\" value=\"" + item.getID() + "\">\n" +
-                            "<button  type=\"submit\" class=\"button\"> დეტალურად</button>\n" +
+                            "<button  type=\"submit\" class=\"button\"> Details</button>\n" +
                             "</form>" + "</div>");
                 }
-
+                if (request.getParameter("cat") == null)
+                    out.println("<input type=\"hidden\" id=\"current-page\" name=\"page\" value=\"1\">");
+                else {
+                    out.println("<input type=\"hidden\" id=\"current-page\" name=\"page\" value=\"1\">");
+                    out.println("<input type=\"hidden\" id=\"current-category\" name=\"cat\" value=\"" + request.getParameter("cat") + "\">");
+                }
 
             %>
         </div>
@@ -74,7 +94,12 @@
     </div>
 </div>
 <!-- Main -->
-
+<p id="loading" style="text-align:center; <%if(list.size()<NUMBER_OF_ITEMS_ON_PAGE){
+out.println("display:none;");
+}
+ %>">
+    <img src="loading.gif" alt="Loading…"/>
+</p>
 
 <div id="footer"></div>
 <!-- Footer -->

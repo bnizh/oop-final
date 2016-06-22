@@ -353,6 +353,14 @@ public class AccountDB implements DBQueries {
         }
         return null;
     }
+    @Override
+    public List<Item> getItemsByCategoryId(int categoryId,int numberOfItems,int offset) {
+        List<Item> ls = new ArrayList<Item>();
+        String s = "select *, (rating / voters) as avg from " + DBInfo.MYSQL_DATABASE_Items_table + " where categoryID =" + categoryId+ " order by avg desc"+ " LIMIT "+numberOfItems+"" +
+                " OFFSET "+offset;
+        getItems(ls, s);
+        return ls;
+    }
 
     @Override
     public List<Item> getItemsBySeller(int sellerID) {
@@ -391,9 +399,9 @@ public class AccountDB implements DBQueries {
     }
 
     @Override
-    public List<Item> getTopItems(int numberOfItems) {
+    public List<Item> getTopItems(int numberOfItems, int offset) {
         List<Item> ls = new ArrayList<Item>();
-        String s = "Select *, (rating / voters) as avg from " + DBInfo.MYSQL_DATABASE_Items_table + " order by avg desc limit " + numberOfItems;
+        String s = "Select *, (rating / voters) as avg from " + DBInfo.MYSQL_DATABASE_Items_table + " order by avg desc limit " + numberOfItems+" offset "+offset;
         getItems(ls, s);
         return ls;
     }

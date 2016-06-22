@@ -189,7 +189,7 @@ public class AccountDBTest extends TestCase {
             }
             int k = 2;
             list = acc.getItemsBySeller(sel.getID());
-            List<Item> ls = acc.getTopItems(k);
+            List<Item> ls = acc.getTopItems(k,0);
             for (int i = 0; i<k; i++){
                 assertTrue(ls.get(i).equals(list.get(list.size()-1-i)));
             }

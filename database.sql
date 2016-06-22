@@ -23,15 +23,19 @@ CREATE TABLE Users (
     imageUrl varchar(256),
     primary key (userID)
 );
-INSERT into categories (categoryName)
-VALUES ('Fast Food');
+INSERT into items (ItemName,categoryID,ownerID,price)
+VALUES ('aaaasaa',2,1,4),
+    ('avcxaa',2,1,4), ('12aa',2,1,4), ('asd',2,1,4);
 SELECT *FROM users;
 create table categories(
     categoryID int auto_increment not null,
     categoryName varchar(128) unique,
     primary key(categoryID)
 );
-
+SELECT *
+FROM categories LIMIT 22 OFFSET 4;
+SELECT * from items;
+DELETE FROM items where itemID>12;
 Create table items(
 	  itemID int auto_increment not null,
     ItemName varchar(128),

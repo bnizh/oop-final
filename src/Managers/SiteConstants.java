@@ -12,4 +12,5 @@ public class SiteConstants {
     public static String DEFAULT_ITEM_IMAGE="D:\\\\prog\\\\Final-Project\\\\oop-final\\\\web\\\\defaultitem.png";
     public static int SellerType = 1;
     public static int BuyerType = 0;
+    public static int NUMBER_OF_ITEMS_ON_PAGE = 6;
 }

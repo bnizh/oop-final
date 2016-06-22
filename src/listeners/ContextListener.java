@@ -20,7 +20,7 @@ public class ContextListener implements ServletContextListener {
         List<Category> catList= dbc.getAllCategories();
         ServletContext servletCont = servletContextEvent.getServletContext();
         servletCont.setAttribute("categories", catList);
-        List<Item> itList=dbc.getTopItems(100);
+        List<Item> itList=dbc.getTopItems(100,0);
         servletCont.setAttribute("items", itList);
         servletCont.setAttribute("dbc", dbc);
     }

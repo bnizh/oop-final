@@ -479,11 +479,31 @@ public class DBConnection implements DBQueries{
     }
 
     @Override
-    public List<Item> getTopItems(int numberOfItems) {
+    public List<Item> getItemsByCategoryId(int ID,int numberOfItems,int offset) {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return  DBFactory.getAccountDB(con).getTopItems(numberOfItems);
+            return  DBFactory.getAccountDB(con).getItemsByCategoryId(ID,numberOfItems,offset);
+
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<Item> getTopItems(int numberOfItems, int offset) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).getTopItems(numberOfItems,offset);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);

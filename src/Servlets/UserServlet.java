@@ -63,6 +63,11 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("ID") != null) {
             int id = Integer.valueOf(request.getParameter("ID"));
+
+            DBConnection dbc=DBFactory.getDBConnection();
+            if(dbc.getSellerByID(id)==null&&dbc.getBuyerByID(id)==null){
+                response.sendRedirect("index.jsp");
+            }
             Boolean logged = (Boolean) request.getSession().getAttribute(LOGGED_IN);
             if (logged) {
                 User user = (User) request.getSession().getAttribute(USER);

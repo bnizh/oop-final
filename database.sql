@@ -23,7 +23,9 @@ CREATE TABLE Users (
     imageUrl varchar(256),
     primary key (userID)
 );
-
+INSERT into categories (categoryName)
+VALUES ('Fast Food');
+SELECT *FROM users;
 create table categories(
     categoryID int auto_increment not null,
     categoryName varchar(128) unique,
@@ -45,7 +47,6 @@ Create table items(
     foreign key(ownerID) references Users(userID),
     foreign key(categoryID) references categories(categoryID)
 );
- SELECT *FROM  users;
 create table itemsComments(
     commentID int auto_increment not null,
     writerID int not null,
@@ -82,7 +83,6 @@ create table tags(
     tagType varchar(64) not null,
     ownerID int not null
 );
-DELETE  FROM rating where id>0;
 CREATE TABLE rating(
     ID int AUTO_INCREMENT NOT NULL ,
     writerID int NOT NULL ,

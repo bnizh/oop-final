@@ -30,7 +30,6 @@ public class NewAccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("shemovdivar");
         UserManager um = ManagerFactory.getUserManager();
         Part filePart = request.getPart("file");
         ErrorStatus es = ErrorStatus.CORRECT;
@@ -49,7 +48,7 @@ public class NewAccountServlet extends HttpServlet {
         if (request.getParameter("type").equals("seller"))
             try {
                 es = um.createNewUser(request.getParameter("username"), request.getParameter("password"), request.getParameter("email"),
-                        request.getParameter("company"), request.getParameter("mobile"), filePart, request.getParameter("type"));
+                        request.getParameter("name"), request.getParameter("mobile"), filePart, request.getParameter("type"));
                 System.out.println(es);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();

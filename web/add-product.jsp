@@ -1,5 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="Objects.Category" %>
+<%@ page import="DataBase.DBConnection" %>
+<%@ page import="DataBase.DBFactory" %>
 <html>
 <head>
     <title>Food-Online</title>
@@ -58,7 +60,8 @@
                     <label class=" reg-label">Choose Category:</label>
                     <select name="category" class="search-form-control item-add" title="Categories">
                         <%
-                            List<Category> list = (List<Category>) getServletConfig().getServletContext().getAttribute("categories");
+                            DBConnection dbc= DBFactory.getDBConnection();
+                            List<Category> list = (List<Category>) dbc.getAllCategories();
                             for (Category cat : list) {
                                 out.println(" <option value=\"" + cat.getID() + "\">" + cat.getName());
                                 out.println("</option>");

@@ -51,7 +51,7 @@
         </div>
         <div class="right-side-user">
             <div>
-                <a href="#">Add New Product</a>
+                <a href="add-product.jsp">Add New Product</a>
             </div>
             <div>
                 <a href="#my-prod">My Products</a>

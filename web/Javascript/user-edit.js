@@ -167,27 +167,24 @@
 
         });
 
-        /*  rating               */
-        $(".rating input:radio").attr("checked", false);
-        $('.rating input').click(function () {
-            $(".rating span").removeClass('checked');
-            $(this).parent().addClass('checked');
-        });
-
         $('input:radio').change(
             function () {
                 var userRating = this.value;
                 event.preventDefault();
                 $.ajax({
-                    url: 'rate',
+                    url: 'user',
                     type: 'POST',
                     data: {
-                        rate: userRating
+                        rate: userRating,
+                        ID:$("#user-id-form").val()
                     },
                     cache: false,
                     dataType: "text",
                 }).done(function (response) {
-                    $('.rating').replaceWith(response);
+                    if (response == "success") {
+                        $("#rating-form").hide();
+                        $("#rate-result").show();
+                    }
                 });
 
             });

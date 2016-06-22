@@ -37,7 +37,8 @@
 <div>
     <div id="main">
         <div class="left-menu">
-            <% List<Category> categoryList = (List<Category>) getServletConfig().getServletContext().getAttribute("categories");
+            <% DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
+                List<Category> categoryList = (List<Category>) dbc.getAllCategories();
                 for (Category category : categoryList) {
                     out.println(" <a class=\"left-menu-item\" href=\"#\">" + category.getName() + "</a>");
                 }
@@ -46,7 +47,6 @@
         </div>
         <div id="product-list">
             <%
-                DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
                 List<Item> list = dbc.getTopItems(20);
                 for (Item item : list) {
                     Seller owner = dbc.getSellerByID(item.getOwnerID());
@@ -155,7 +155,7 @@
                         <input type="file" accept="image/gif, image/jpeg, image/png" name="file">
                     </div>
                     <div>
-                        <button  id="reg-sub-b" class=" button registration-submit-buy">Confirm</button>
+                        <button id="reg-sub-b" class=" button registration-submit-buy">Confirm</button>
                     </div>
                 </form>
             </div>
@@ -218,7 +218,7 @@
                         <input type="file" accept="image/gif, image/jpeg, image/png" name="file">
                     </div>
                     <div>
-                        <button  id="reg-sub-s" class="button registration-submit-buy">Confirm</button>
+                        <button id="reg-sub-s" class="button registration-submit-buy">Confirm</button>
                     </div>
                 </form>
             </div>

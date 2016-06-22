@@ -67,6 +67,7 @@ public class UserServlet extends HttpServlet {
             DBConnection dbc=DBFactory.getDBConnection();
             if(dbc.getSellerByID(id)==null&&dbc.getBuyerByID(id)==null){
                 response.sendRedirect("index.jsp");
+                return;
             }
             Boolean logged = (Boolean) request.getSession().getAttribute(LOGGED_IN);
             if (logged) {

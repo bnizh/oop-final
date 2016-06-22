@@ -46,7 +46,7 @@ public class ItemEditServlet extends HttpServlet {
         } else if (desc != null) {
             im.editItemDesc(desc, item);
         } else if (file != null) {
-            im.editItemImage(item.getID(), String.valueOf(user.getID()), item.getName(), item.getImage(), file);
+            im.editItemImage(item.getID(), user.getUserName(), item.getName(), item.getImage(), file);
         }
         RequestDispatcher dispatch = request.getRequestDispatcher("item-owner.jsp");
         dispatch.forward(request, response);
@@ -66,10 +66,16 @@ public class ItemEditServlet extends HttpServlet {
         int newRating = (votes * rating + rate) / (votes + 1);
         item.setVoters(votes + 1);
         Rating rat = db.getRating(item.getID(), user.getID(), ITEM);
-        if (rat == null) return;
-        rat = ObjectFactory.getNewRating(item.getID(), user.getID(), rate, ITEM);
+        if (rat == null) rat=ObjectFactory.getNewRating(item.getID(),user.getID(),rate,ITEM);
+        else{
+            Writer out = response.getWriter();
+            out.write("failed");
+            out.close();
+            return;
+        }
         db.addWrittenRatingToBase(rat);
         item.setRating(newRating);
+        db.updateItemWithoutImage(item);
         Writer out = response.getWriter();
         out.write("success");
         out.close();

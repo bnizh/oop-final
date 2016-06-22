@@ -749,6 +749,23 @@ public class DBConnection implements DBQueries{
             }
         }
     }
+    public Category getCategory(int id) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).getCategory(id);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     @Override
     public boolean addHashTagToUser(int userID, String tag) {

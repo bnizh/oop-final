@@ -1,38 +1,6 @@
 (function () {
     $(document).ready(function () {
-        $('input:radio').change(
-            function () {
-                var userRating = this.value;
-                event.preventDefault();
-                $.ajax({
-                    url: 'user',
-                    type: 'POST',
-                    data: {
-                        rate: userRating,
-                        ID:$("#user-id-form").val()
-                    },
-                    cache: false,
-                    dataType: "text",
-                }).done(function (response) {
-                    if (response == "success") {
-                        $("#rating-form").hide();
-                        $("#rate-result").show();
-                    }
-                });
-
-            });
-        $('a[href*="#"]:not([href="#"])').click(function () {
-            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                if (target.length) {
-                    $('html, body').animate({
-                        scrollTop: target.offset().top
-                    }, 1000);
-                    return false;
-                }
-            }
-        });
+        
 
 
         $("#item-add-form").submit(function (event) {

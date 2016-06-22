@@ -102,10 +102,20 @@ public class FileManager {
         Path folder = Paths.get(uploadDirectory);
         Path curPath = Paths.get(uploadDirectory + "\\\\products\\\\" + itemName + "\\\\main." + ext);
         System.out.println(curPath);
+        Path folder2 = Paths.get(uploadDirectory + "\\\\products");
+        Path folder3 = Paths.get(uploadDirectory + "\\\\products\\\\" + itemName);
         if (Files.notExists(folder)) {
             new File(uploadDirectory).mkdir();
             new File(uploadDirectory + "\\\\products").mkdir();
             new File(uploadDirectory + "\\\\products\\\\" + itemName).mkdir();
+        }
+        if (Files.notExists(folder2)) {
+            new File(uploadDirectory + "\\\\products").mkdir();
+            new File(uploadDirectory + "\\\\products\\\\" + itemName).mkdir();
+        }
+        if (Files.notExists(folder3)) {
+            new File(uploadDirectory + "\\\\products\\\\" + itemName).mkdir();
+
         }
         if (Files.exists(curPath)) {
             Files.delete(curPath);

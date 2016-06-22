@@ -548,6 +548,21 @@ public class AccountDB implements DBQueries {
         }
         return null;
     }
+    public Category getCategory(int id) {
+        String s = "select * from " + DBInfo.MYSQL_DATABASE_Categories_table + " where categoryID = '" + id + "'";
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    return ObjectFactory.getNewCategory(rs.getInt("categoryID"), rs.getString("categoryName"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     @Override
     public boolean addHashTagToUser(int userID, String tag) {

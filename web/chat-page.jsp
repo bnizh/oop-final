@@ -1,4 +1,3 @@
-
 <%--suppress JSUnresolvedFunction --%>
 <%--suppress ALL --%>
 <%--
@@ -8,34 +7,36 @@
   Time: 1:23
   To change this template use File | Settings | File Templates.
 --%>
-
 <%@ page import="Objects.User" %>
-<%
-    User user = (User) request.getSession().getAttribute("user");
-%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-<span ><%user.getUserName();%></span>
-<TEXTAREA id="input" ROWS="5" cols="30"></TEXTAREA>
-<input type="text" id="txtMessage" class="form-control" placeholder="Type your message here."/>
-<button id="btnSend" class="btn btn-primary" style="width:100%;">Send</button>
+<textarea id="username"
+          style="display: none"><%=((User) (request.getSession().getAttribute("user"))).getUserName()%></textarea>
+<div style="width: 100%;text-align: center">
+    <TEXTAREA id="input" style="width:100%; font-size: 18px; height: 80%"></TEXTAREA>
+    <input type="text" id="txtMessage" style="width:100%;  height: 9%;" class="form-control"
+           placeholder="Type your message here."/>
+    <button id="btnSend" class="btn btn-primary" style="width:100%; height: 9%">Send</button>
+</div>
 <script type="text/javascript">
     var socket;
+    var nickname;
+    var receiver = "bnizh";
     function startClient() {
         console.log("opening socket");
-         socket = new WebSocket("ws://" + document.domain + ":8080/Chat");
+        socket = new WebSocket("ws://" + document.domain + ":8080/Chat");
         socket.onopen = function () {
-            var nickname = $('#username').val();
+            nickname = $('#username').val();
             console.log(nickname);
             socket.send(nickname);
         };
 
         socket.onmessage = function (a) {
             var message = a.data;
-            console.log(a.data);
-            var inp = $('#input').val();
-            inp = inp+message + '/n';
-            $('#input').val(inp);
-
+            if (message != "") {
+                var inp = $('#input').val();
+                inp = inp.concat('\n' + message.substring(0, message.indexOf("#")) + " says: " + message.substring(message.indexOf("#") + 1));
+                $('#input').val(inp);
+            }
             $('#txtMessage').keyup(function (e) {
                 if (e.keyCode == 13) {
                     sendMessage();
@@ -55,16 +56,16 @@
         }
 
     }
-        //for sending data to the server
-        function sendMessage() {
-            if ($("#txtMessage").val()) {
-                console.log("sent to socket.");
-                socket.send($("#txtMessage").val());
-                $("#txtMessage").val("");
-            }
+    //for sending data to the server
+    function sendMessage() {
+        if ($("#txtMessage").val()) {
+            console.log("sent to socket.");
+            socket.send(receiver+"$"+nickname+"#"+$("#txtMessage").val());
+            $("#txtMessage").val("");
         }
+    }
 
-        $(document).ready(function () {
-            startClient();
-        });
+    $(document).ready(function () {
+        startClient();
+    });
 </script>

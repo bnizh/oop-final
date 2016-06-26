@@ -63,6 +63,8 @@ style="display: none"><%=((User) (request.getSession().getAttribute("user"))).ge
                 $('#input').val(inp);
                 receiver = message.substring(0, message.indexOf("#"));
                 initializeChat();
+                var alert = new Audio("alert.mp3");
+                alert.play();
                 $("#" + idList[idList.indexOf(receiver)]).chatbox("option", "boxManager").addMsg(receiver, msg);
             }
 

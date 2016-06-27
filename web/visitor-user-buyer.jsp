@@ -4,6 +4,7 @@
 <%@ page import="static Managers.SiteConstants.USER" %>
 <%@ page import="Objects.Rating" %>
 <%@ page import="Objects.User" %>
+
 <% Boolean logged = (Boolean) request.getSession().getAttribute(LOGGED_IN);
     Buyer us = dbc.getBuyerByID(id);%>
 <div>
@@ -55,7 +56,7 @@
             %>
 
         </div>
-        <div class="center-side-user-visitor">
+        <div class="center-side-user-visitor" style="width: 20%">
 
             <div class="profile-visitor">
                 <label class="user-fields"><%=us.getName()%>
@@ -70,6 +71,23 @@
             </label>
             </div>
         </div>
+        <% if(logged){
+            User visitor = (User) request.getSession().getAttribute(USER);
+        %>
+
+        <input id="username" type="hidden" value="<%=visitor.getUserName()%>">
+        <input id="reciver-username" type="hidden" value="<%=us.getUserName()%>">
+        <div class="right-side-user">
+            <div style="width: 100%;text-align: center">
+
+                    <button id="link_add" class="button" style="font-size: 30px;border-radius: 10%; color: #990099;"
+                            href="#"><img src="chat.png" id="chat-icon"
+                                          style="width: 40px;height: auto;margin-right: 8px">Start Chat
+                    </button>
+                </label>
+            </div>
+        </div>
+        <% }%>
 
     </div>
 </div>

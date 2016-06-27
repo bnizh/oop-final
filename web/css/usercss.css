@@ -346,3 +346,6 @@ label.star:before {
     line-height: 1.5;
     color: #797979;
 }
+#link_add:hover~{
+
+}

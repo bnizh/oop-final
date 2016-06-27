@@ -32,19 +32,15 @@
 </div>
 <%@ page import="static Managers.SiteConstants.LOGGED_IN" %>
 <%@ page import="static Managers.SiteConstants.USER" %>
-<%@ page import="Objects.Seller" %>
+<%@ page import="Objects.Item" %>
 <%
     int id = Integer.valueOf(request.getParameter("ID"));
     DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
     Item item = dbc.getItemById(id);%>
 
-<%@ page import="Objects.Item" %>
-<%@ page import="DataBase.DBConnection" %>
+<%@ page import="Objects.Rating" %>
 <%@ page import="static Managers.SiteConstants.LOGGED_IN" %>
 <%@ page import="static Managers.SiteConstants.USER" %>
-<%@ page import="Objects.User" %>
-<%@ page import="Objects.Rating" %>
-<%@ page import="java.util.List" %>
 <%@ page import="static Managers.SiteConstants.*" %>
 <% Boolean logged = (Boolean) request.getSession().getAttribute(LOGGED_IN);
     Objects.Seller us = dbc.getSellerByID(item.getOwnerID());%>
@@ -94,6 +90,24 @@
             %>
 
         </div>
+
+        <% if (logged) {
+            User visitor = (User) request.getSession().getAttribute(USER);
+        %>
+
+        <input id="username" type="hidden" value="<%=visitor.getUserName()%>">
+        <input id="reciver-username" type="hidden" value="<%=us.getUserName()%>">
+
+        <div style="float:right">
+
+                <button id="link_add" class="button" style="font-size: 15px;border-radius: 10%; color: #990099;"
+                        href="#"><img src="chat.png" id="chat-icon"
+                                      style="width: 40px;height: auto;margin-right: 8px">Start Chat with Seller
+                </button>
+        </div>
+        <% }%>
+
+
         <div class="center-side-user-visitor">
 
             <div class="profile-visitor">
@@ -105,11 +119,13 @@
             </label>
             </div>
             <div class="profile-visitor">
-                <label style="color: #ff5e01"> Category:</label> <label><%=dbc.getCategory(item.getCategoryID()).getName()%>
-            </label>
+                <label style="color: #ff5e01"> Category:</label>
+                <label><%=dbc.getCategory(item.getCategoryID()).getName()%>
+                </label>
             </div>
             <div class="profile-visitor">
-                <label style="color: #ff5e01"> Description:</label> <label style="font-size: 15px"><%=item.getDescription()%>
+                <label style="color: #ff5e01"> Description:</label> <label
+                    style="font-size: 15px"><%=item.getDescription()%>
             </label>
             </div>
         </div>

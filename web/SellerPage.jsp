@@ -22,9 +22,10 @@
 
             <%User us = (User) request.getSession().getAttribute("user"); %>
             <img src="ImageLoader?FileName=<%=us.getImage()%>" style="width: 200px; height: 200px">
-            <% out.println(" <div id=\"rate-result\">\n" +
-                    "                <label class=\"user-fields\" style=\" text-align:center; margin-right: 10%\">Rating: " + us.getRating() + "</label>\n" +
-                    "                <label class=\"user-fields\" style=\"text-align:center;\">voters: " + us.getVoters() + "</label></div>\n");%>
+            <div style="color: #990099">
+                <span><%=us.getRating()%>  </span>
+                <span><%=us.getVoters()%></span>
+            </div>
         </div>
         <div class="center-side-user">
 
@@ -224,12 +225,17 @@
                             "                <img src=\"ImageLoader?FileName=" + item.getImage() + " \">\n" +
                             "             <form action=\"item\" method=\"get\">" +
                             "<input name=\"ID\" type=\"hidden\" value=\"" + item.getID() + "\">\n" +
-                            "<button  type=\"submit\" class=\"button\"> Details</button>\n" +
+                            "<button  type=\"submit\" class=\"button\"> დეტალურად</button>\n" +
                             "</form>" +
                             "            </div>");
 
                 }
             %>
+            <div class="product-user">
+                <div>Pizza</div>
+                <img src="food.jpg">
+                <button class="button"> დეტალურად</button>
+            </div>
 
         </div>
     </div>

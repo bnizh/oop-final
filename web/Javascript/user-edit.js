@@ -1,5 +1,14 @@
 (function () {
     $(document).ready(function () {
+        $('#link_add').hover(function () {
+            $('#chat-icon').attr("src", "chat-hover.png");
+        });
+        $('#chat-icon').hover(function () {
+            $('#chat-icon').attr("src", "chat-hover.png");
+        });
+        $('#link_add').mouseout(function () {
+            $('#chat-icon').attr("src", "chat.png");
+        });
         $('#img-edit-input').change(function () {
             el = document.getElementById("img-edit-input");
             el.setAttribute("readOnly", "readOnly");
@@ -202,6 +211,7 @@
         });
 
     });
+
 })
 ();
 

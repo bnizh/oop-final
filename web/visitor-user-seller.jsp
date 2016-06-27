@@ -7,11 +7,13 @@
 <%@ page import="java.util.List" %>
 <% Boolean logged = (Boolean) request.getSession().getAttribute(LOGGED_IN);
     Objects.Seller us = dbc.getSellerByID(id);%>
+
 <div>
     <div class="user-container">
         <div class="type-header">
             <span style="margin-right: 15px">Seller</span>
             <span><%=us.getUserName()%></span>
+
         </div>
         <div class="left-side-user-visitor">
             <img src="ImageLoader?FileName=<%=us.getImage()%>">
@@ -19,6 +21,7 @@
             <%
 
                 if (logged) {
+
                     User visitor = (User) request.getSession().getAttribute(USER);
                     Rating rating = dbc.getRating(id, visitor.getID(), USER);
 
@@ -57,7 +60,7 @@
             %>
 
         </div>
-        <div class="center-side-user-visitor">
+        <div class="center-side-user-visitor" style="width:20%">
 
             <div class="profile-visitor">
                 <label class="user-fields"><%=us.getName()%>
@@ -72,6 +75,22 @@
             </label>
             </div>
         </div>
+        <% if (logged) {
+            User visitor = (User) request.getSession().getAttribute(USER);
+        %>
+
+        <input id="username" type="hidden" value="<%=visitor.getUserName()%>">
+        <input id="reciver-username" type="hidden" value="<%=us.getUserName()%>">
+        <div class="right-side-user">
+            <div style="width: 100%;text-align: center">
+                <button id="link_add" class="button" style="font-size: 30px;border-radius: 10%; color: #990099;"
+                        href="#"><img src="chat.png" id="chat-icon"
+                                      style="width: 40px;height: auto;margin-right: 8px">Start Chat
+                </button>
+            </div>
+        </div>
+        <% }%>
+
 
     </div>
 </div>

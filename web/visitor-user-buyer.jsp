@@ -40,8 +40,7 @@
                                 "                    <label class=\"star star-1\" for=\"star-1\"></label>\n" +
                                 "                </form>\n" +
                                 "            </div>");
-                    }
-                    else {
+                    } else {
                         out.println(" <div id=\"rate-result\">\n" +
                                 "                <label class=\"user-fields\" style=\" text-align:center; margin-right: 10%\">Rating: " + us.getRating() + "</label>\n" +
                                 "                <label class=\"user-fields\" style=\"text-align:center;\">voters: " + us.getVoters() + "</label></div>\n");
@@ -56,7 +55,7 @@
             %>
 
         </div>
-        <div class="center-side-user-visitor" style="width: 20%">
+        <div class="center-side-user-visitor">
 
             <div class="profile-visitor">
                 <label class="user-fields"><%=us.getName()%>
@@ -70,24 +69,25 @@
                 <label> Mobile:</label> <label><%=us.getMobileNumber()%>
             </label>
             </div>
-        </div>
-        <% if(logged){
-            User visitor = (User) request.getSession().getAttribute(USER);
-        %>
+            <div class="profile-visitor">
+                <% if (logged) {
+                    User visitor = (User) request.getSession().getAttribute(USER);
+                %>
 
-        <input id="username" type="hidden" value="<%=visitor.getUserName()%>">
-        <input id="reciver-username" type="hidden" value="<%=us.getUserName()%>">
-        <div class="right-side-user">
-            <div style="width: 100%;text-align: center">
+                <input id="username" type="hidden" value="<%=visitor.getUserName()%>">
+                <input id="reciver-username" type="hidden" value="<%=us.getUserName()%>">
 
-                    <button id="link_add" class="button" style="font-size: 30px;border-radius: 10%; color: #990099;"
+                <div style="width: 100%;text-align: center">
+                    <button id="link_add" class="button" style="font-size: 20px;border-radius: 10%; color: #990099;"
                             href="#"><img src="chat.png" id="chat-icon"
                                           style="width: 40px;height: auto;margin-right: 8px">Start Chat
                     </button>
-                </label>
+                    </label>
+                </div>
+                <% }%>
             </div>
         </div>
-        <% }%>
+
 
     </div>
 </div>

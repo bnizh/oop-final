@@ -54,7 +54,7 @@ public class ObjectFactory {
     }
 
     /**
-     * make new comment with id
+     * make new CommentServlet with id
      */
     public static Comment getNewComment(int ownerID, int writerID, int commentID, String comment, Date dateOfWrite){
         return new Comment(ownerID,writerID,commentID,comment,dateOfWrite);

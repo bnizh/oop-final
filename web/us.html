@@ -88,7 +88,8 @@
                 <label>
 
                     <button id="link_add" class="button" style="font-size: 30px;border-radius: 10%; color: #990099;"
-                            href="#"><img src="chat.png" id="chat-icon" style="width: 40px;height: auto;margin-right: 8px">Start Chat
+                            href="#"><img src="chat.png" id="chat-icon"
+                                          style="width: 40px;height: auto;margin-right: 8px">Start Chat
                     </button>
                 </label>
             </div>
@@ -220,11 +221,18 @@
                         <div class="comment-body">
                             <span class="tip tip-left"></span>
                             <div class="message">
-                                <span>I just made a comment about this comment box which is purely made from CSS.</span>
+                                <span>I just made a comment about this comment box which is purely made from CSS. we are going to games even babay gaames eveb</span>
                             </div>
                         </div>
                     </div>
                 </div>
+                <form id="comment-form" style="width: 80%; margin-left: 10% ">
+                    <textarea style="width: 100%" onkeyup="textAreaAdjust(this)" name="comment" id="comment"
+                              placeholder="Comment"></textarea><br>
+                    <button style="margin-right: 10%;float:right;margin-top: 10px; color:#990099; border-radius: 10%; font-size: 20px"
+                            type="submit" class="button"> submit
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -237,3 +245,9 @@
 <div id="voov-translate-extension-is-installed"></div>
 </body>
 </html>
+<script>
+    function textAreaAdjust(o) {
+        o.style.height = "1px";
+        o.style.height = (25 + o.scrollHeight) + "px";
+    }
+</script>

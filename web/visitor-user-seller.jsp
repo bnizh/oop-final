@@ -60,7 +60,7 @@
             %>
 
         </div>
-        <div class="center-side-user-visitor" style="width:20%">
+        <div class="center-side-user-visitor">
 
             <div class="profile-visitor">
                 <label class="user-fields"><%=us.getName()%>
@@ -74,22 +74,23 @@
                 <label> Mobile:</label> <label><%=us.getMobileNumber()%>
             </label>
             </div>
-        </div>
-        <% if (logged) {
-            User visitor = (User) request.getSession().getAttribute(USER);
-        %>
+            <div class="profile-visitor">
+                <% if (logged) {
+                    User visitor = (User) request.getSession().getAttribute(USER);
+                %>
 
-        <input id="username" type="hidden" value="<%=visitor.getUserName()%>">
-        <input id="reciver-username" type="hidden" value="<%=us.getUserName()%>">
-        <div class="right-side-user">
-            <div style="width: 100%;text-align: center">
-                <button id="link_add" class="button" style="font-size: 30px;border-radius: 10%; color: #990099;"
-                        href="#"><img src="chat.png" id="chat-icon"
-                                      style="width: 40px;height: auto;margin-right: 8px">Start Chat
-                </button>
+                <input id="username" type="hidden" value="<%=visitor.getUserName()%>">
+                <input id="reciver-username" type="hidden" value="<%=us.getUserName()%>">
+                <div style="width: 100%;text-align: center">
+                    <button id="link_add" class="button" style="font-size: 30px;border-radius: 10%; color: #990099;"
+                            href="#"><img src="chat.png" id="chat-icon"
+                                          style="width: 40px;height: auto;margin-right: 8px">Start Chat
+                    </button>
+                    </label>
+                </div>
+                <% }%>
             </div>
         </div>
-        <% }%>
 
 
     </div>
@@ -123,6 +124,31 @@
     <div class="user-container">
         <div class="type-header">
             <span id="com">Comments</span>
+            <div class="container">
+                <div class="dialogbox">
+                    <div style="margin-left: 10%">
+                        <div style="border: 1px solid #ff5e01;border-radius:15%;padding-left: 5px;padding-right:5px;    float:left">
+                            <span style="font-size: 15px; margin-top: 20px;text-align: center">goka</span>
+                            <div style="width: 100%"><img src="defaultitem.png"
+                                                          style="width: 50px;height: 50px;text-align: center"></div>
+                        </div>
+                        <div class="comment-body">
+                            <span class="tip tip-left"></span>
+                            <div class="message">
+                                <span>I just made a comment about this comment box which is purely made from CSS. we are going to games even babay gaames eveb</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form id="comment-form" style="width: 80%; margin-left: 10% ">
+                    <textarea style="width: 100%" onkeyup="textAreaAdjust(this)" name="comment" id="comment"
+                              placeholder="Comment"></textarea><br>
+                    <input type="hidden" name="ID" value="<%=id%>">
+                    <button style="margin-right: 10%;float:right;margin-top: 10px; color:#990099; border-radius: 10%; font-size: 20px"
+                            type="submit" class="button"> submit
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

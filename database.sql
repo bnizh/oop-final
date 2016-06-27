@@ -55,6 +55,7 @@ create table itemsComments(
     commentID int auto_increment not null,
     writerID int not null,
     ownerID int not null,
+    comm varchar (2048),
     dateOfComment date,
     primary key(commentID),
     foreign key(writerID)  references Users(userID),

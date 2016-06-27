@@ -462,7 +462,7 @@ public class AccountDBTest extends TestCase {
             s = acc.getSellerByUsername("username");
             Comment c = ObjectFactory.getNewComment(s.getID(),s.getID(),"bla");
             acc.addCommentToUser(c);
-            c.setComment("comment");
+            c.setComment("CommentServlet");
             acc.updateUserComment(c);
             Comment c1 = acc.getUserCommentsByOwner(s.getID()).get(0);
             c.setCommentID(c1.getCommentID());

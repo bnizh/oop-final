@@ -75,9 +75,18 @@ public interface DBQueries {
     public boolean updateUserComment(Comment c);
 
     public boolean deleteUserComment(int id);
+    public boolean addCommentToItem(Comment c);
+
+    public Comment getItemCommentByID(int id);
+
+    public List<Comment> getItemCommentsByOwner(int userID);
+
+    public boolean updateItemComment(Comment c);
+
+    public boolean deleteItemComment(int id);
 
     /**
-     * delete all comment for user(owner) get's ownerID (int)
+     * delete all CommentServlet for user(owner) get's ownerID (int)
      */
     public boolean deleteAllCommentForUser(int userID);
 

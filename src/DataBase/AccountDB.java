@@ -524,8 +524,8 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean deleteItemComment(int id) {
-        return false;
-    }
+        String s = "Delete from " + DBInfo.MYSQL_DATABASE_ItemsComments_table + " where commentID =" + id;
+        return Helper(s);    }
 
 
     @Override

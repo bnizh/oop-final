@@ -14,7 +14,7 @@ CREATE TABLE Users (
     email varchar(128) unique,
     mobileNumber VARCHAR(64),
     imageUrl varchar(256),
-    confirmed BOOLEAN DEFAULT FALSE ,
+    confirmed BOOLEAN DEFAULT ,
     primary key (userID)
 );
 
@@ -90,5 +90,5 @@ CREATE TABLE rating(
 );
 
 
-
+insert into categories (categoryName) VALUES ('sandvich');
 

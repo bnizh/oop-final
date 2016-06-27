@@ -16,4 +16,8 @@ public class ManagerFactory {
     public static SendMail getSendMail() {
         return new SendMail();
     }
+
+    public static HashCreator getHashCreator(){
+        return HashCreator.getInstance();
+    }
 }

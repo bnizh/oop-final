@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static Managers.SiteConstants.*;
 
@@ -23,7 +24,7 @@ public class AccountDB implements DBQueries {
         try (ResultSet rs = stm.executeQuery()) {
             if (rs.next()) {
                 return ObjectFactory.getNewSeller(rs.getString("username"), rs.getString("password"), rs.getString("email")
-                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"), rs.getInt("userID"));
+                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"), rs.getInt("userID"), rs.getBoolean("confirmed"));
             }
 
         } catch (SQLException e) {
@@ -108,7 +109,7 @@ public class AccountDB implements DBQueries {
     public boolean addNewSeller(Seller seller) {
         String s = "insert into " + DBInfo.MYSQL_DATABASE_Users_table + " (password, userName, name, typeOfUser, rating, voters, mobileNumber, imageUrl, email) values(" + "\"" + seller.getPassword() + "\"" + "," +
                 "\"" + seller.getUserName() + "\"" + "," + "\"" + seller.getName() + "\"" + "," + SellerType + "," + seller.getRating()
-                + "," + seller.getVoters() + "," + "\"" + seller.getMobileNumber() + "\"" + "," + "\"" + seller.getImage() + "\"" + "," + "\"" + seller.getEmail() + "\"" + ")";
+                + "," + seller.getVoters() + "," + "\"" + seller.getMobileNumber() + "\"" + "," + "\"" + seller.getImage() + "\"" + "," + "\"" + seller.getEmail() + "\"" +")";
         return Helper(s);
     }
 
@@ -116,7 +117,7 @@ public class AccountDB implements DBQueries {
         try (ResultSet rs = stm.executeQuery()) {
             while (rs.next()) {
                 list.add(ObjectFactory.getNewSeller(rs.getString("username"), rs.getString("password"), rs.getString("email")
-                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"), rs.getInt("userID")));
+                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"), rs.getInt("userID"), rs.getBoolean("confirmed")));
             }
 
         } catch (SQLException e) {
@@ -141,7 +142,7 @@ public class AccountDB implements DBQueries {
     public boolean updateSellerWithoutImage(Seller seller) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Users_table + " set userName =" + '\"' + seller.getUserName() + '\"' + ", password =" + '\"' + seller.getPassword() + '\"'
                 + ", name =" + '\"' + seller.getName() + '\"' + ",email =" + '\"' + seller.getEmail() + '\"' + ", mobileNumber=" + '\"' +
-                seller.getMobileNumber() + '\"' +",rating =" + '\"' + seller.getRating() + '\"' + ",voters =" + '\"' + seller.getVoters() + '\"' + " where userID =" + seller.getID();
+                seller.getMobileNumber() + '\"' +",rating =" + '\"' + seller.getRating() + '\"' + ",voters =" + '\"' + seller.getVoters() + '\"' +", confirmed = "+seller.isConfirmed()+ " where userID =" + seller.getID();
         return Helper(s);
     }
 
@@ -190,7 +191,7 @@ public class AccountDB implements DBQueries {
             if (rs.next()) {
 
                 return ObjectFactory.getNewBuyer(rs.getString("username"), rs.getString("password"), rs.getString("email")
-                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"), rs.getInt("userID"));
+                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"), rs.getInt("userID"), rs.getBoolean("confirmed"));
 
             }
 
@@ -245,7 +246,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean addNewBuyer(Buyer buyer) {
-        String s = "insert into " + DBInfo.MYSQL_DATABASE_Users_table + " (password, userName, name, typeOfUser, rating, voters, mobileNumber, imageUrl, email) values(" + "\"" + buyer.getPassword() + "\"" + "," +
+        String s = "insert into " + DBInfo.MYSQL_DATABASE_Users_table + " (password, userName, name, typeOfUser, rating, voters, mobileNumber, imageUrl, email, confirmed) values(" + "\"" + buyer.getPassword() + "\"" + "," +
                 "\"" + buyer.getUserName() + "\"" + "," + "\"" + buyer.getName() + "\"" + "," + BuyerType + "," + buyer.getRating()
                 + "," + buyer.getVoters() + "," + "\"" + buyer.getMobileNumber() + "\"" + "," + "\"" + buyer.getImage() + "\"" + "," + "\"" + buyer.getEmail() + "\"" + ")";
         return Helper(s);
@@ -255,7 +256,7 @@ public class AccountDB implements DBQueries {
     public boolean updateBuyerWithoutImage(Buyer buyer) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Users_table + " set userName =" + '\"' + buyer.getUserName() + '\"' + ", password =" + '\"' + buyer.getPassword() + '\"'
                 + ", name =" + '\"' + buyer.getName() + '\"' + ",email =" + '\"' + buyer.getEmail() + '\"' + ", mobileNumber=" + '\"' +
-                buyer.getMobileNumber() + '\"'  + ",rating =" + '\"' + buyer.getRating() + '\"' + ",voters =" + '\"' + buyer.getVoters() + '\"' + " where userID =" + buyer.getID();
+                buyer.getMobileNumber() + '\"'  + ",rating =" + '\"' + buyer.getRating() + '\"' + ",voters =" + '\"' + buyer.getVoters() + '\"' + ", confirmed = "+buyer.isConfirmed()+" where userID =" + buyer.getID();
         return Helper(s);
     }
 
@@ -263,7 +264,7 @@ public class AccountDB implements DBQueries {
         try (ResultSet rs = stm.executeQuery()) {
             while (rs.next()) {
                 list.add(ObjectFactory.getNewBuyer(rs.getString("username"), rs.getString("password"), rs.getString("email")
-                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"), rs.getInt("userID")));
+                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"), rs.getInt("userID"), rs.getBoolean("confirmed")));
             }
 
         } catch (SQLException e) {
@@ -556,6 +557,7 @@ public class AccountDB implements DBQueries {
         }
         return null;
     }
+
     public Category getCategory(int id) {
         String s = "select * from " + DBInfo.MYSQL_DATABASE_Categories_table + " where categoryID = '" + id + "'";
         try (PreparedStatement stm = con.prepareStatement(s)) {
@@ -588,7 +590,7 @@ public class AccountDB implements DBQueries {
     public boolean addWrittenRatingToBase(Rating r) {
         String s = "insert into " + DBInfo.MYSQL_DATABASE_Rating_table + " (writerID, ownerID, rating, ownerType) values ("+r.getWriterID()+","+r.getOwnerID()+","+r.getValue()+", '"+r.getOwnerType()+ "' )";
         String st ="";
-       /* if(r.getOwnerType().equals(USER)) {
+        if(r.getOwnerType().equals(USER)) {
             User u = getBuyerByID(r.getOwnerID());
             if(u==null)
                 u=getSellerByID(r.getOwnerID());
@@ -600,7 +602,7 @@ public class AccountDB implements DBQueries {
             st = "Update " + DBInfo.MYSQL_DATABASE_Users_table + " set rating ="+it.getID() + ", voters ="+it.getVoters() + "where itemID=" + it.getID();
         }else{
             return false;
-        }*/
+        }
         return Helper(s);
     }
 
@@ -635,6 +637,7 @@ public class AccountDB implements DBQueries {
         String s = "update " + DBInfo.MYSQL_DATABASE_Rating_table + " set rating  = "+value+" where ID =" +r.getID();
         return Helper(s);
     }
+
 
 
 }

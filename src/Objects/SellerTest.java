@@ -171,19 +171,19 @@ public class SellerTest extends TestCase {
 
     public void testGetID() throws Exception {
         int i = 0;
-        Seller s = ObjectFactory.getNewSeller("username","password","email","name",0,0,"112", "image", i);
+        Seller s = ObjectFactory.getNewSeller("username","password","email","name",0,0,"112", "image", i, true);
         assertEquals(s.getID(), i);
         i++;
-        s=ObjectFactory.getNewSeller("username","password","email","name",0,0,"112", "image", i);
+        s=ObjectFactory.getNewSeller("username","password","email","name",0,0,"112", "image", i, true);
         assertEquals(s.getID(), i);
         i++;
-        s=ObjectFactory.getNewSeller("username","password","email","name",0,0,"112", "image", i);;
+        s=ObjectFactory.getNewSeller("username","password","email","name",0,0,"112", "image", i, true);;
         assertEquals(s.getID(), i);
     }
 
     public void testSetID() throws Exception {
         int i = 0;
-        Seller s = ObjectFactory.getNewSeller("username","password","email","name",0,0,"112", "image", i);
+        Seller s = ObjectFactory.getNewSeller("username","password","email","name",0,0,"112", "image", i, true);
         i++;
         s.setID(i);
         assertEquals(s.getID(), i);

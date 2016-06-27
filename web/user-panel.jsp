@@ -1,6 +1,13 @@
 <%@ page import="Objects.User" %>
+<%@ page import="Objects.ObjectFactory" %>
+<%@ page import="Managers.ManagerFactory" %>
 <%
     User user = (User) request.getSession().getAttribute("user");
+%>
+<%
+    if(!user.isConfirmed()) {
+%><script type="text/javascript">  window.location.href = "http://localhost:8080/activationNeeded.jsp"; </script><%
+    }
 %>
 <div class="user-panel">
     <img class="profile-user-panel" style="margin-right: 20px" src="ImageLoader?FileName=<%=user.getImage()%>">

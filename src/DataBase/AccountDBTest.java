@@ -43,7 +43,7 @@ public class AccountDBTest extends TestCase {
             Seller sel = ObjectFactory.getNewSeller("username", "password", "email", "name", 0, "112", 0, "image");
             acc.addNewSeller(sel);
             sel = acc.getSellerByUsername(sel.getUserName());
-           // assertTrue(acc.addItem(ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0,"desc")));
+            assertTrue(acc.addItem(ObjectFactory.getNewItem("item",sel.getID(),"image",5.6,c.getID(),0,0,"desc"))!=null);
             acc.deleteItem(acc.getItemsBySeller(sel.getID()).get(0).getID());
             acc.deleteCategory(c);
             acc.deleteSeller(sel.getID());

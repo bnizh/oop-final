@@ -11,8 +11,8 @@ import javax.mail.internet.MimeMessage;
 
 
 public class SendMail {
-    private static final String SRC_MAIL_ADDRESS = "akasr13@freeuni.edu.ge"; //sends from
-    private static final String SRC_MAIL_PASSWORD = "12200139";	//user password
+    private static final String SRC_MAIL_ADDRESS = "foodonlinemail@gmail.com"; //sends from
+    private static final String SRC_MAIL_PASSWORD = "adeqageda";	//user password
 
     private Properties mailServerProperties;
     private Session getMailSession;
@@ -38,7 +38,7 @@ public class SendMail {
         getMailSession = Session.getDefaultInstance(mailServerProperties, null);
         generateMailMessage = new MimeMessage(getMailSession);
         generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(mailAddress));
-        generateMailMessage.setSubject("zdarovebii");
+        generateMailMessage.setSubject("Confirmation from food-online");
         generateMailMessage.setContent(message, "text/html");
 
         Transport transport = getMailSession.getTransport("smtp");

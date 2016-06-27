@@ -1,4 +1,6 @@
 <%@ page import="Managers.SiteConstants" %>
+<%@ page import="Objects.*" %>
+<%@ page import="Managers.ManagerFactory" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -23,8 +25,7 @@
     <script src="Javascript/script.js"></script>
     <%@include file="visitor.jsp" %>
     <script src="Javascript/script.js"></script>
-    <% } else {
-    %>
+    <% } else { %>
     <%@include file="user-panel.jsp" %>
 
     <% }%>

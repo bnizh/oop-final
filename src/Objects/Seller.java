@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Seller extends User {
 
-    public Seller(String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image, int sellerID) {
-        super(username, password, email,name,rating,mobileNumber,voters,image, sellerID);
+    public Seller(String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image, int sellerID, boolean confirmed) {
+        super(username, password, email,name,rating,mobileNumber,voters,image, sellerID,confirmed);
     }
     public Seller(String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image) {
         super(username, password, email,name,rating,mobileNumber,voters,image);

@@ -9,6 +9,17 @@ public abstract class User {
     private String image;
     private String email;
     private int ID;
+    private boolean confirmed;
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
+    }
+
+
 
     public String getEmail() {
         return email;
@@ -90,7 +101,7 @@ public abstract class User {
         this.ID = ID;
     }
 
-    public User(String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image, int ID) {
+    public User(String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image, int ID, boolean confirmed) {
         this.userName = username;
         this.password = password;
         this.email = email;
@@ -100,6 +111,7 @@ public abstract class User {
         this.voters = voters;
         this.image = image;
         this.ID = ID;
+        this.confirmed = confirmed;
     }
 
     public User(String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image) {

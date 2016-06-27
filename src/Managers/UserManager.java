@@ -21,7 +21,7 @@ public class UserManager {
     DBConnection db = DBFactory.getDBConnection();
 
     public Seller checkSellerLoginValidation(String userName, String password) throws NoSuchAlgorithmException {
-        String hashedPassword = HashCreator.getHash(password);
+        String hashedPassword = hash(password);
         Seller seller = db.getSellerByEmail(userName);
         if (seller != null) {
             if (seller.getPassword().equals(hashedPassword)) return seller;
@@ -33,7 +33,7 @@ public class UserManager {
         return null;
     }
     public Buyer checkBuyerLoginValidation(String userName, String password) throws NoSuchAlgorithmException {
-        String hashedPassword = HashCreator.getHash(password);
+        String hashedPassword = hash(password);
         Buyer buyer = db.getBuyerByUsername(userName);
         if (buyer != null) {
             if (buyer.getPassword().equals(hashedPassword)) return buyer;
@@ -60,8 +60,10 @@ public class UserManager {
         db.updateSellerImage(seller.getID(),newURL);
         return true;
     }
-    private boolean sendEmailExistCheck(String email) throws MessagingException {
-        ManagerFactory.getSendMail().sendEmail(email,"mkvdari adga agar dadgao");
+    private boolean sendEmailExistCheck(String email) throws MessagingException, NoSuchAlgorithmException {
+        String st ="http://localhost:8080/confirmation.jsp?hash="+hash(email);
+        ObjectFactory.getUnactivedMap().put(hash(email), email);
+        ManagerFactory.getSendMail().sendEmail(email,st);
         return true;
     }
 
@@ -108,7 +110,7 @@ public class UserManager {
     }
 
     private String hash(String password) throws NoSuchAlgorithmException {
-        return HashCreator.getHash(password);
+        return ManagerFactory.getHashCreator().getHash(password);
     }
 
     private String getImageUrl(String username, Part filePart) throws IOException, ServletException {

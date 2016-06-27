@@ -4,12 +4,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class HashCreator {
-    private static HashCreator instance = null;
+    private static HashCreator instance;
 
-    public HashCreator() {}
+    private HashCreator() {
+    }
 
     public static HashCreator getInstance() {
-        instance = new HashCreator();
+        if (instance == null)
+            instance = new HashCreator();
         return instance;
     }
 
@@ -19,6 +21,7 @@ public class HashCreator {
         byte[] byteData = md.digest();
         return hexToString(byteData);
     }
+
     private static String hexToString(byte[] bytes) {
         StringBuilder buff = new StringBuilder();
         for (byte aByte : bytes) {

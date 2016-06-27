@@ -105,5 +105,4 @@ public interface DBQueries {
     public boolean deleteRating(int id);
 
     public boolean updateRating(Rating r);
-
 }

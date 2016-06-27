@@ -2,13 +2,6 @@ DROP database IF EXISTS base;
 create database base;
 use base;
 
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS items;
-DROP TABLE IF EXISTS usersComments;
-DROP TABLE IF EXISTS gallery;
-DROP TABLE IF EXISTS tags;
-DROP TABLE IF EXISTS categories;
-
 
 CREATE TABLE Users (
     userID int auto_increment not null ,
@@ -21,21 +14,17 @@ CREATE TABLE Users (
     email varchar(128) unique,
     mobileNumber VARCHAR(64),
     imageUrl varchar(256),
+    confirmed BOOLEAN DEFAULT ,
     primary key (userID)
 );
-INSERT into items (ItemName,categoryID,ownerID,price)
-VALUES ('aaaasaa',2,1,4),
-    ('avcxaa',2,1,4), ('12aa',2,1,4), ('asd',2,1,4);
-SELECT *FROM users;
+
 create table categories(
     categoryID int auto_increment not null,
     categoryName varchar(128) unique,
     primary key(categoryID)
 );
-SELECT *
-FROM categories LIMIT 22 OFFSET 4;
-SELECT * from items;
-DELETE FROM items where itemID>12;
+
+
 Create table items(
 	  itemID int auto_increment not null,
     ItemName varchar(128),
@@ -51,6 +40,7 @@ Create table items(
     foreign key(ownerID) references Users(userID),
     foreign key(categoryID) references categories(categoryID)
 );
+
 create table itemsComments(
     commentID int auto_increment not null,
     writerID int not null,
@@ -88,6 +78,7 @@ create table tags(
     tagType varchar(64) not null,
     ownerID int not null
 );
+
 CREATE TABLE rating(
     ID int AUTO_INCREMENT NOT NULL ,
     writerID int NOT NULL ,
@@ -98,3 +89,7 @@ CREATE TABLE rating(
     FOREIGN KEY (writerID) REFERENCES Users(userID),
     UNIQUE KEY combination (writerID, ownerID, ownerType)
 );
+
+
+insert into categories (categoryName) VALUES ('sandvich');
+

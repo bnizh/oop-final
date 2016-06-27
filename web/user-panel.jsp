@@ -2,6 +2,7 @@
 <%
     User user = (User) request.getSession().getAttribute("user");
 %>
+<%@include file="chat-page.jsp" %>
 <div class="user-panel">
     <img class="profile-user-panel" style="margin-right: 20px" src="ImageLoader?FileName=<%=user.getImage()%>">
     <span class="profile-info"><%=user.getUserName()%></span>

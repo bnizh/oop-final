@@ -11,6 +11,13 @@
         </webroots>
       </configuration>
     </facet>
+    <facet type="javaeeApplication" name="javaEEApplication">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="application.xml" url="file://$MODULE_DIR$/untitled/META-INF/application.xml" />
+        </descriptors>
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -38,5 +45,6 @@
     <orderEntry type="library" name="commons-fileupload-1.3.21" level="project" />
     <orderEntry type="library" name="javax.mail" level="project" />
     <orderEntry type="library" name="javax.mail" level="project" />
+    <orderEntry type="library" name="WebSocket-1.0" level="project" />
   </component>
 </module>

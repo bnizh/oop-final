@@ -13,9 +13,6 @@ import java.util.Set;
 
 
 
-/**
- * Created by Boris on 24.06.2016.
- */
 @ServerEndpoint("/Chat")
 public class ChatSocket {
     private Map< Session,String> sessionHashMap = ObjectFactory.getMap();

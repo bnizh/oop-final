@@ -108,14 +108,16 @@
             $('#edit-mob input').attr("readOnly", "readOnly");
             data = $('#edit-mob input').val();
             event.preventDefault();
-            var formData = new FormData($('#edit-email')[0]);
+            var formData = new FormData($('#edit-mob')[0]);
 
             $.ajax({
                 url: "edit",
                 type: 'POST',
                 data: formData,
                 success: function (data) {
-
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(data);
+                    newDoc.close();
                 },
                 cache: false,
                 contentType: false,
@@ -207,7 +209,7 @@
                     type: 'POST',
                     data: {
                         rate: userRating,
-                        ID:$("#user-id-form").val()
+                        ID: $("#user-id-form").val()
                     },
                     cache: false,
                     dataType: "text",

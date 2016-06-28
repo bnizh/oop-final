@@ -1,7 +1,5 @@
 (function () {
     $(document).ready(function () {
-       
-
 
         $("#item-add-form").submit(function (event) {
             //disable the default form submission

@@ -5,15 +5,16 @@
 <html>
 <head>
     <title>Cart</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <link href="css/main.css" rel="stylesheet">
-    <link href="css/usercss.css" rel="stylesheet">
-    <script src="Javascript/AjaxSending.js"></script>
-    <script src="Javascript/passwordscheck.js"></script>
-    <script src="Javascript/loginAjax.js"></script>
-    <script src="Javascript/user-edit.js"></script>
 </head>
 <body>
+<%@include file="chat-page.jsp" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<link href="css/main.css" rel="stylesheet">
+<link href="css/usercss.css" rel="stylesheet">
+<script src="Javascript/AjaxSending.js"></script>
+<script src="Javascript/passwordscheck.js"></script>
+<script src="Javascript/loginAjax.js"></script>
+<script src="Javascript/user-edit.js"></script>
 <!-- Header -->
 <div class="header">
     <div class="header1">

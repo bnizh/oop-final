@@ -7,17 +7,16 @@ import Managers.ManagerFactory;
 import Managers.UserManager;
 import Objects.Buyer;
 import Objects.Seller;
+import Objects.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import java.awt.*;
 import java.io.IOException;
 import java.io.Writer;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 
 import static Managers.SiteConstants.*;
 
@@ -34,23 +33,42 @@ public class EditServlet extends HttpServlet {
         UserManager um = ManagerFactory.getUserManager();
         DBConnection db = DBFactory.getDBConnection();
         if (filePart != null) {
-            Seller seller = (Seller) request.getSession().getAttribute(USER);
-            um.editImageSeller(filePart, seller);
-            request.setAttribute(USER, seller);
+            User user = (User) request.getSession().getAttribute(USER);
+            um.editImageUser(filePart, user);
+            request.setAttribute(USER, user);
             RequestDispatcher dispatch = request.getRequestDispatcher("/user-page.jsp");
             dispatch.forward(request, response);
         }
+
         if (sname != null) {
-            Seller seller = (Seller) request.getSession().getAttribute(USER);
-            seller.setName(sname);
-            db.updateSellerWithoutImage(seller);
-            RequestDispatcher dispatch = request.getRequestDispatcher("/user-page.jsp");
-            dispatch.forward(request, response);
+            if (request.getSession().getAttribute(TYPE).equals(SELLER)) {
+                Seller seller = (Seller) request.getSession().getAttribute(USER);
+                seller.setName(sname);
+                db.updateSellerWithoutImage(seller);
+                RequestDispatcher dispatch = request.getRequestDispatcher("/user-page.jsp");
+                dispatch.forward(request, response);
+            }else{
+                Buyer buyer = (Buyer) request.getSession().getAttribute(USER);
+                buyer.setName(sname);
+                db.updateBuyerWithoutImage(buyer);
+                RequestDispatcher dispatch = request.getRequestDispatcher("/user-page.jsp");
+                dispatch.forward(request, response);
+            }
         }
         if (request.getParameter("smob") != null) {
-            Seller seller = (Seller) request.getSession().getAttribute(USER);
-            seller.setMobileNumber(request.getParameter("smob"));
-            db.updateSellerWithoutImage(seller);
+            if (request.getSession().getAttribute(TYPE).equals(SELLER)) {
+                Seller seller = (Seller) request.getSession().getAttribute(USER);
+                seller.setMobileNumber(request.getParameter("smob"));
+                db.updateSellerWithoutImage(seller);
+                RequestDispatcher dispatch = request.getRequestDispatcher("/user-page.jsp");
+                dispatch.forward(request, response);
+            } else {
+                Buyer buyer = (Buyer) request.getSession().getAttribute(USER);
+                buyer.setMobileNumber(request.getParameter("smob"));
+                db.updateBuyerWithoutImage(buyer);
+                RequestDispatcher dispatch = request.getRequestDispatcher("/user-page.jsp");
+                dispatch.forward(request, response);
+            }
         }
         if (curPas != null && newPas != null) {
             String hashedCurPas = null;
@@ -96,6 +114,5 @@ public class EditServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

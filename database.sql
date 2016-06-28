@@ -14,7 +14,8 @@ CREATE TABLE Users (
     email varchar(128) unique,
     mobileNumber VARCHAR(64),
     imageUrl varchar(256),
-    confirmed BOOLEAN DEFAULT ,
+    confirmed BOOLEAN DEFAULT FALSE ,
+
     primary key (userID)
 );
 
@@ -90,6 +91,7 @@ CREATE TABLE rating(
     UNIQUE KEY combination (writerID, ownerID, ownerType)
 );
 
-
-insert into categories (categoryName) VALUES ('sandvich');
+DELETE FROM categories WHERE categoryID=1;
+insert into categories (categoryName) VALUES ('Hot Meal'),
+    ('Drinks'),('Alcohol'),('Meat'),('Fast Food'),('Other'),('Desert')
 

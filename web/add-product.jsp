@@ -44,7 +44,7 @@
                 <div style="margin-top: 20px;">
                     <label class="reg-label">Product Name:</label>
                     <input type="text" class=" search-form-control item-add"
-                           name="name"
+                           name="item-name"
                            value=""
                            placeholder="Name">
                 </div>
@@ -61,7 +61,7 @@
                     <select name="category" class="search-form-control item-add" title="Categories">
                         <%
                             DBConnection dbc= DBFactory.getDBConnection();
-                            List<Category> list = (List<Category>) dbc.getAllCategories();
+                            List<Category> list = dbc.getAllCategories();
                             for (Category cat : list) {
                                 out.println(" <option value=\"" + cat.getID() + "\">" + cat.getName());
                                 out.println("</option>");

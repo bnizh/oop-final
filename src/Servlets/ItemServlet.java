@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 
 import static Managers.SiteConstants.LOGGED_IN;
 import static Managers.SiteConstants.USER;
@@ -25,7 +26,13 @@ import static Managers.SiteConstants.USER;
 @WebServlet("/item")
 public class ItemServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String itemName = request.getParameter("name");
+        Enumeration<String>list=request.getParameterNames();
+        while (list.hasMoreElements()){
+            String a= list.nextElement();
+            System.out.println(a);
+        }
+        String itemName = request.getParameter("item-name");
+        System.out.println(request.getParameter("price"));
         Double price = Double.valueOf(request.getParameter("price"));
         String desc = request.getParameter("description");
         Part file = request.getPart("file");

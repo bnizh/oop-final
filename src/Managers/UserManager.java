@@ -51,7 +51,7 @@ public class UserManager {
         Buyer buyer = db.getBuyerByUsername(userName);
         return seller == null && buyer == null;
     }
-    public boolean editImageSeller(Part filePart, Seller seller ) throws IOException {
+    public boolean editImageUser(Part filePart, User seller ) throws IOException {
         System.out.println("editshi movida");
         FileManager fm = ManagerFactory.getFileManager();
        String newURL= fm.editProfile(seller.getUserName(),filePart,seller.getImage());

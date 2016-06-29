@@ -1,13 +1,13 @@
 (function () {
     $(document).ready(function () {
         $('#link_add').hover(function () {
-            $('#WebSockets-icon').attr("src", "WebSockets-hover.png");
+            $('#chat-icon').attr("src", "chat-hover.png");
         });
-        $('#WebSockets-icon').hover(function () {
-            $('#WebSockets-icon').attr("src", "WebSockets-hover.png");
+        $('#chat-icon').hover(function () {
+            $('#chat-icon').attr("src", "chat-hover.png");
         });
         $('#link_add').mouseout(function () {
-            $('#WebSockets-icon').attr("src", "WebSockets.png");
+            $('#chat-icon').attr("src", "chat.png");
         });
         $('#img-edit-input').change(function () {
             el = document.getElementById("img-edit-input");

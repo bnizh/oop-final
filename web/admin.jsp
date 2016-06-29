@@ -19,8 +19,7 @@
     <h1><a href="#"><span>Admin Panel</span></a></h1>
 
     <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
-    <ul id="mainNav">
-        <li><a href="#" class="active">Users</a></li> <!-- Use the "active" class for the active menu item  -->
+    <ul id="mainNav" style="margin-left: 100px">        <li><a href="#" class="active">Users</a></li> <!-- Use the "active" class for the active menu item  -->
         <li><a href="#">Inbox</a></li>
         <li><a href="#">Main</a></li>
         <li><a href="#">Categories</a></li>

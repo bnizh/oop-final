@@ -10,6 +10,7 @@ public abstract class User {
     private String email;
     private int ID;
     private boolean confirmed;
+    private boolean banned;
 
     public boolean isConfirmed() {
         return confirmed;
@@ -18,7 +19,6 @@ public abstract class User {
     public void setConfirmed(boolean confirmed) {
         this.confirmed = confirmed;
     }
-
 
 
     public String getEmail() {
@@ -101,7 +101,8 @@ public abstract class User {
         this.ID = ID;
     }
 
-    public User(String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image, int ID, boolean confirmed) {
+    public User(String username, String password, String email, String name, int rating, String mobileNumber,
+                int voters, String image, int ID, boolean confirmed, boolean banned) {
         this.userName = username;
         this.password = password;
         this.email = email;
@@ -112,6 +113,7 @@ public abstract class User {
         this.image = image;
         this.ID = ID;
         this.confirmed = confirmed;
+        this.banned=banned;
     }
 
     public User(String username, String password, String email, String name, int rating, String mobileNumber, int voters, String image) {
@@ -126,4 +128,11 @@ public abstract class User {
     }
 
 
+    public boolean isBanned() {
+        return banned;
+    }
+
+    public void setBanned(boolean banned) {
+        this.banned = banned;
+    }
 }

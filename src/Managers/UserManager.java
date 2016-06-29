@@ -79,6 +79,7 @@ public class UserManager {
                                      String name, String mobileNumber, Part filePart, String type) throws NoSuchAlgorithmException, IOException, ServletException, MessagingException {
         User user = getNewUser(username, password, email, name, mobileNumber, type);
         ErrorStatus result = validateUser(user);
+        if(result!=ErrorStatus.CORRECT) return result;
         sendEmailExistCheck(email);
         if (result == ErrorStatus.CORRECT) {
             initUser(user, getImageUrl(username, filePart), hash(password));

@@ -156,8 +156,9 @@
                     %>
                 </div>
                 <img style="display: none" src="loading.gif" alt="Loading…"/>
+                <% if (comList.size() == NUMBER_OF_COMMENTS_ON_PAGE) {%>
                 <button id="load-more-comment" style="text-align: center">Load More</button>
-                <input type="hidden" id="comment-owner-id" name="ID" value="<%=id%>">
+                <%}%> <input type="hidden" id="comment-owner-id" name="ID" value="<%=id%>">
                 <%
                     if (logged) {
                 %>

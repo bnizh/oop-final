@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Transdmin Light</title>
+    <title>Admin Panel</title>
 
     <!-- CSS -->
     <link href="Adminstyle/css/transdmin.css" rel="stylesheet" type="text/css" media="screen"/>
@@ -13,15 +13,16 @@
     <script src="https://code.jquery.com/jquery-3.0.0-beta1.min.js"></script>
 
     <script type="text/javascript" src="Adminstyle/js/jNice.js"></script>
+
 </head>
 
 <body>
 <div id="wrapper">
     <!-- h1 tag stays for the logo, you can use the a tag for linking the index page -->
-    <h1><a href="#"><span>Transdmin Light</span></a></h1>
+    <h1><a href="#"><span>Admin panel</span></a></h1>
 
     <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
-    <ul id="mainNav">
+    <ul id="mainNav" style="margin-left: 100px">
         <li><a href="#" class="active">Users</a></li> <!-- Use the "active" class for the active menu item  -->
         <li><a href="#">Inbox</a></li>
         <li><a href="#">Main</a></li>
@@ -31,132 +32,143 @@
     </ul>
     <!-- // #end mainNav -->
 
-    <div id="containerHolder">
-        <div id="container">
+    <div id="container">
 
-            <!-- h2 stays for breadcrumbs -->
-            <h2 style="text-align: center"> Users </h2>
-            <label style="margin-left: 40%;margin-right: 5%;font-size: 20px" class=""><input id="buyer-radio-admin"
-                                                                                             type="radio"
-                                                                                             name="user-type"
-                                                                                             checked="checked">buyer</label>
-            <label style="font-size: 20px" class=""><input id="seller-radio-admin" type="radio" name="user-type">Seller</label>
-            <main id="buyer-table">
-                <table class="admin-table" style="margin-top: 20px">
-                    <thead>
-                    <tr>
-                        <th class="row-1 row-ID">ID</th>
-                        <th class="row-2 row-image">image</th>
-                        <th class="row-3 row-name">name</th>
-                        <th class="row-4 row-email">Email</th>
-                        <th class="row-5 row-type">Type</th>
-                        <th class="row-6 row-banned">Banned</th>
-                        <th class="row-7 row-items">Items</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class='clickable-row' data-href='user?ID=1'>
-                        <td>001</td>
-                        <td><img src="defaultProfile.png" style=";height: 40px" alt=""/></td>
-                        <td valign="center">Robotin'</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">50</td>
-                    </tr>
-                    <tr>
-                        <td>0002</td>
-                        <td>Super Superlonglastnamesmith</td>
-                        <td>Doin' stuff</td>
-                        <td>Doin' stuff</td>
-                        <td>Doin' stuff</td>
-                        <td>doing@stuff.com</td>
-                    </tr>
-                    <tr>
-                        <td>0003</td>
-                        <td>Roger Wilco</td>
-                        <td>Truckdrivin'</td>
-                        <td>roger@wilco.com</td>
-                    </tr>
-                    <tr>
-                        <td>0004</td>
-                        <td>Mad Hatter</td>
-                        <td>Hat Makin'</td>
-                        <td>loves@mercury.com</td>
-                    </tr>
-                    </tbody>
-                </table>
+        <!-- h2 stays for breadcrumbs -->
+        <h2 style="text-align: center"> Users </h2>
+        <label style="margin-left: 40%;margin-right: 5%;font-size: 20px" class=""><input id="buyer-radio-admin"
+                                                                                         type="radio"
+                                                                                         name="user-type"
+                                                                                         checked="checked">buyer</label>
+        <label style="font-size: 20px" class=""><input id="seller-radio-admin" type="radio"
+                                                       name="user-type">Seller</label>
+        <main id="buyer-table">
+            <table class="admin-table" style="margin-top: 20px">
+                <thead>
+                <tr>
+                    <th class="row-1 row-ID">ID</th>
+                    <th class="row-2 row-image">image</th>
+                    <th class="row-3 row-username">Username</th>
+                    <th class="row-3 row-name">name</th>
+                    <th class="row-4 row-email">Email</th>
+                    <th class="row-5 row-type">Type</th>
+                    <th class="row-6 row-banned">Banned</th>
+                    <th class="row-7 row-items">Items</th>
+                    <th class="row-8 row-ban">Ban</th>
+                    <th class="row-9 row-x">X</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>001</td>
+                    <td><img src="defaultProfile.png" style=";height: 40px" alt=""/></td>
+                    <td valign="center">Robotin'</td>
+                    <td valign="center">Robotin'</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">50</td>
+                    <style>.clickable:hover {
+                        color: #000000;
+                    }
+                    </style>
+                    <td class="clickable"><a href="index.jsp"
+                                             style="color: red;text-decoration: none;border: 1px solid red;font-size:15px;border-radius: 20% ">Ban</a>
+                    </td>
+                    <td class="clickable"><a href="index.jsp"
+                                             style="color: red;font-size: 20px;text-decoration: none">X</a></td>
+                </tr>
+                <tr>
+                    <td>0002</td>
+                    <td>Super Superlonglastnamesmith</td>
+                    <td>Doin' stuff</td>
+                    <td>Doin' stuff</td>
+                    <td>Doin' stuff</td>
+                    <td>doing@stuff.com</td>
+                </tr>
+                <tr>
+                    <td>0003</td>
+                    <td>Roger Wilco</td>
+                    <td>Truckdrivin'</td>
+                    <td>roger@wilco.com</td>
+                </tr>
+                <tr>
+                    <td>0004</td>
+                    <td>Mad Hatter</td>
+                    <td>Hat Makin'</td>
+                    <td>loves@mercury.com</td>
+                </tr>
+                </tbody>
+            </table>
 
-            </main>
-            <main id="seller-table" style="display: none">
-                <table class="admin-table" style="margin-top: 20px">
-                    <thead>
-                    <tr>
-                        <th class="row-1 row-ID">ID</th>
-                        <th class="row-2 row-image">image</th>
-                        <th class="row-3 row-name">name</th>
-                        <th class="row-4 row-email">Email</th>
-                        <th class="row-5 row-type">Type</th>
-                        <th class="row-6 row-banned">Banned</th>
-                        <th class="row-7 row-items">Items</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>001</td>
-                        <td><img src="defaultProfile.png" style=";height: 40px" alt=""/></td>
-                        <td valign="center">Robotin'</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">50</td>
-                    </tr>
-                    <tr>
-                        <td>001</td>
-                        <td><img src="defaultProfile.png" style=";height: 40px" alt=""/></td>
-                        <td valign="center">Robotin'</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">50</td>
-                    </tr>
-                    <tr>
-                        <td>001</td>
-                        <td><img src="defaultProfile.png" style=";height: 40px" alt=""/></td>
-                        <td valign="center">Robotin'</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">50</td>
-                    </tr>
-                    <tr>
-                        <td>001</td>
-                        <td><img src="defaultProfile.png" style=";height: 40px" alt=""/></td>
-                        <td valign="center">Robotin'</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">50</td>
-                    </tr>
-                    <tr>
-                        <td>001</td>
-                        <td><img src="defaultProfile.png" style=";height: 40px" alt=""/></td>
-                        <td valign="center">Robotin'</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">need@input.com</td>
-                        <td valign="center">50</td>
-                    </tr>
-                    </tbody>
-                </table>
+        </main>
+        <main id="seller-table" style="display: none">
+            <table class="admin-table" style="margin-top: 20px">
+                <thead>
+                <tr>
+                    <th class="row-1 row-ID">ID</th>
+                    <th class="row-2 row-image">image</th>
+                    <th class="row-3 row-name">name</th>
+                    <th class="row-4 row-email">Email</th>
+                    <th class="row-5 row-type">Type</th>
+                    <th class="row-6 row-banned">Banned</th>
+                    <th class="row-7 row-items">Items</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>001</td>
+                    <td><img src="defaultProfile.png" style=";height: 40px" alt=""/></td>
+                    <td valign="center">Robotin'</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">50</td>
+                </tr>
+                <tr>
+                    <td>001</td>
+                    <td><img src="defaultProfile.png" style=";height: 40px" alt=""/></td>
+                    <td valign="center">Robotin'</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">50</td>
+                </tr>
+                <tr>
+                    <td>001</td>
+                    <td><img src="defaultProfile.png" style=";height: 40px" alt=""/></td>
+                    <td valign="center">Robotin'</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">50</td>
+                </tr>
+                <tr>
+                    <td>001</td>
+                    <td><img src="defaultProfile.png" style=";height: 40px" alt=""/></td>
+                    <td valign="center">Robotin'</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">50</td>
+                </tr>
+                <tr>
+                    <td>001</td>
+                    <td><img src="defaultProfile.png" style=";height: 40px" alt=""/></td>
+                    <td valign="center">Robotin'</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">need@input.com</td>
+                    <td valign="center">50</td>
+                </tr>
+                </tbody>
+            </table>
 
-            </main>
+        </main>
 
-            <div class="clear"></div>
-        </div>
-        <!-- // #container -->
+        <div class="clear"></div>
     </div>
-    <!-- // #containerHolder -->
+    <!-- // #container -->
 
     <p id="footer">Feel free to use and customize it. <a href="http://www.perspectived.com">Credit is appreciated.</a>
     </p>

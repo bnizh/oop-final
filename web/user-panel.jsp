@@ -13,11 +13,11 @@
 
 <%@include file="chat-page.jsp" %>
 
-<%
+<%--<%
     if(!user.isConfirmed()) {
     %><script type="text/javascript">  window.location.href = "http://localhost:8080/activationNeeded.jsp"; </script><%
     }
-    %>
+    %>--%>
 <div class="user-panel">
     <img class="profile-user-panel" style="margin-right: 20px" src="ImageLoader?FileName=<%=user.getImage()%>">
     <span class="profile-info"><%=user.getUserName()%></span>

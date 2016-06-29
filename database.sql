@@ -2,7 +2,6 @@ DROP database IF EXISTS base;
 create database base;
 use base;
 
-SELECT * from users WHERE userID>0;
 CREATE TABLE Users (
     userID int auto_increment not null ,
     password varchar(128) not null,
@@ -15,10 +14,12 @@ CREATE TABLE Users (
     mobileNumber VARCHAR(64),
     imageUrl varchar(256),
     confirmed BOOLEAN DEFAULT FALSE ,
+    banned BOOLEAN DEFAULT FALSE ,
 
     primary key (userID)
 );
-
+SELECT *
+FROM users;
 create table categories(
     categoryID int auto_increment not null,
     categoryName varchar(128) unique,
@@ -79,10 +80,7 @@ create table tags(
     tagType varchar(64) not null,
     ownerID int not null
 );
-DELETE FROM users WHERE userID<3;
 
-SELECT *
-FROM users;
 CREATE TABLE rating(
     ID int AUTO_INCREMENT NOT NULL ,
     writerID int NOT NULL ,

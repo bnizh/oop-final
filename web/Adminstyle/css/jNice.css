@@ -14,7 +14,7 @@ button {
 	overflow: visible;
 }
 
-*:first-child+html button[type]{width: 1;} /* IE7 */
+*:first-child+html button[type]{width: 1px;} /* IE7 */
 
 button span {
 	background: transparent url(../img/btn_left.gif) no-repeat scroll right top;
@@ -72,7 +72,7 @@ button span span {
 }
 
 .jNiceSafari input {
-	background-color: none;
+	background-color: transparent;
 	position: absolute;
 	top: -2px;
 	left: -4px;

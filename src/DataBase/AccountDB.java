@@ -24,7 +24,7 @@ public class AccountDB implements DBQueries {
         try (ResultSet rs = stm.executeQuery()) {
             if (rs.next()) {
                 return ObjectFactory.getNewSeller(rs.getString("username"), rs.getString("password"), rs.getString("email")
-                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"), rs.getInt("userID"), rs.getBoolean("confirmed"));
+                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"), rs.getInt("userID"), rs.getBoolean("confirmed"), rs.getBoolean("banned"));
             }
 
         } catch (SQLException e) {
@@ -117,7 +117,8 @@ public class AccountDB implements DBQueries {
         try (ResultSet rs = stm.executeQuery()) {
             while (rs.next()) {
                 list.add(ObjectFactory.getNewSeller(rs.getString("username"), rs.getString("password"), rs.getString("email")
-                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"), rs.getInt("userID"), rs.getBoolean("confirmed")));
+                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"),
+                        rs.getInt("userID"), rs.getBoolean("confirmed"), rs.getBoolean("banned")));
             }
 
         } catch (SQLException e) {
@@ -142,7 +143,7 @@ public class AccountDB implements DBQueries {
     public boolean updateSellerWithoutImage(Seller seller) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Users_table + " set userName =" + '\"' + seller.getUserName() + '\"' + ", password =" + '\"' + seller.getPassword() + '\"'
                 + ", name =" + '\"' + seller.getName() + '\"' + ",email =" + '\"' + seller.getEmail() + '\"' + ", mobileNumber=" + '\"' +
-                seller.getMobileNumber() + '\"' + ",rating =" + '\"' + seller.getRating() + '\"' + ",voters =" + '\"' + seller.getVoters() + '\"' + ", confirmed = " + seller.isConfirmed() + " where userID =" + seller.getID();
+                seller.getMobileNumber() + '\"' + ",rating =" + '\"' + seller.getRating() + '\"' + ",voters =" + '\"' + seller.getVoters() + '\"' + ", confirmed = " + seller.isConfirmed()+", banned = " + seller.isBanned() + " where userID =" + seller.getID();
         return Helper(s);
     }
 
@@ -191,7 +192,8 @@ public class AccountDB implements DBQueries {
             if (rs.next()) {
 
                 return ObjectFactory.getNewBuyer(rs.getString("username"), rs.getString("password"), rs.getString("email")
-                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"), rs.getInt("userID"), rs.getBoolean("confirmed"));
+                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"),
+                        rs.getString("imageUrl"), rs.getInt("userID"), rs.getBoolean("confirmed"), rs.getBoolean("banned"));
 
             }
 
@@ -257,7 +259,7 @@ public class AccountDB implements DBQueries {
     public boolean updateBuyerWithoutImage(Buyer buyer) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Users_table + " set userName =" + '\"' + buyer.getUserName() + '\"' + ", password =" + '\"' + buyer.getPassword() + '\"'
                 + ", name =" + '\"' + buyer.getName() + '\"' + ",email =" + '\"' + buyer.getEmail() + '\"' + ", mobileNumber=" + '\"' +
-                buyer.getMobileNumber() + '\"' + ",rating =" + '\"' + buyer.getRating() + '\"' + ",voters =" + '\"' + buyer.getVoters() + '\"' + ", confirmed = " + buyer.isConfirmed() + " where userID =" + buyer.getID();
+                buyer.getMobileNumber() + '\"' + ",rating =" + '\"' + buyer.getRating() + '\"' + ",voters =" + '\"' + buyer.getVoters() + '\"' + ", confirmed = " + buyer.isConfirmed() +", banned = " + buyer.isBanned()+ " where userID =" + buyer.getID();
         return Helper(s);
     }
 
@@ -265,7 +267,8 @@ public class AccountDB implements DBQueries {
         try (ResultSet rs = stm.executeQuery()) {
             while (rs.next()) {
                 list.add(ObjectFactory.getNewBuyer(rs.getString("username"), rs.getString("password"), rs.getString("email")
-                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"), rs.getInt("userID"), rs.getBoolean("confirmed")));
+                        , rs.getString("name"), rs.getInt("rating"), rs.getInt("voters"), rs.getString("mobileNumber"), rs.getString("imageUrl"),
+                        rs.getInt("userID"), rs.getBoolean("confirmed"), rs.getBoolean("banned")));
             }
 
         } catch (SQLException e) {
@@ -491,6 +494,7 @@ public class AccountDB implements DBQueries {
         commentHelper(ls, s);
         return ls;
     }
+
     @Override
     public List<Comment> getUserCommentsByOwner(int ownerID, int numberOfItems, int offset) {
         List<Comment> ls = new ArrayList<>();
@@ -499,14 +503,16 @@ public class AccountDB implements DBQueries {
         commentHelper(ls, s);
         return ls;
     }
+
     @Override
     public List<Comment> getItemCommentsByOwner(int ownerID, int numberOfItems, int offset) {
         List<Comment> ls = new ArrayList<>();
-        String s = "select * from " + DBInfo.MYSQL_DATABASE_ItemsComments_table+ " where ownerID =" + ownerID + " order by dateOfComment desc" + " LIMIT " + numberOfItems + "" +
+        String s = "select * from " + DBInfo.MYSQL_DATABASE_ItemsComments_table + " where ownerID =" + ownerID + " order by dateOfComment desc" + " LIMIT " + numberOfItems + "" +
                 " OFFSET " + offset;
         commentHelper(ls, s);
         return ls;
     }
+
     @Override
     public boolean deleteUserComment(int id) {
         String s = "Delete from " + DBInfo.MYSQL_DATABASE_UsersComments_table + " where commentID =" + id;
@@ -694,19 +700,19 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean deleteTransactionByItem(int itemID) {
-        String s = "DELETE FROM " + DBInfo.MYSQL_DATABASE_Transaction_table  + " where itemID =" + itemID;
+        String s = "DELETE FROM " + DBInfo.MYSQL_DATABASE_Transaction_table + " where itemID =" + itemID;
         return Helper(s);
     }
 
     @Override
     public boolean deleteTransactionByID(String ID) {
-        String s = "DELETE FROM " + DBInfo.MYSQL_DATABASE_Transaction_table  + " where ID ='" + ID+"'";
+        String s = "DELETE FROM " + DBInfo.MYSQL_DATABASE_Transaction_table + " where ID ='" + ID + "'";
         return Helper(s);
     }
 
     @Override
     public boolean deleteTransactionBySeller(int sellerID) {
-        String s = "DELETE FROM " + DBInfo.MYSQL_DATABASE_Transaction_table  + " where sellerID =" + sellerID;
+        String s = "DELETE FROM " + DBInfo.MYSQL_DATABASE_Transaction_table + " where sellerID =" + sellerID;
         return Helper(s);
     }
 
@@ -718,39 +724,40 @@ public class AccountDB implements DBQueries {
 
     @Override
     public List<Transaction> getTransactionByBuyer(int buyerID) {
-        String s = "select * from "+DBInfo.MYSQL_DATABASE_Transaction_table + " where buyerID = "+ buyerID;
-        return getTransactionByListHellper(s,true);
+        String s = "select * from " + DBInfo.MYSQL_DATABASE_Transaction_table + " where buyerID = " + buyerID;
+        return getTransactionByListHellper(s, true);
     }
 
     @Override
     public List<Transaction> getTransactionBySeller(int sellerID) {
-        String s = "select * from "+DBInfo.MYSQL_DATABASE_Transaction_table + " where sellerID = "+ sellerID;
-        return getTransactionByListHellper(s,true);
+        String s = "select * from " + DBInfo.MYSQL_DATABASE_Transaction_table + " where sellerID = " + sellerID;
+        return getTransactionByListHellper(s, true);
     }
 
     @Override
     public List<Transaction> getUnresolvedTransactionByBuyer(int buyerID) {
-        String s = "select * from "+DBInfo.MYSQL_DATABASE_Transaction_table + " where buyerID = "+ buyerID;
-        return getTransactionByListHellper(s,false);
+        String s = "select * from " + DBInfo.MYSQL_DATABASE_Transaction_table + " where buyerID = " + buyerID;
+        return getTransactionByListHellper(s, false);
     }
 
     @Override
     public List<Transaction> getUnresolvedTransactionBySeller(int sellerID) {
-        String s = "select * from "+DBInfo.MYSQL_DATABASE_Transaction_table + " where sellerID = "+ sellerID;
-        return getTransactionByListHellper(s,false);
+        String s = "select * from " + DBInfo.MYSQL_DATABASE_Transaction_table + " where sellerID = " + sellerID;
+        return getTransactionByListHellper(s, false);
     }
 
     public List<Transaction> getTransactionByListHellper(String s, boolean resolved) {
         List<Transaction> ls = new ArrayList<Transaction>();
-        s+=" and resolved = "+resolved;
-        transHelper(s,ls);
+        s += " and resolved = " + resolved;
+        transHelper(s, ls);
         return ls;
     }
-    private void transHelper(String s, List<Transaction> ls){
+
+    private void transHelper(String s, List<Transaction> ls) {
         try (PreparedStatement stm = con.prepareStatement(s)) {
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
-                    ls.add(ObjectFactory.getTransaction(rs.getString("ID"),rs.getInt("amount"),rs.getInt("itemID"),rs.getInt("sellerID"),rs.getInt("buyerID")));
+                    ls.add(ObjectFactory.getTransaction(rs.getString("ID"), rs.getInt("amount"), rs.getInt("itemID"), rs.getInt("sellerID"), rs.getInt("buyerID")));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -759,31 +766,32 @@ public class AccountDB implements DBQueries {
             e.printStackTrace();
         }
     }
+
     @Override
     public boolean addTransaction(Transaction tr) {
-        String s = "insert into " + DBInfo.MYSQL_DATABASE_Transaction_table+" ( buyerID, sellerID, itemID, amount, id ) values ("+tr.getBuyerID()+" , "
-                +tr.getSellerID()+" , "+tr.getItemID()+" , "+tr.getAmount()+",'"+tr.getId()+"' )";
+        String s = "insert into " + DBInfo.MYSQL_DATABASE_Transaction_table + " ( buyerID, sellerID, itemID, amount, id ) values (" + tr.getBuyerID() + " , "
+                + tr.getSellerID() + " , " + tr.getItemID() + " , " + tr.getAmount() + ",'" + tr.getId() + "' )";
         return Helper(s);
     }
 
     @Override
     public boolean resolveTransaction(String id) {
-        String s = "Update " + DBInfo.MYSQL_DATABASE_Transaction_table + " set resolved = true where ID = '" +id +"'" ;
+        String s = "Update " + DBInfo.MYSQL_DATABASE_Transaction_table + " set resolved = true where ID = '" + id + "'";
         return Helper(s);
     }
 
     @Override
     public Transaction getTransaction(String id) {
-       return getTransactionHelper(id);
+        return getTransactionHelper(id);
     }
 
 
     private Transaction getTransactionHelper(String id) {
-        String s = "SELECT * FROM " + DBInfo.MYSQL_DATABASE_Transaction_table + " where ID = '" +id  ;
+        String s = "SELECT * FROM " + DBInfo.MYSQL_DATABASE_Transaction_table + " where ID = '" + id;
         try (PreparedStatement stm = con.prepareStatement(s)) {
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {
-                    return (ObjectFactory.getTransaction(rs.getString("ID"),rs.getInt("amount"),rs.getInt("itemID"),rs.getInt("sellerID"),rs.getInt("buyerID")));
+                    return (ObjectFactory.getTransaction(rs.getString("ID"), rs.getInt("amount"), rs.getInt("itemID"), rs.getInt("sellerID"), rs.getInt("buyerID")));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

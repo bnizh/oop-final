@@ -58,12 +58,10 @@ public class CommentServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         DBConnection dbc = DBFactory.getDBConnection();
-        List<Item> list = null;
         Writer out = response.getWriter();
 
         if (request.getParameter("page") == null) {
             out.close();
-            return;
         } else {
             if (request.getParameter(TYPE).equals(USER)) {
                 int page = Integer.valueOf(request.getParameter("page"));

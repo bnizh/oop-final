@@ -1,4 +1,4 @@
-package chat;
+package WebSockets;
 
 
 
@@ -29,7 +29,6 @@ public class ChatSocket {
     @OnMessage
     public void onMessage(String message) {
        if(!sessionHashMap.containsKey(curSess)){
-
            sessionHashMap.put(curSess,message);
        }else{
            try {

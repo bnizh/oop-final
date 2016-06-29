@@ -78,5 +78,17 @@ public class ObjectFactory {
         return MyMap.getInstance();
     }
 
-    public static unactivedMap getUnactivedMap(){return unactivedMap.getInstance();}
+    public static unactivatedMap getUnactivatedMap(){return unactivatedMap.getInstance();}
+
+    public static Transaction getTransaction(String id, int amount, int itemID, int sellerID, int buyerID) {
+        return new Transaction(id,amount,itemID,sellerID,buyerID);
+    }
+
+    public static Transaction getTransaction(int sellerID, int buyerID, int itemID, int amount){
+        return new Transaction(sellerID,buyerID,itemID,amount);
+    }
+
+    public static MyRandom getRandom(){
+        return MyRandom.getInstance();
+    }
 }

@@ -20,20 +20,20 @@
 <title>Confirmation</title>
 <% String st = (String) request.getParameter("hash");
     boolean b = false;
-    if (ObjectFactory.getUnactivedMap().get(st) != null) {
-        String email = ObjectFactory.getUnactivedMap().get(st);
+    if (ObjectFactory.getUnactivatedMap().get(st) != null) {
+        String email = ObjectFactory.getUnactivatedMap().get(st);
         User us = DBFactory.getDBConnection().getBuyerByEmail(email);
         if (us != null) {
             us.setConfirmed(true);
             DBFactory.getDBConnection().updateBuyerWithoutImage((Buyer) us);
-            ObjectFactory.getUnactivedMap().remove(st);
+            ObjectFactory.getUnactivatedMap().remove(st);
             b = true;
         } else {
             us = DBFactory.getDBConnection().getSellerByEmail(email);
             if (us != null) {
                 us.setConfirmed(true);
                 DBFactory.getDBConnection().updateSellerWithoutImage((Seller) us);
-                ObjectFactory.getUnactivedMap().remove(st);
+                ObjectFactory.getUnactivatedMap().remove(st);
                 b = true;;
             }
         }

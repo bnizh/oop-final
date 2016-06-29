@@ -677,5 +677,107 @@ public class AccountDB implements DBQueries {
         return Helper(s);
     }
 
+    @Override
+    public boolean deleteTransactionByItem(int itemID) {
+        String s = "DELETE FROM " + DBInfo.MYSQL_DATABASE_Transaction_table  + " where itemID =" + itemID;
+        return Helper(s);
+    }
+
+    @Override
+    public boolean deleteTransactionByID(String ID) {
+        String s = "DELETE FROM " + DBInfo.MYSQL_DATABASE_Transaction_table  + " where ID ='" + ID+"'";
+        return Helper(s);
+    }
+
+    @Override
+    public boolean deleteTransactionBySeller(int sellerID) {
+        String s = "DELETE FROM " + DBInfo.MYSQL_DATABASE_Transaction_table  + " where sellerID =" + sellerID;
+        return Helper(s);
+    }
+
+    @Override
+    public boolean deleteTransactionByBuyer(int buyerID) {
+        String s = "DELETE FROM " + DBInfo.MYSQL_DATABASE_Transaction_table + " where buyerID =" + buyerID;
+        return Helper(s);
+    }
+
+    @Override
+    public List<Transaction> getTransactionByBuyer(int buyerID) {
+        String s = "select * from "+DBInfo.MYSQL_DATABASE_Transaction_table + " where buyerID = "+ buyerID;
+        return getTransactionByListHellper(s,true);
+    }
+
+    @Override
+    public List<Transaction> getTransactionBySeller(int sellerID) {
+        String s = "select * from "+DBInfo.MYSQL_DATABASE_Transaction_table + " where sellerID = "+ sellerID;
+        return getTransactionByListHellper(s,true);
+    }
+
+    @Override
+    public List<Transaction> getUnresolvedTransactionByBuyer(int buyerID) {
+        String s = "select * from "+DBInfo.MYSQL_DATABASE_Transaction_table + " where buyerID = "+ buyerID;
+        return getTransactionByListHellper(s,false);
+    }
+
+    @Override
+    public List<Transaction> getUnresolvedTransactionBySeller(int sellerID) {
+        String s = "select * from "+DBInfo.MYSQL_DATABASE_Transaction_table + " where sellerID = "+ sellerID;
+        return getTransactionByListHellper(s,false);
+    }
+
+    public List<Transaction> getTransactionByListHellper(String s, boolean resolved) {
+        List<Transaction> ls = new ArrayList<Transaction>();
+        s+=" and resolved = "+resolved;
+        transHelper(s,ls);
+        return ls;
+    }
+    private void transHelper(String s, List<Transaction> ls){
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    ls.add(ObjectFactory.getTransaction(rs.getString("ID"),rs.getInt("amount"),rs.getInt("itemID"),rs.getInt("sellerID"),rs.getInt("buyerID")));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public boolean addTransaction(Transaction tr) {
+        String s = "insert into " + DBInfo.MYSQL_DATABASE_Transaction_table+" ( buyerID, sellerID, itemID, amount, id ) values ("+tr.getBuyerID()+" , "
+                +tr.getSellerID()+" , "+tr.getItemID()+" , "+tr.getAmount()+",'"+tr.getId()+"' )";
+        return Helper(s);
+    }
+
+    @Override
+    public boolean resolveTransaction(String id) {
+        String s = "Update " + DBInfo.MYSQL_DATABASE_Transaction_table + " set resolved = true where ID = '" +id +"'" ;
+        return Helper(s);
+    }
+
+    @Override
+    public Transaction getTransaction(String id) {
+       return getTransactionHelper(id);
+    }
+
+
+    private Transaction getTransactionHelper(String id) {
+        String s = "SELECT * FROM " + DBInfo.MYSQL_DATABASE_Transaction_table + " where ID = '" +id  ;
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    return (ObjectFactory.getTransaction(rs.getString("ID"),rs.getInt("amount"),rs.getInt("itemID"),rs.getInt("sellerID"),rs.getInt("buyerID")));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }

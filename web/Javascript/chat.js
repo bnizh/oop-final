@@ -2,13 +2,11 @@ $(document).ready(function () {
     var socket;
     var idList;
     var nickname;
-    console.log($('#username').val());
     var receiver = $('#reciver-username').val();
 
     function initializeChat() {
         var id = receiver;
         idList.push(id);
-        console.log("in 2");
         chatboxManager.addBox(id,
             {
                 dest: $('#username').val(), // not used in demo
@@ -25,7 +23,6 @@ $(document).ready(function () {
         socket = new WebSocket("ws://" + document.domain + ":8080/Chat");
         socket.onopen = function () {
             nickname = $('#username').val();
-            console.log(nickname);
             socket.send(nickname);
         };
 
@@ -82,9 +79,7 @@ $(document).ready(function () {
 
         $("#link_add").click(function (event, ui) {
             var id = receiver;
-
             idList.push(id);
-            console.log("in 1");
             chatboxManager.addBox(id,
                 {
                     dest: $('#username').val(), // not used in demo

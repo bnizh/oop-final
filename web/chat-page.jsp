@@ -15,6 +15,7 @@
 <script type="text/javascript" src="Javascript/jquery.ui.chatbox.js"></script>
 <script type="text/javascript" src="Javascript/chatboxManager.js"></script>
 <script type="text/javascript" src="Javascript/chat.js"></script>
+<input id="userID" type="hidden" value="<%=((User) (request.getSession().getAttribute("user"))).getID()%>">
 <textarea id="username"
           style="display: none"><%=((User) (request.getSession().getAttribute("user"))).getUserName()%></textarea>
 <textarea id="name"
@@ -22,4 +23,4 @@
 <TEXTAREA id="input" style="display: none"></TEXTAREA>
 <input type="text" id="txtMessage" style="display: none" class="form-control"
        placeholder="Type your message here."/>
-
+<script src="Javascript/Notification.js"></script>

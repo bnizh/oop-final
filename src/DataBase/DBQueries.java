@@ -75,6 +75,7 @@ public interface DBQueries {
     public boolean updateUserComment(Comment c);
 
     public boolean deleteUserComment(int id);
+
     public boolean addCommentToItem(Comment c);
 
     public Comment getItemCommentByID(int id);
@@ -106,4 +107,27 @@ public interface DBQueries {
     public boolean deleteRating(int id);
 
     public boolean updateRating(Rating r);
+
+    public boolean addTransaction(Transaction tr);
+
+    public boolean resolveTransaction(String id);
+
+    public Transaction getTransaction(String id);
+
+    public boolean deleteTransactionByItem(int itemID);
+
+    public boolean deleteTransactionByID(String ID);
+
+    public boolean deleteTransactionBySeller(int sellerID);
+
+    public boolean deleteTransactionByBuyer(int buyerID);
+
+    public List<Transaction> getTransactionByBuyer(int buyerID);
+
+    public List<Transaction> getTransactionBySeller(int sellerID);
+
+    public List<Transaction> getUnresolvedTransactionByBuyer(int buyerID);
+
+    public List<Transaction> getUnresolvedTransactionBySeller(int sellerID);
+
 }

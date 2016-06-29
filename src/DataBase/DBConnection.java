@@ -1016,4 +1016,213 @@ public class DBConnection implements DBQueries{
         }
     }
 
+    @Override
+    public boolean addTransaction(Transaction tr) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).addTransaction(tr);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean resolveTransaction(String id) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).resolveTransaction(id);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public Transaction getTransaction(String id) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).getTransaction(id);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean deleteTransactionByItem(int itemID) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).deleteTransactionByItem(itemID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean deleteTransactionByID(String ID) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).deleteTransactionByID(ID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean deleteTransactionBySeller(int sellerID) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).deleteTransactionBySeller(sellerID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean deleteTransactionByBuyer(int buyerID) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).deleteTransactionByBuyer(buyerID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<Transaction> getTransactionByBuyer(int buyerID) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).getTransactionByBuyer(buyerID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<Transaction> getTransactionBySeller(int sellerID) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).getTransactionBySeller(sellerID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<Transaction> getUnresolvedTransactionByBuyer(int buyerID) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).getUnresolvedTransactionByBuyer(buyerID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<Transaction> getUnresolvedTransactionBySeller(int sellerID) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).getUnresolvedTransactionBySeller(sellerID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 }

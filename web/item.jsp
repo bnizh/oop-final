@@ -97,7 +97,17 @@
 
         <input id="username" type="hidden" value="<%=visitor.getUserName()%>">
         <input id="reciver-username" type="hidden" value="<%=us.getUserName()%>">
-
+        <input id="receiver-ID" type="hidden" value="<%=us.getID()%>">
+        <input id="itemID" type="hidden" value="<%=item.getID()%>">
+        <input type="number" id ="amount"
+               name="amount"
+               value="0"
+               step="1"
+               placeholder="Amount">
+        <button id="sendNot" class="button" style="font-size: 15px;border-radius: 10%; color: #990099;"
+                href="#"><img src="buy.png"
+                              style="width: 40px;height: auto;margin-right: 8px">Buy Item
+        </button>
         <div style="float:right">
 
                 <button id="link_add" class="button" style="font-size: 15px;border-radius: 10%; color: #990099;"
@@ -105,6 +115,7 @@
                                       style="width: 40px;height: auto;margin-right: 8px">Start Chat with Seller
                 </button>
         </div>
+
         <% }%>
 
 

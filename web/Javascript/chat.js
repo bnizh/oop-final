@@ -101,7 +101,3 @@ $(document).ready(function () {
  
 
 });
-(function () {
-})();
-
-

@@ -5,7 +5,7 @@
   User: Boris
   Date: 18.06.2016
   Time: 1:23
-  To change this template use File | Settings | File Templates.
+  To change this template use File | Settings |     File Templates.
 --%>
 <%@ page import="Objects.User" %>
 <script src="https://code.jquery.com/jquery-3.0.0-beta1.min.js"></script>

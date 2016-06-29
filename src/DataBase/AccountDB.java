@@ -491,7 +491,22 @@ public class AccountDB implements DBQueries {
         commentHelper(ls, s);
         return ls;
     }
-
+    @Override
+    public List<Comment> getUserCommentsByOwner(int ownerID, int numberOfItems, int offset) {
+        List<Comment> ls = new ArrayList<>();
+        String s = "select * from " + DBInfo.MYSQL_DATABASE_UsersComments_table + " where ownerID =" + ownerID + " order by dateOfComment desc" + " LIMIT " + numberOfItems + "" +
+                " OFFSET " + offset;
+        commentHelper(ls, s);
+        return ls;
+    }
+    @Override
+    public List<Comment> getItemCommentsByOwner(int ownerID, int numberOfItems, int offset) {
+        List<Comment> ls = new ArrayList<>();
+        String s = "select * from " + DBInfo.MYSQL_DATABASE_ItemsComments_table+ " where ownerID =" + ownerID + " order by dateOfComment desc" + " LIMIT " + numberOfItems + "" +
+                " OFFSET " + offset;
+        commentHelper(ls, s);
+        return ls;
+    }
     @Override
     public boolean deleteUserComment(int id) {
         String s = "Delete from " + DBInfo.MYSQL_DATABASE_UsersComments_table + " where commentID =" + id;

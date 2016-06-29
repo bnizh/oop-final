@@ -71,7 +71,7 @@ public class PageServlet extends HttpServlet {
                 }
                 page+=1;
                 if (list.size() == NUMBER_OF_ITEMS_ON_PAGE) {
-                    out.write("<a href=\"page?page=" + page  + "cat=" + cat + "\">next page</a>");
+                    out.write("<input href=\"page?page=" + page  + "cat=" + cat + "\">next page</input>");
                 }
             }
 

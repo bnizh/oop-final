@@ -88,6 +88,8 @@ public interface DBQueries {
     /**
      * delete all CommentServlet for user(owner) get's ownerID (int)
      */
+    public List<Comment> getUserCommentsByOwner(int categoryId, int numberOfItems, int offset);
+    public List<Comment> getItemCommentsByOwner(int categoryId, int numberOfItems, int offset);
     public boolean deleteAllCommentForItem(int itemID);
     public boolean deleteAllCommentForUser(int userID);
 

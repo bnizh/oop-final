@@ -90,7 +90,7 @@ CREATE TABLE rating(
     FOREIGN KEY (writerID) REFERENCES Users(userID),
     UNIQUE KEY combination (writerID, ownerID, ownerType)
 );
-
+SELECT * FROM usersComments;
 DELETE FROM categories WHERE categoryID=1;
 insert into categories (categoryName) VALUES ('Hot Meal'),
     ('Drinks'),('Alcohol'),('Meat'),('Fast Food'),('Other'),('Desert')

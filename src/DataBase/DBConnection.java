@@ -28,6 +28,42 @@ public class DBConnection implements DBQueries {
     }
 
     @Override
+    public Admin getAdminByUsername(String userName) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return DBFactory.getAccountDB(con).getAdminByUsername(userName);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }    }
+
+    @Override
+    public Admin getAdminByEmail(String email) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return DBFactory.getAccountDB(con).getAdminByEmail(email);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }    }
+
+    @Override
     public boolean addNewAdmin(Admin admin) {
         Connection con = null;
         try {

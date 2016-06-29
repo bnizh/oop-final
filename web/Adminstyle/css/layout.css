@@ -369,9 +369,53 @@ h3 {
     border: none;
     background: url(../img/button-submit.gif) no-repeat left top;
 }
+.add-admin input{
+    width: 60%;
+    float: right;
+    height: 30px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    background-color: white;
+    border:1px solid #444444;
+}
+.add-admin span{
+    margin-left: 5%;
+    color: #ff5e01;
+    font-size: 20px;
+}
+.add-admin{
+    overflow: hidden;
+    margin-top:20px;
+    border-bottom: 1px solid #444444;
+}
+.add-admin-file input{
+    margin-left: 28%;
+    height: 30px;
+}
+.add-admin-file span{
+    margin-left: 5%;
+    color: #ff5e01;
+    font-size: 20px;
+}
+.add-admin-file{
+    overflow: hidden;
+    margin-top:20px;
+    border-bottom: 1px solid #444444;
+    margin-top:20px;
+}
+.add-admin-button{
+    margin-left: 47%;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 15px;
+     color: #2D98F3;
+    border: 2px solid #2D98F3;
+}
+.add-admin-button:hover{
+    color: white;
 
-/* Footer ---------------------------------------- */
-
+}
 #footer {
     margin: 10px 0 30px 0;
     font-size: 11px;

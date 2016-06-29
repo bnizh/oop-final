@@ -11,8 +11,32 @@
                 $('#buyer-table').css("visibility", "visible").css("display", "block");
             }
         });
-        
-       
+
+        $('#new-admin-form').submit(function (e) {
+            e.preventDefault(e);
+            var formData = new FormData($(this)[0]);
+            $.ajax({
+                url: "superadmin",
+                type: 'POST',
+                data: formData,
+                success: function (data) {
+                   if(data=="success"){
+                       $('#succ-msg').show();
+                       $('#error-msg').hide();
+                   }
+                    else {
+                       $('#succ-msg').hide();
+                       $('#error-msg').show();
+                   }
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+
+            });
+
+
+        })
     });
 })();
 

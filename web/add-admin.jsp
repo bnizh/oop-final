@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -23,7 +23,9 @@
 
     <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
     <ul id="mainNav" style="margin-left: 100px">
-        <li><a href="#" class="active">Users</a></li> <!-- Use the "active" class for the active menu item  -->
+        <li><a href="admin.jsp">Users</a></li> <!-- Use the "active" class for the active menu item  -->
+        <li><a href="superadmin.jsp" >Admins</a></li>
+        <li><a href="add-admin.jsp" class="active" >Add New Admin</a></li>
         <li><a href="#">Inbox</a></li>
         <li><a href="#">Main</a></li>
         <li><a href="#">Categories</a></li>
@@ -55,10 +57,10 @@
                     <input type="text" name="name">
                 </div>
                 <div class="add-admin"><span>Mobile Number</span>
-                    <input type="text" name="username">
+                    <input type="text" name="mobile">
                 </div>
                 <div class="add-admin-file"><span>Image</span>
-                    <input type="file" accept="image/gif, image/jpeg, image/png" name="username">
+                    <input name="image" type="file" accept="image/gif, image/jpeg, image/png" >
                 </div>
                 <button type="submit" class="add-admin-button">Submit</button>
             </form>

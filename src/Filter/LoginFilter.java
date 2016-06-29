@@ -2,6 +2,7 @@ package Filter;
 
 import DataBase.DBConnection;
 import DataBase.DBFactory;
+import Objects.Admin;
 import Objects.User;
 
 import javax.servlet.*;
@@ -28,36 +29,46 @@ public class LoginFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        boolean loggedIn=false;
-        String userName=null;
+        boolean loggedIn = false;
+        boolean adminLoggedIn = false;
+        String userName = null;
+        String adminUserName = null;
         String uri = req.getRequestURI();
         Cookie[] cookies = req.getCookies();
-        if(cookies != null){
-            for(Cookie cookie : cookies){
-               if( cookie.getName().equals(USER)) userName=cookie.getValue();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(USER)) userName = cookie.getValue();
+                if (cookie.getName().equals(ADMIN)) adminUserName = cookie.getValue();
+
             }
-            if(userName!=null) loggedIn =true;
+            if (userName != null) loggedIn = true;
+            if (adminUserName != null) adminLoggedIn = true;
         }
-        if(loggedIn){
-            req.getSession().setAttribute(LOGGED_IN,true);
-            DBConnection db= DBFactory.getDBConnection();
+        if (adminLoggedIn) {
+            req.getSession().setAttribute(ADMIN_LOGGED_IN, true);
+            DBConnection db = DBFactory.getDBConnection();
+            Admin admin = db.getAdminByUsername(adminUserName);
+            req.getSession().setAttribute(ADMIN,admin);
+        }
+        if (loggedIn) {
+            req.getSession().setAttribute(LOGGED_IN, true);
+            DBConnection db = DBFactory.getDBConnection();
             User user;
-           user=db.getSellerByUsername(userName);
+            user = db.getSellerByUsername(userName);
             if (user != null) {
                 req.getSession().setAttribute(USER, user);
                 req.getSession().setAttribute(TYPE, SELLER);
             }
 
-            user=db.getBuyerByUsername(userName);
+            user = db.getBuyerByUsername(userName);
             if (user != null) {
                 req.getSession().setAttribute(USER, user);
                 req.getSession().setAttribute(TYPE, BUYER);
             }
+        } else {
+            req.getSession().setAttribute(LOGGED_IN, false);
         }
-        else{
-            req.getSession().setAttribute(LOGGED_IN,false);
-        }
-        if(!loggedIn&&(uri.endsWith("user-page.jsp")||uri.endsWith("user-panel.jsp"))){
+        if (!loggedIn && (uri.endsWith("user-page.jsp") || uri.endsWith("user-panel.jsp"))) {
             res.sendRedirect("/index.jsp");
             return;
         }

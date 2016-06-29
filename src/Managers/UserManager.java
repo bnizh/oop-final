@@ -2,10 +2,7 @@ package Managers;
 
 import DataBase.DBConnection;
 import DataBase.DBFactory;
-import Objects.Buyer;
-import Objects.ObjectFactory;
-import Objects.Seller;
-import Objects.User;
+import Objects.*;
 
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
@@ -15,6 +12,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static Managers.SiteConstants.ADMIN_TYPE;
+import static Managers.SiteConstants.DEFAULT_ADMIN_IMAGE;
 import static Managers.SiteConstants.DEFAULT_USER_IMAGE;
 
 public class UserManager {
@@ -32,6 +31,7 @@ public class UserManager {
         }
         return null;
     }
+
     public Buyer checkBuyerLoginValidation(String userName, String password) throws NoSuchAlgorithmException {
         String hashedPassword = hash(password);
         Buyer buyer = db.getBuyerByUsername(userName);
@@ -51,19 +51,21 @@ public class UserManager {
         Buyer buyer = db.getBuyerByUsername(userName);
         return seller == null && buyer == null;
     }
-    public boolean editImageUser(Part filePart, User seller ) throws IOException {
+
+    public boolean editImageUser(Part filePart, User seller) throws IOException {
         System.out.println("editshi movida");
         FileManager fm = ManagerFactory.getFileManager();
-       String newURL= fm.editProfile(seller.getUserName(),filePart,seller.getImage());
+        String newURL = fm.editProfile(seller.getUserName(), filePart, seller.getImage());
         seller.setImage(newURL);
         System.out.println(newURL);
-        db.updateSellerImage(seller.getID(),newURL);
+        db.updateSellerImage(seller.getID(), newURL);
         return true;
     }
+
     private boolean sendEmailExistCheck(String email) throws MessagingException, NoSuchAlgorithmException {
-        String st ="http://localhost:8080/confirmation.jsp?hash="+hash(email);
-        ObjectFactory.getUnactivatedMap()   .put(hash(email), email);
-        ManagerFactory.getSendMail().sendEmail(email,st);
+        String st = "http://localhost:8080/confirmation.jsp?hash=" + hash(email);
+        ObjectFactory.getUnactivatedMap().put(hash(email), email);
+        ManagerFactory.getSendMail().sendEmail(email, st);
         return true;
     }
 
@@ -79,12 +81,10 @@ public class UserManager {
                                      String name, String mobileNumber, Part filePart, String type) throws NoSuchAlgorithmException, IOException, ServletException, MessagingException {
         User user = getNewUser(username, password, email, name, mobileNumber, type);
         ErrorStatus result = validateUser(user);
-        if(result!=ErrorStatus.CORRECT) return result;
+        if (result != ErrorStatus.CORRECT) return result;
         sendEmailExistCheck(email);
-        if (result == ErrorStatus.CORRECT) {
-            initUser(user, getImageUrl(username, filePart), hash(password));
-            result = saveUser(user);
-        }
+        initUser(user, getImageUrl(username, filePart), hash(password));
+        result = saveUser(user);
         return result;
     }
 
@@ -111,15 +111,23 @@ public class UserManager {
     }
 
     private String hash(String password) throws NoSuchAlgorithmException {
-        return ManagerFactory.getHashCreator().getHash(password);
+        return HashCreator.getHash(password);
     }
 
     private String getImageUrl(String username, Part filePart) throws IOException, ServletException {
-        if(filePart.getSize()==0){
+        if (filePart.getSize() == 0) {
             return DEFAULT_USER_IMAGE;
         }
         FileManager fm = ManagerFactory.getFileManager();
         return fm.saveProfilePicture(username, filePart);
+    }
+
+    private String getAdminImageUrl(String username, Part filePart) throws IOException, ServletException {
+        if (filePart.getSize() == 0) {
+            return DEFAULT_ADMIN_IMAGE;
+        }
+        FileManager fm = ManagerFactory.getFileManager();
+        return fm.saveAdminPicture(username, filePart);
     }
 
     private boolean saveSellerToBase(Seller seller) {
@@ -156,5 +164,14 @@ public class UserManager {
     private static boolean enoughLength(String text, int length) {
         String patternString = "(?=.{" + length + ",}).*";
         return checkRegEx(patternString, text);
+    }
+
+    public boolean createNewAdmin(String userName, String email, String name, String mobile, String password, Part image) throws IOException, ServletException, NoSuchAlgorithmException {
+        String img = getAdminImageUrl(userName, image);
+        String hashedPassword = HashCreator.getHash(password);
+        DBConnection dbc=DBFactory.getDBConnection();
+        Admin admin = ObjectFactory.getNewAdmin(userName, name, email, hashedPassword, img, mobile, ADMIN_TYPE);
+        dbc.addNewAdmin(admin);
+        return true;
     }
 }

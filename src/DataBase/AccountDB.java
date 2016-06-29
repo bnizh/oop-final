@@ -69,6 +69,25 @@ public class AccountDB implements DBQueries {
     }
 
     @Override
+    public Admin getAdminByUsername(String userName) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Admin_table + " where username = \"" + userName + "\"" )) {
+            return getAdminFromBase(stm);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;    }
+
+    @Override
+    public Admin getAdminByEmail(String email) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Admin_table + " where email = \"" + email + "\" ")) {
+            return getAdminFromBase(stm);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;    }
+
+    @Override
     public boolean addNewAdmin(Admin admin) {
         String s = "insert into " + DBInfo.MYSQL_DATABASE_Admin_table + " (password, userName, name, typeOfUser, mobileNumber, imageUrl, email) values(" + "\"" + admin.getPassword() + "\"" + "," +
                 "\"" + admin.getUserName() + "\"" + "," + "\"" + admin.getName() + "\"" + "," + ADMIN_TYPE + "," + "\"" + admin.getMobileNumber() + "\"" + "," + "\"" + admin.getImageURL() + "\"" + "," + "\"" + admin.getEmail() + "\"" + ")";

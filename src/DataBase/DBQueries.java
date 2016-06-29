@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface DBQueries {
     public Admin getAdminByID(int ID);
+    public Admin getAdminByUsername(String userName);
+    public Admin getAdminByEmail(String email);
     public boolean addNewAdmin(Admin admin);
     public List<Admin> getAllAdmin();
     public boolean deleteAdmin(int ID);

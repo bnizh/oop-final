@@ -12,12 +12,36 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import static Managers.SiteConstants.ADMIN_IMAGE_DIRECTORY;
 import static Managers.SiteConstants.IMAGE_DIRECTORY;
 
 public class FileManager {
     public String saveProfilePicture(String userName, Part filePart) throws IOException, ServletException {
         String uploadDirectory = IMAGE_DIRECTORY + userName;
         Path folder = Paths.get(uploadDirectory);
+        if (Files.notExists(folder)) {
+            new File(uploadDirectory).mkdir();
+        }
+        String filename = getSubmittedFileName(filePart);
+        InputStream fileContent = filePart.getInputStream();
+        String extension = FilenameUtils.getExtension(filename);
+        System.out.println(extension);
+        Path file = Paths.get(uploadDirectory + "\\\\" + "profile." + extension);
+        System.out.println(file);
+        try (InputStream input = fileContent) {
+            Files.copy(input, file, StandardCopyOption.REPLACE_EXISTING);
+        }
+
+        System.out.println("Uploaded file successfully saved in " + file);
+        return uploadDirectory + "\\\\" + "profile." + extension;
+    }
+
+    public String saveAdminPicture(String userName, Part filePart) throws IOException, ServletException {
+        String uploadDirectory = ADMIN_IMAGE_DIRECTORY + userName;
+        Path folder = Paths.get(uploadDirectory);
+        if (Files.notExists(Paths.get(ADMIN_IMAGE_DIRECTORY))) {
+            new File(ADMIN_IMAGE_DIRECTORY).mkdir();
+        }
         if (Files.notExists(folder)) {
             new File(uploadDirectory).mkdir();
         }

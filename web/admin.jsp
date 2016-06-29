@@ -22,6 +22,7 @@
     <ul id="mainNav" style="margin-left: 100px">
         <li><a href="admin.jsp" class="active">Users</a></li> <!-- Use the "active" class for the active menu item  -->
         <li><a href="superadmin.jsp">Admins</a></li>
+        <li><a href="add-admin.jsp" >Add New Admin</a></li>
         <li><a href="#">Inbox</a></li>
         <li><a href="#">Main</a></li>
         <li><a href="#">Categories</a></li>

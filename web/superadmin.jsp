@@ -13,7 +13,7 @@
     <link href="Adminstyle/css/transdmin.css" rel="stylesheet" type="text/css" media="screen"/>
     <link rel="stylesheet" type="text/css" media="screen" href="Adminstyle/css/ie6.css"/>
     <link rel="stylesheet" type="text/css" media="screen" href="Adminstyle/css/ie7.css"/>
-    <script src="https://code.jquery.com/jquery-3.0.0-beta1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.0.0-beta1.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="Adminstyle/js/jNice.js"></script>
 </head>
 
@@ -26,6 +26,7 @@
     <ul id="mainNav" style="margin-left: 100px">
         <li><a href="admin.jsp">Users</a></li> <!-- Use the "active" class for the active menu item  -->
         <li><a href="superadmin.jsp" class="active">Admins</a></li>
+        <li><a href="add-admin.jsp"  >Add New Admin</a></li>
         <li><a href="#">Inbox</a></li>
         <li><a href="#">Main</a></li>
         <li><a href="#">Categories</a></li>
@@ -59,7 +60,7 @@
                             for (Admin admin : adminList) {
 
                                 out.println("<td>" + admin.getId() + "</td>\n" +
-                                        "                        <td><img src=\"ImageLoader?FileName=\"" + admin.getImageURL() + "\" style=\";height: 40px\" alt=\"\"/></td>\n" +
+                                        "                        <td><img src=\"ImageLoader?FileName=" + admin.getImageURL() + "\" style=\";height: 40px\" alt=\"\"/></td>\n" +
                                         "                        <td valign=\"center\">" + admin.getUserName() + "</td>\n" +
                                         "                        <td valign=\"center\">" + admin.getName() + "</td>\n" +
                                         "                        <td valign=\"center\">" + admin.getEmail() + "</td>\n");

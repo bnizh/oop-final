@@ -62,7 +62,7 @@ public class UserManager {
     }
     private boolean sendEmailExistCheck(String email) throws MessagingException, NoSuchAlgorithmException {
         String st ="http://localhost:8080/confirmation.jsp?hash="+hash(email);
-        ObjectFactory.getUnactivedMap().put(hash(email), email);
+        ObjectFactory.getUnactivatedMap()   .put(hash(email), email);
         ManagerFactory.getSendMail().sendEmail(email,st);
         return true;
     }

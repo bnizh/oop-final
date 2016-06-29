@@ -2,7 +2,7 @@ DROP database IF EXISTS base;
 create database base;
 use base;
 
-
+SELECT * from users WHERE userID>0;
 CREATE TABLE Users (
     userID int auto_increment not null ,
     password varchar(128) not null,
@@ -79,7 +79,10 @@ create table tags(
     tagType varchar(64) not null,
     ownerID int not null
 );
+DELETE FROM users WHERE userID<3;
 
+SELECT *
+FROM users;
 CREATE TABLE rating(
     ID int AUTO_INCREMENT NOT NULL ,
     writerID int NOT NULL ,
@@ -90,7 +93,6 @@ CREATE TABLE rating(
     FOREIGN KEY (writerID) REFERENCES Users(userID),
     UNIQUE KEY combination (writerID, ownerID, ownerType)
 );
-
 CREATE TABLE transactions (
   id     VARCHAR(64)  NOT NULL unique ,
   buyerID INT                NOT NULL,
@@ -103,7 +105,6 @@ CREATE TABLE transactions (
   FOREIGN KEY (buyerID) REFERENCES Users (userID),
   FOREIGN KEY (itemID) REFERENCES items (itemID)
 );
-
 INSERT INTO categories (categoryName) VALUES ('Hot Meal'),
   ('Drinks'), ('Alcohol'), ('Meat'), ('Fast Food'), ('Other'), ('Desert')
 

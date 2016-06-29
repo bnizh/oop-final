@@ -10,13 +10,14 @@
                     console.log(nickname);
                     socket.send(nickname);
             };
-    
+
             socket.onmessage = function (a) {
                 if(a.data != "") {
                     var iDiv = document.createElement("textarea");
                     iDiv.id = 'text';
                     iDiv.value = a.data;
                     document.getElementsByTagName('body')[0].appendChild(iDiv);
+                    $('#text').css("top","5%").css("margin-left","45%").css("text-align","center").css("position","absolute");
                     var alert = new Audio("alert.mp3");
                     alert.play();
                     setTimeout(function () {
@@ -35,16 +36,17 @@
                         buyer: $('#userID').val()
                     },
                     cache: false,
-                    dataType: "text",})
-            })
+                    dataType: "text"
+                })
+            });
             socket.onclose = function () {
                     //event handler when the socket has been properly closed
-            }
-    
+            };
+
             socket.onerror = function () {
                 document.write("Error during transfer.");
             }
-        
+
     }
         //for sending data to the server
         function sendMessage() {

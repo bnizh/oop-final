@@ -89,7 +89,7 @@
             }
 
             if (allright) {
-                buyerSend();
+                buyerSend(e);
             }
         });
 
@@ -119,11 +119,11 @@
             }
 
             if (allright) {
-                sellerSend();
+                sellerSend(e);
             }
         });
-        function buyerSend() {
-            event.preventDefault();
+        function buyerSend(e) {
+            e.preventDefault(e);
             var formData = new FormData($("#buyer-registration")[0]);
 
             $.ajax({
@@ -153,8 +153,8 @@
 
         }
 
-        function sellerSend() {
-            event.preventDefault();
+        function sellerSend(e) {
+            e.preventDefault(e);
             var formData = new FormData($("#seller-registration")[0]);
             $.ajax({
                 url: "NewAccountServlet",
@@ -183,8 +183,8 @@
 
         }
 
-        $("#username-reg-b").change(function () {
-            event.preventDefault();
+        $("#username-reg-b").change(function (e) {
+            e.preventDefault();
             var arg = $(this).val();
             $.ajax({
                 url: 'UsernameCheckServlet',
@@ -206,8 +206,8 @@
 
             return false;
         });
-        $("#username-reg-s").change(function () {
-            event.preventDefault();
+        $("#username-reg-s").change(function (e) {
+            e.preventDefault();
             var arg = $(this).val();
             $.ajax({
                 url: 'UsernameCheckServlet',

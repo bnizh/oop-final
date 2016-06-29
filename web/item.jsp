@@ -100,7 +100,8 @@
         <input id="reciver-username" type="hidden" value="<%=us.getUserName()%>">
         <input id="receiver-ID" type="hidden" value="<%=us.getID()%>">
         <input id="itemID" type="hidden" value="<%=item.getID()%>">
-        <input type="number" id ="amount"
+        <% if (request.getSession().getAttribute(TYPE).equals(BUYER)) {%>
+        <input type="number" id="amount"
                name="amount"
                value="0"
                step="1"
@@ -109,8 +110,8 @@
                 href="#"><img src="buy.png"
                               style="width: 40px;height: auto;margin-right: 8px">Buy Item
         </button>
+        <%}%>
         <div style="float:right">
-
             <button id="link_add" class="button" style="font-size: 15px;border-radius: 10%; color: #990099;"
                     href="#"><img src="chat.png" id="chat-icon"
                                   style="width: 40px;height: auto;margin-right: 8px">Start Chat with Seller

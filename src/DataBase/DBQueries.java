@@ -5,6 +5,12 @@ import Objects.*;
 import java.util.List;
 
 public interface DBQueries {
+    public Admin getAdminByID(int ID);
+    public boolean addNewAdmin(Admin admin);
+    public List<Admin> getAllAdmin();
+    public boolean deleteAdmin(int ID);
+    public boolean updateAdminWithoutImage(Admin admin);
+    public boolean updateAdminImage(int adminID, String path);
     public Seller getSellerByUsername(String companyName);
 
     public Seller getSellerByEmail(String email);

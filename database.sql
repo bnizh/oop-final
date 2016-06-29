@@ -18,6 +18,18 @@ CREATE TABLE Users (
 
     primary key (userID)
 );
+SELECT * FROM admins;
+CREATE TABLE admins (
+    userID int auto_increment not null ,
+    password varchar(128) not null,
+    userName varchar(128) not null unique,
+    name varchar(128),
+    typeOfUser int not null,
+    email varchar(128) unique,
+    mobileNumber VARCHAR(64),
+    imageUrl varchar(256),
+    primary key (userID)
+);
 SELECT *
 FROM users;
 create table categories(

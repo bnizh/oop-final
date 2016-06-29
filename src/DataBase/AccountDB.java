@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static Managers.SiteConstants.*;
 
@@ -32,6 +31,79 @@ public class AccountDB implements DBQueries {
         }
         return null;
     }
+
+    private Admin getAdminFromBase(PreparedStatement stm) {
+        try (ResultSet rs = stm.executeQuery()) {
+            if (rs.next()) {
+                return ObjectFactory.getNewAdmin(rs.getInt("userID"), rs.getString("userName"), rs.getString("name"), rs.getString("email"), rs.getString("password")
+                        , rs.getString("imageUrl"), rs.getString("mobileNumber"), rs.getInt("typeOfUser"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private void getSeveralAdminsFromBase(List<Admin> list, PreparedStatement stm) {
+        try (ResultSet rs = stm.executeQuery()) {
+            while (rs.next()) {
+                list.add(ObjectFactory.getNewAdmin(rs.getInt("userID"), rs.getString("userName"), rs.getString("name"), rs.getString("email"), rs.getString("password")
+                        , rs.getString("imageUrl"), rs.getString("mobileNumber"), rs.getInt("typeOfUser")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public Admin getAdminByID(int ID) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Admin_table + " where userID = " + ID + " AND" +
+                " typeOfUser = " + ADMIN_TYPE)) {
+            return getAdminFromBase(stm);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean addNewAdmin(Admin admin) {
+        String s = "insert into " + DBInfo.MYSQL_DATABASE_Admin_table + " (password, userName, name, typeOfUser, mobileNumber, imageUrl, email) values(" + "\"" + admin.getPassword() + "\"" + "," +
+                "\"" + admin.getUserName() + "\"" + "," + "\"" + admin.getName() + "\"" + "," + ADMIN_TYPE + "," + "\"" + admin.getMobileNumber() + "\"" + "," + "\"" + admin.getImageURL() + "\"" + "," + "\"" + admin.getEmail() + "\"" + ")";
+        return Helper(s);
+    }
+
+    @Override
+    public List<Admin> getAllAdmin() {
+        ArrayList<Admin> list = new ArrayList<Admin>();
+        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Admin_table + " where typeOfUser =" + ADMIN_TYPE;
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            getSeveralAdminsFromBase(list, stm);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public boolean deleteAdmin(int ID) {
+        String s = "DELETE FROM " + DBInfo.MYSQL_DATABASE_Admin_table + " where userID =" + ID;
+        return Helper(s);
+    }
+
+    @Override
+    public boolean updateAdminWithoutImage(Admin admin) {
+        String s = "update " + DBInfo.MYSQL_DATABASE_Admin_table + " set userName =" + '\"' + admin.getUserName() + '\"' + ", password =" + '\"' + admin.getPassword() + '\"'
+                + ", name =" + '\"' + admin.getName() + '\"' + ",email =" + '\"' + admin.getEmail() + '\"' + ", mobileNumber=" + '\"' +
+                admin.getMobileNumber()  + '\"' + " where userID =" + admin.getId();
+        return Helper(s);    }
+
+    @Override
+    public boolean updateAdminImage(int adminID, String path) {
+        String s = "update " + DBInfo.MYSQL_DATABASE_Admin_table + " set imageUrl ='" + path + "' where userID =" + adminID;
+        return Helper(s);    }
 
     @Override
     public Seller getSellerByUsername(String username) {
@@ -143,7 +215,7 @@ public class AccountDB implements DBQueries {
     public boolean updateSellerWithoutImage(Seller seller) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Users_table + " set userName =" + '\"' + seller.getUserName() + '\"' + ", password =" + '\"' + seller.getPassword() + '\"'
                 + ", name =" + '\"' + seller.getName() + '\"' + ",email =" + '\"' + seller.getEmail() + '\"' + ", mobileNumber=" + '\"' +
-                seller.getMobileNumber() + '\"' + ",rating =" + '\"' + seller.getRating() + '\"' + ",voters =" + '\"' + seller.getVoters() + '\"' + ", confirmed = " + seller.isConfirmed()+", banned = " + seller.isBanned() + " where userID =" + seller.getID();
+                seller.getMobileNumber() + '\"' + ",rating =" + '\"' + seller.getRating() + '\"' + ",voters =" + '\"' + seller.getVoters() + '\"' + ", confirmed = " + seller.isConfirmed() + ", banned = " + seller.isBanned() + " where userID =" + seller.getID();
         return Helper(s);
     }
 
@@ -259,7 +331,7 @@ public class AccountDB implements DBQueries {
     public boolean updateBuyerWithoutImage(Buyer buyer) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Users_table + " set userName =" + '\"' + buyer.getUserName() + '\"' + ", password =" + '\"' + buyer.getPassword() + '\"'
                 + ", name =" + '\"' + buyer.getName() + '\"' + ",email =" + '\"' + buyer.getEmail() + '\"' + ", mobileNumber=" + '\"' +
-                buyer.getMobileNumber() + '\"' + ",rating =" + '\"' + buyer.getRating() + '\"' + ",voters =" + '\"' + buyer.getVoters() + '\"' + ", confirmed = " + buyer.isConfirmed() +", banned = " + buyer.isBanned()+ " where userID =" + buyer.getID();
+                buyer.getMobileNumber() + '\"' + ",rating =" + '\"' + buyer.getRating() + '\"' + ",voters =" + '\"' + buyer.getVoters() + '\"' + ", confirmed = " + buyer.isConfirmed() + ", banned = " + buyer.isBanned() + " where userID =" + buyer.getID();
         return Helper(s);
     }
 

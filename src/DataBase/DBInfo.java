@@ -15,5 +15,6 @@ public class DBInfo {
     public static final String MYSQL_DATABASE_Categories_table = "categories";
     public static final String MYSQL_DATABASE_Rating_table = "rating";
     public static final String MYSQL_DATABASE_Transaction_table = "transactions";
+    public static final String MYSQL_DATABASE_Admin_table = "admins";
 
 }

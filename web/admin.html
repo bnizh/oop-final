@@ -35,13 +35,9 @@
     <div id="container">
 
         <!-- h2 stays for breadcrumbs -->
-        <h2 style="text-align: center"> Users </h2>
-        <label style="margin-left: 40%;margin-right: 5%;font-size: 20px" class=""><input id="buyer-radio-admin"
-                                                                                         type="radio"
-                                                                                         name="user-type"
-                                                                                         checked="checked">buyer</label>
-        <label style="font-size: 20px" class=""><input id="seller-radio-admin" type="radio"
-                                                       name="user-type">Seller</label>
+        <h2 style="text-align: center"> Admins  <a href="add-admin.jsp" style="color:#ff5e01;text-decoration: none; float: right;margin-right: 50px">Add New Admin</a></h2>
+
+
         <main id="buyer-table">
             <table class="admin-table" style="margin-top: 20px">
                 <thead>
@@ -51,10 +47,6 @@
                     <th class="row-3 row-username">Username</th>
                     <th class="row-3 row-name">name</th>
                     <th class="row-4 row-email">Email</th>
-                    <th class="row-5 row-type">Type</th>
-                    <th class="row-6 row-banned">Banned</th>
-                    <th class="row-7 row-items">Items</th>
-                    <th class="row-8 row-ban">Ban</th>
                     <th class="row-9 row-x">X</th>
                 </tr>
                 </thead>
@@ -65,16 +57,6 @@
                     <td valign="center">Robotin'</td>
                     <td valign="center">Robotin'</td>
                     <td valign="center">need@input.com</td>
-                    <td valign="center">need@input.com</td>
-                    <td valign="center">need@input.com</td>
-                    <td valign="center">50</td>
-                    <style>.clickable:hover {
-                        color: #000000;
-                    }
-                    </style>
-                    <td class="clickable"><a href="index.jsp"
-                                             style="color: red;text-decoration: none;border: 1px solid red;font-size:15px;border-radius: 20% ">Ban</a>
-                    </td>
                     <td class="clickable"><a href="index.jsp"
                                              style="color: red;font-size: 20px;text-decoration: none">X</a></td>
                 </tr>

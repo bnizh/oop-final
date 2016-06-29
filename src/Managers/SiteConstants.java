@@ -13,4 +13,5 @@ public class SiteConstants {
     public static int SellerType = 1;
     public static int BuyerType = 0;
     public static int NUMBER_OF_ITEMS_ON_PAGE = 6;
+    public static int NUMBER_OF_COMMENTS_ON_PAGE = 6;
 }

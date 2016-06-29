@@ -5,9 +5,11 @@
 <%@ page import="Objects.User" %>
 <%@ page import="Objects.Rating" %>
 <%@ page import="java.util.List" %>
+<%@ page import="Objects.Comment" %>
+<%@ page import="static Managers.SiteConstants.NUMBER_OF_ITEMS_ON_PAGE" %>
+<%@ page import="static Managers.SiteConstants.*" %>
 <% Boolean logged = (Boolean) request.getSession().getAttribute(LOGGED_IN);
     Objects.Seller us = dbc.getSellerByID(id);%>
-
 <div>
     <div class="user-container">
         <div class="type-header">
@@ -86,7 +88,6 @@
                             href="#"><img src="chat.png" id="chat-icon"
                                           style="width: 40px;height: auto;margin-right: 8px">Start Chat
                     </button>
-                    </label>
                 </div>
                 <% }%>
             </div>
@@ -125,30 +126,58 @@
         <div class="type-header">
             <span id="com">Comments</span>
             <div class="container">
-                <div class="dialogbox">
-                    <div style="margin-left: 10%">
-                        <div style="border: 1px solid #ff5e01;border-radius:15%;padding-left: 5px;padding-right:5px;    float:left">
-                            <span style="font-size: 15px; margin-top: 20px;text-align: center">goka</span>
-                            <div style="width: 100%"><img src="defaultitem.png"
-                                                          style="width: 50px;height: 50px;text-align: center"></div>
-                        </div>
-                        <div class="comment-body">
-                            <span class="tip tip-left"></span>
-                            <div class="message">
-                                <span>I just made a comment about this comment box which is purely made from CSS. we are going to games even babay gaames eveb</span>
-                            </div>
-                        </div>
-                    </div>
+                <div id="comments-box">
+                    <%
+                        id = Integer.valueOf(request.getParameter("ID"));
+                        List<Comment> comList = dbc.getUserCommentsByOwner(id, 0, NUMBER_OF_COMMENTS_ON_PAGE);
+                        for (Comment comment : comList) {
+                            User user = dbc.getSellerByID(comment.getWriterID());
+                            if (user == null) user = dbc.getBuyerByID(comment.getWriterID());
+                            out.println(" <div class=\"dialogbox\">\n" +
+                                    "                    <div style=\"margin-left: 10%\">\n" +
+                                    "                        <div style=\"border: 1px solid #ff5e01;border-radius:15%;padding-left: 5px;padding-right:5px;    float:left\">\n" +
+                                    "                            <span style=\"font-size: 15px; margin-top: 20px;text-align: center\">" + user.getUserName() + "</span>\n" +
+                                    "                            <div style=\"width: 100%\"><img src=\"ImageLoader?FileName=" + user.getImage() + "\"\n" +
+                                    "                                                          style=\"width: 50px;height: 50px;text-align: center\"></div>\n" +
+                                    "                        </div>\n" +
+                                    "                        <div class=\"comment-body\">\n" +
+                                    "                            <span class=\"tip tip-left\"></span>\n" +
+                                    "                            <div class=\"message\">\n" + "<span style=\"float:right;padding-right:20px;color:red\"> " +
+                                    "                                " + comment.getDateOfWrite() + "   </span>" + "<br>" +
+                                    "                                <span>" + comment.getComment() + "</span>\n" +
+                                    "                            </div>\n" +
+                                    "                        </div>\n" +
+                                    "                    </div>\n" +
+                                    "                </div>");
+                        }
+                        out.println("<input type=\"hidden\" name=\"page\" id=\"comment-page\" value=\"" + 0 + "\" >");
+                        out.println("<input type=\"hidden\" id=\"comment-owner-type\" value=\"user\" >\n");
+
+                    %>
                 </div>
+                <img style="display: none" src="loading.gif" alt="Loading…"/>
+                <button id="load-more-comment" style="text-align: center">Load More</button>
+                <input type="hidden" id="comment-owner-id" name="ID" value="<%=id%>">
+                <%
+                    if (logged) {
+                %>
                 <form id="comment-form" style="width: 80%; margin-left: 10% ">
                     <textarea style="width: 100%" onkeyup="textAreaAdjust(this)" name="comment" id="comment"
                               placeholder="Comment"></textarea><br>
-                    <input type="hidden" name="ID" value="<%=id%>">
                     <button style="margin-right: 10%;float:right;margin-top: 10px; color:#990099; border-radius: 10%; font-size: 20px"
                             type="submit" class="button"> submit
                     </button>
                 </form>
+                <%}%>
             </div>
         </div>
     </div>
 </div>
+<script>
+
+
+    function textAreaAdjust(o) {
+        o.style.height = "1px";
+        o.style.height = (25 + o.scrollHeight) + "px";
+    }
+</script>

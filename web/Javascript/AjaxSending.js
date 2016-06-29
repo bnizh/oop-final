@@ -1,5 +1,34 @@
 (function () {
     $(document).ready(function () {
+        
+        $("#comment-form").submit(function (event) {
+            //disable the default form submission
+            event.preventDefault();
+            var com=$('#comment').val();
+            var id=$('#comment-owner-id').val();
+            var type=$('#comment-owner-type').val();
+            console.log(com);
+            console.log(id);
+            $.ajax({
+                url: "comment",
+                type: 'POST',
+                data: {
+                    comment:com,
+                    ID:id,
+                    type:type
+                },
+                cache: false,
+                dataType: "text",
+                success: function (data) {
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(data);
+                    newDoc.close();
+                }
+            });
+
+            return false;
+
+        });
 
         $("#item-add-form").submit(function (event) {
             //disable the default form submission
@@ -88,7 +117,7 @@
                 allright = false;
                 $('#seller-name').css("background-color", "#D08080");
             }
-          
+
             if (allright) {
                 sellerSend();
             }

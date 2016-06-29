@@ -9,6 +9,7 @@
     <script src="Javascript/AjaxSending.js"></script>
     <script src="Javascript/loginAjax.js"></script>
     <script src="Javascript/user-edit.js"></script>
+    <script src="Javascript/comment.js"></script>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 </head>

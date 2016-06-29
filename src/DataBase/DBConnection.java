@@ -672,6 +672,42 @@ public class DBConnection implements DBQueries{
             }
         }
     }
+    @Override
+    public List<Comment> getItemCommentsByOwner(int userID,int offset,int numberOfItem) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).getItemCommentsByOwner(userID,numberOfItem,offset);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    @Override
+    public List<Comment> getUserCommentsByOwner(int userID,int offset,int numberOfItem) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return  DBFactory.getAccountDB(con).getUserCommentsByOwner(userID,numberOfItem,offset);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        }finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     @Override
     public boolean updateUserComment(Comment c) {

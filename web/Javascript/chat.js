@@ -96,7 +96,3 @@ $(document).ready(function () {
  
 
 });
-(function () {
-})();
-
-

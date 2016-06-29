@@ -48,7 +48,7 @@ public class LoginFilter implements Filter {
             req.getSession().setAttribute(ADMIN_LOGGED_IN, true);
             DBConnection db = DBFactory.getDBConnection();
             Admin admin = db.getAdminByUsername(adminUserName);
-            req.getSession().setAttribute(ADMIN,admin);
+            req.getSession().setAttribute(ADMIN, admin);
         }
         if (loggedIn) {
             req.getSession().setAttribute(LOGGED_IN, true);
@@ -70,6 +70,11 @@ public class LoginFilter implements Filter {
         }
         if (!loggedIn && (uri.endsWith("user-page.jsp") || uri.endsWith("user-panel.jsp"))) {
             res.sendRedirect("/index.jsp");
+            return;
+        }
+        if (!adminLoggedIn && (uri.endsWith("admin.jsp") || uri.endsWith("superadmin.jsp") || uri.endsWith("add-admin.jsp")
+                || uri.endsWith("adminpanel.jsp"))) {
+            res.sendRedirect("admin-login.html");
             return;
         }
         // pass the request along the filter chain

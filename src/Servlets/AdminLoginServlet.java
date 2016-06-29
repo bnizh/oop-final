@@ -15,9 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
-import static Managers.SiteConstants.ADMIN;
-import static Managers.SiteConstants.LOGGED_IN;
-import static Managers.SiteConstants.USER;
+import static Managers.SiteConstants.*;
 
 @WebServlet("/admin-login")
 public class AdminLoginServlet extends HttpServlet {
@@ -43,8 +41,13 @@ public class AdminLoginServlet extends HttpServlet {
                 Cookie uname = new Cookie(ADMIN, admin.getUserName());
                 uname.setMaxAge(3 * 60 * 60);
                 response.addCookie(uname);
-                RequestDispatcher dispatch = request.getRequestDispatcher("admin.jsp");
-                dispatch.forward(request, response);
+                if (admin.getTypeOfAdmin() == SUPER_ADMIN_TYPE) {
+                    RequestDispatcher dispatch = request.getRequestDispatcher("superadmin.jsp");
+                    dispatch.forward(request, response);
+                } else {
+                    RequestDispatcher dispatch = request.getRequestDispatcher("admin.jsp");
+                    dispatch.forward(request, response);
+                }
             } else {
                 RequestDispatcher dispatch = request.getRequestDispatcher("admin-login.html");
                 dispatch.forward(request, response);
@@ -61,7 +64,7 @@ public class AdminLoginServlet extends HttpServlet {
                     cookie.setMaxAge(0);
                     response.addCookie(cookie);
                 }
-                request.getSession().setAttribute(LOGGED_IN, false);
+                request.getSession().setAttribute(ADMIN_LOGGED_IN, false);
             }
             if (request.getSession() != null) {
                 request.getSession().invalidate();

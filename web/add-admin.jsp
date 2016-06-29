@@ -1,3 +1,7 @@
+<%@ page import="Objects.Admin" %>
+<%@ page import="static Managers.SiteConstants.ADMIN_LOGGED_IN" %>
+<%@ page import="static Managers.SiteConstants.ADMIN" %>
+<%@ page import="static Managers.SiteConstants.SUPER_ADMIN_TYPE" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,17 +24,30 @@
 <div id="wrapper">
     <!-- h1 tag stays for the logo, you can use the a tag for linking the index page -->
     <h1><a href="#"><span>Admin panel</span></a></h1>
-
+    <%
+        Boolean b = (Boolean) request.getSession().getAttribute(ADMIN_LOGGED_IN);
+        if (!b) {
+            out.println("<script type=\"text/javascript\">  window.location.href = \"http://localhost:8080/activationNeeded.jsp\"; </script>");
+        }
+        Admin admin = (Admin) request.getSession().getAttribute(ADMIN);
+        boolean isSuper = false;
+        if (admin.getTypeOfAdmin() == SUPER_ADMIN_TYPE) isSuper = true;
+    %>
     <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
     <ul id="mainNav" style="margin-left: 100px">
         <li><a href="admin.jsp">Users</a></li> <!-- Use the "active" class for the active menu item  -->
-        <li><a href="superadmin.jsp" >Admins</a></li>
-        <li><a href="add-admin.jsp" class="active" >Add New Admin</a></li>
-        <li><a href="#">Inbox</a></li>
+        <%
+            if (isSuper) {
+        %>
+        <li><a href="superadmin.jsp" class="active">Admins</a></li>
+        <li><a href="add-admin.jsp">Add New Admin</a></li>
+        <%
+            }
+        %>
         <li><a href="#">Main</a></li>
         <li><a href="#">Categories</a></li>
         <li><a href="#">Products</a></li>
-        <li class="logout"><a href="#">LOGOUT</a></li>
+        <li class="logout"><a href="/admin-login?">LOGOUT</a></li>
     </ul>
     <!-- // #end mainNav -->
 
@@ -60,7 +77,7 @@
                     <input type="text" name="mobile">
                 </div>
                 <div class="add-admin-file"><span>Image</span>
-                    <input name="image" type="file" accept="image/gif, image/jpeg, image/png" >
+                    <input name="image" type="file" accept="image/gif, image/jpeg, image/png">
                 </div>
                 <button type="submit" class="add-admin-button">Submit</button>
             </form>

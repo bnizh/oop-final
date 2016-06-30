@@ -41,7 +41,10 @@ public class AdminLoginServlet extends HttpServlet {
                 Cookie uname = new Cookie(ADMIN, admin.getUserName());
                 uname.setMaxAge(3 * 60 * 60);
                 response.addCookie(uname);
+                request.getSession().setAttribute(ADMIN_LOGGED_IN, true);
+                request.getSession().setAttribute(ADMIN, admin);
                 if (admin.getTypeOfAdmin() == SUPER_ADMIN_TYPE) {
+
                     RequestDispatcher dispatch = request.getRequestDispatcher("superadmin.jsp");
                     dispatch.forward(request, response);
                 } else {

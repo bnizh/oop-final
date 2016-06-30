@@ -48,7 +48,11 @@ public class LoginFilter implements Filter {
             req.getSession().setAttribute(ADMIN_LOGGED_IN, true);
             DBConnection db = DBFactory.getDBConnection();
             Admin admin = db.getAdminByUsername(adminUserName);
-            req.getSession().setAttribute(ADMIN, admin);
+            System.out.println(admin);
+            if (admin != null)
+                req.getSession().setAttribute(ADMIN, admin);
+        } else {
+            req.getSession().setAttribute(ADMIN_LOGGED_IN, false);
         }
         if (loggedIn) {
             req.getSession().setAttribute(LOGGED_IN, true);
@@ -77,6 +81,7 @@ public class LoginFilter implements Filter {
             res.sendRedirect("admin-login.html");
             return;
         }
+        System.out.println(uri);
         // pass the request along the filter chain
         chain.doFilter(request, response);
     }

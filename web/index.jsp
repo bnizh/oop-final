@@ -2,8 +2,10 @@
 <%@ page import="Objects.Category" %>
 <%@ page import="Objects.Item" %>
 <%@ page import="Objects.Seller" %>
+<%@ page import="Objects.Admin" %>
 <%@ page import="java.util.List" %>
 <%@ page import="static Managers.SiteConstants.NUMBER_OF_ITEMS_ON_PAGE" %>
+<%@ page import="static Managers.SiteConstants.ADMIN_LOGGED_IN" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -25,8 +27,9 @@
         <a href="\index.jsp" id="logo">Food-Online</a>
     </div>
     <%
-        Boolean b = (Boolean) session.getAttribute("loggedIn");
-        if (!b) {
+        Boolean b = (Boolean) session.getAttribute(LOGGED_IN);
+        Boolean adm=(Boolean) session.getAttribute(ADMIN_LOGGED_IN);
+        if (!b&&!adm) {
     %>
     <script src="Javascript/script.js"></script>
     <%@include file="visitor.jsp" %>

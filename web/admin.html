@@ -34,34 +34,79 @@
 
     <div id="container">
 
-        <!-- h2 stays for breadcrumbs -->
-        <h2 style="text-align: center">Add New Admin</h2>
-        <main>
+        <main id="seller-table">
             <form id="new-admin-form">
-                <span id="succ-msg"
-                      style="margin-top: 20px;color: #5cb85c;margin-left: 35%;font-size: 20px;display: none">Admin Has Successfully Added</span>
-                <span id="error-msg"
-                      style="margin-top: 20px;color: #FF0000;margin-left: 30%;font-size: 20px;display: none">Error Occurred Admin Has not Added </span>
-                <div class="add-admin"><span>UserName</span>
+                <div class="add-category">
                     <input type="text" name="username">
+                    <button type="submit" class="add-category-button">Add Category</button>
                 </div>
-                <div class="add-admin"><span>email</span>
-                    <input type="email" name="email">
-                </div>
-                <div class="add-admin"><span>password</span>
-                    <input type="password" name="password">
-                </div>
-                <div class="add-admin"><span>Name</span>
-                    <input type="text" name="name">
-                </div>
-                <div class="add-admin"><span>Mobile Number</span>
-                    <input type="text" name="username">
-                </div>
-                <div class="add-admin-file"><span>Image</span>
-                    <input type="file" accept="image/gif, image/jpeg, image/png" name="username">
-                </div>
-                <button type="submit" class="add-admin-button">Submit</button>
             </form>
+            <table class="admin-table" id="category-table" style="margin-top: 20px;">
+                <thead>
+                <tr>
+                    <th class="row-1 row-ID">Ctegory id</th>
+                    <th class="row-2 row-name">category name</th>
+                    <th class="row-2 row-name">number of items</th>
+                    <th class="row-2 row-x">X</th>
+                    <th class="row-2 row-x">Edit</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="category-id" style="font-size: 20px">0001</td>
+                    <td class="td-name" contenteditable='false' style="font-size: 20px"><input readonly style="color:inherit;font-size: 20px;border:none;outline:
+                    none;background-color: transparent  " value="desert" name="name"></td>
+                    <td style="font-size: 20px">60</td>
+                    <td><a class="delete-category" style="color: red;text-decoration:none;font-size: 20px">X</a>
+                    </td>
+
+                    <td style="font-size: 20px"><img class="category-edit" style="height: 30px" src="edit.png"></td>
+                </tr>
+                <tr>
+                    <td style="font-size: 20px">0001</td>
+                    <td class="td-name" contenteditable='false' style="font-size: 20px"><input readonly style="color:inherit;font-size: 20px;border:none;outline:
+                    none;background-color: transparent  " value="desert" name="name"></td>
+                    <td style="font-size: 20px">60</td>
+                    <td style="font-size: 20px">X</td>
+                    <td style="font-size: 20px"><img class="category-edit" style="height: 30px" src="edit.png"></td>
+                </tr>
+                <tr>
+                    <td style="font-size: 20px">0001</td>
+                    <td class="td-name" contenteditable='false' style="font-size: 20px"><input readonly style="color:inherit;font-size: 20px;border:none;outline:
+                    none;background-color: transparent  " value="desert" name="name"></td>
+                    <td style="font-size: 20px">60</td>
+                    <td style="font-size: 20px">X</td>
+                    <td style="font-size: 20px"><img class="category-edit" style="height: 30px" src="edit.png"></td>
+                </tr>
+                <tr>
+                    <td style="font-size: 20px">0001</td>
+                    <td class="td-name" contenteditable='false' style="font-size: 20px"><input readonly style="color:inherit;font-size: 20px;border:none;outline:
+                    none;background-color: transparent  " value="desert" name="name"></td>
+                    <td style="font-size: 20px">60</td>
+                    <td style="font-size: 20px">X</td>
+                    <td style="font-size: 20px"><img class="category-edit" style="height: 30px" src="edit.png"></td>
+                </tr>
+                <tr>
+                    <td style="font-size: 20px">0001</td>
+                    <td class="td-name" contenteditable='false' style="font-size: 20px"><input readonly style="color:inherit;font-size: 20px;border:none;outline:
+                    none;background-color: transparent  " value="desert" name="name"></td>
+                    <td style="font-size: 20px">60</td>
+                    <td style="font-size: 20px">X</td>
+                    <td style="font-size: 20px"><img class="category-edit" style="height: 30px" src="edit.png"></td>
+                </tr>
+                <tr>
+                    <td style="font-size: 20px">0001</td>
+                    <td class="td-name" contenteditable='false' style="font-size: 20px"><input readonly style="color:inherit;font-size: 20px;border:none;outline:
+                    none;background-color: transparent  " value="desert" name="name"></td>
+                    <td style="font-size: 20px">60</td>
+                    <td style="font-size: 20px">X</td>
+                    <td style="font-size: 20px"><img class="category-edit" style="height: 30px" src="edit.png"></td>
+                </tr>
+
+
+                </tbody>
+            </table>
         </main>
 
         <div class="clear"></div>

@@ -26,12 +26,12 @@
     <h1><a href="#"><span>Admin Panel</span></a></h1>
     <%
         Boolean b = (Boolean) request.getSession().getAttribute(ADMIN_LOGGED_IN);
-        if (!b) {
-            out.println("<script type=\"text/javascript\">  window.location.href = \"http://localhost:8080/activationNeeded.jsp\"; </script>");
-        }
-        Admin administrator = (Admin) request.getSession().getAttribute(ADMIN);
+        Admin ad = (Admin) request.getSession().getAttribute(ADMIN);
         boolean isSuper = false;
-        if (administrator.getTypeOfAdmin() == SUPER_ADMIN_TYPE) isSuper = true;
+        if (ad.getTypeOfAdmin() == SUPER_ADMIN_TYPE) isSuper = true;
+        if (!b||!isSuper) {
+            out.println("<script type=\"text/javascript\">  window.location.href = \"http://localhost:8080/error.html\"; </script>");
+        }
     %>
     <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
     <ul id="mainNav" style="margin-left: 100px">
@@ -41,12 +41,12 @@
         %>
         <li><a href="superadmin.jsp" class="active">Admins</a></li>
         <li><a href="add-admin.jsp">Add New Admin</a></li>
+        <li><a href="admin-category.jsp">Categories</a></li>
         <%
             }
         %>
         <li><a href="#">Inbox</a></li>
         <li><a href="#">Main</a></li>
-        <li><a href="#">Categories</a></li>
         <li><a href="#">Products</a></li>
         <li class="logout"><a href="/admin-login?">LOGOUT</a></li>
     </ul>

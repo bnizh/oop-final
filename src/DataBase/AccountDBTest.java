@@ -45,7 +45,7 @@ public class AccountDBTest extends TestCase {
             sel = acc.getSellerByUsername(sel.getUserName());
             assertTrue(acc.addItem(ObjectFactory.getNewItem("item",sel.getID(),"image",5.6,c.getID(),0,0,"desc"))!=null);
             acc.deleteItem(acc.getItemsBySeller(sel.getID()).get(0).getID());
-            acc.deleteCategory(c);
+            acc.deleteCategory(c.getID());
             acc.deleteSeller(sel.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -68,7 +68,7 @@ public class AccountDBTest extends TestCase {
             sel = acc.getSellerByUsername(sel.getUserName());
             acc.addItem(ObjectFactory.getNewItem("item",sel.getID(),"image",0,c.getID(),0,0,"desc"));
             assertTrue(acc.deleteItem(acc.getItemsBySeller(sel.getID()).get(0).getID()));
-            acc.deleteCategory(c);
+            acc.deleteCategory(c.getID());
             acc.deleteSeller(sel.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -95,7 +95,7 @@ public class AccountDBTest extends TestCase {
             Item it1 =acc.getItemById(it.getID());
             assertTrue(it.equals(it1));
             acc.deleteItem(acc.getItemsBySeller(sel.getID()).get(0).getID());
-            acc.deleteCategory(c);
+            acc.deleteCategory(c.getID());
             acc.deleteSeller(sel.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -127,7 +127,7 @@ public class AccountDBTest extends TestCase {
                 acc.deleteItem(ls.get(0).getID());
                 ls.remove(0);
             }
-            acc.deleteCategory(c);
+            acc.deleteCategory(c.getID());
             acc.deleteSeller(sel.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -159,7 +159,7 @@ public class AccountDBTest extends TestCase {
                 acc.deleteItem(ls.get(0).getID());
                 ls.remove(0);
             }
-            acc.deleteCategory(c);
+            acc.deleteCategory(c.getID());
             acc.deleteSeller(sel.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -197,7 +197,7 @@ public class AccountDBTest extends TestCase {
                 acc.deleteItem(list.get(0).getID());
                 list.remove(0);
             }
-            acc.deleteCategory(c);
+            acc.deleteCategory(c.getID());
             acc.deleteSeller(sel.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -228,7 +228,7 @@ public class AccountDBTest extends TestCase {
             acc.updateItemImage(it.getID(), it.getImage());
             assertTrue(it.equals(acc.getItemById(it.getID())));
             acc.deleteItem(it.getID());
-            acc.deleteCategory(c);
+            acc.deleteCategory(c.getID());
             acc.deleteSeller(sel.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -257,7 +257,7 @@ public class AccountDBTest extends TestCase {
             acc.deleteAllItemsForSeller(sel.getID());
             List<Item> ls  = acc.getItemsBySeller(sel.getID());
             assertTrue(ls.size() == 0);
-            acc.deleteCategory(c);
+            acc.deleteCategory(c.getID());
             acc.deleteSeller(sel.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
@@ -274,7 +274,7 @@ public class AccountDBTest extends TestCase {
             AccountDB acc = DBFactory.getAccountDB(con);
             Category c = ObjectFactory.getNewCategory("category");
             assertTrue(acc.addCategory(c));
-            acc.deleteCategory(c);
+            acc.deleteCategory(c.getID());
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -290,7 +290,7 @@ public class AccountDBTest extends TestCase {
             AccountDB acc = DBFactory.getAccountDB(con);
             Category c = ObjectFactory.getNewCategory("category");
             acc.addCategory(c);
-            assertTrue(acc.deleteCategory(c));
+            assertTrue(acc.deleteCategory(c.getID()));
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -312,7 +312,7 @@ public class AccountDBTest extends TestCase {
             List<Category> list = acc.getAllCategories();
             assertTrue(list.size() == num);
             for (int i =1 ; i<=num; i++) {
-                acc.deleteCategory(list.get(0));
+                acc.deleteCategory(list.get(0).getID());
                 list.remove(0);
             }
         } catch (SQLException ex) {

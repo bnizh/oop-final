@@ -70,13 +70,14 @@ public class AccountDB implements DBQueries {
 
     @Override
     public Admin getAdminByUsername(String userName) {
-        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Admin_table + " where username = \"" + userName + "\"" )) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Admin_table + " where username = \"" + userName + "\"")) {
             return getAdminFromBase(stm);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;    }
+        return null;
+    }
 
     @Override
     public Admin getAdminByEmail(String email) {
@@ -85,7 +86,8 @@ public class AccountDB implements DBQueries {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;    }
+        return null;
+    }
 
     @Override
     public boolean addNewAdmin(Admin admin) {
@@ -116,13 +118,15 @@ public class AccountDB implements DBQueries {
     public boolean updateAdminWithoutImage(Admin admin) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Admin_table + " set userName =" + '\"' + admin.getUserName() + '\"' + ", password =" + '\"' + admin.getPassword() + '\"'
                 + ", name =" + '\"' + admin.getName() + '\"' + ",email =" + '\"' + admin.getEmail() + '\"' + ", mobileNumber=" + '\"' +
-                admin.getMobileNumber()  + '\"' + " where userID =" + admin.getId();
-        return Helper(s);    }
+                admin.getMobileNumber() + '\"' + " where userID =" + admin.getId();
+        return Helper(s);
+    }
 
     @Override
     public boolean updateAdminImage(int adminID, String path) {
         String s = "update " + DBInfo.MYSQL_DATABASE_Admin_table + " set imageUrl ='" + path + "' where userID =" + adminID;
-        return Helper(s);    }
+        return Helper(s);
+    }
 
     @Override
     public Seller getSellerByUsername(String username) {
@@ -158,8 +162,8 @@ public class AccountDB implements DBQueries {
         s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='" + USER + "'";
 
         List<Integer> ls = getIDsByTag(s);
-        for (int i = 0; i < ls.size(); i++) {
-            Seller sel = getSellerByID(ls.get(i));
+        for (Integer l : ls) {
+            Seller sel = getSellerByID(l);
             if (sel != null) {
                 if (!list.contains(sel)) {
                     list.add(sel);
@@ -325,8 +329,8 @@ public class AccountDB implements DBQueries {
         }
         s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='user'";
         List<Integer> ls = getIDsByTag(s);
-        for (int i = 0; i < ls.size(); i++) {
-            Buyer b = getBuyerByID(ls.get(i));
+        for (Integer l : ls) {
+            Buyer b = getBuyerByID(l);
             if (b != null) {
                 if (!list.contains(b)) {
                     list.add(b);
@@ -474,8 +478,8 @@ public class AccountDB implements DBQueries {
         getItems(ls, s);
         s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='" + ITEM + "'";
         List<Integer> list = getIDsByTag(s);
-        for (int i = 0; i < list.size(); i++) {
-            Item it = getItemById(list.get(i));
+        for (Integer aList : list) {
+            Item it = getItemById(aList);
             if (it != null) {
                 if (!ls.contains(it)) {
                     ls.add(it);
@@ -529,8 +533,14 @@ public class AccountDB implements DBQueries {
     }
 
     @Override
-    public boolean deleteCategory(Category cat) {
-        String s = "delete from " + DBInfo.MYSQL_DATABASE_Categories_table + " where categoryName= '" + cat.getName() + "'";
+    public boolean updateCategory(Category cat) {
+        String s = "Update " + DBInfo.MYSQL_DATABASE_Categories_table + " set categoryName ='" + cat.getName() + "'"+" where categoryID =" + cat.getID();
+        return Helper(s);
+    }
+
+    @Override
+    public boolean deleteCategory(int id) {
+        String s = "delete from " + DBInfo.MYSQL_DATABASE_Categories_table + " where categoryID= " + id + "";
         try (PreparedStatement stm = con.prepareStatement(s)) {
             stm.execute();
             return true;

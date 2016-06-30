@@ -729,11 +729,30 @@ public class DBConnection implements DBQueries {
     }
 
     @Override
-    public boolean deleteCategory(Category cat) {
+    public boolean updateCategory(Category cat) {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return DBFactory.getAccountDB(con).deleteCategory(cat);
+            return DBFactory.getAccountDB(con).updateCategory(cat);
+
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }    }
+
+    @Override
+    public boolean deleteCategory(int id) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return DBFactory.getAccountDB(con).deleteCategory(id);
 
         } catch (SQLException ex) {
             throw new AssertionError(ex);

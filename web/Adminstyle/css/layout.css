@@ -207,6 +207,13 @@ h2 a:hover {
     background: darkblue;
     color: white;
 }
+.delete-category:hover{
+    cursor: pointer;
+    color:#ffe5df;
+}
+.category-edit:hover{
+    cursor: pointer;
+}
 
 .admin-table td,
 .admin-table th {
@@ -369,10 +376,41 @@ h3 {
     border: none;
     background: url(../img/button-submit.gif) no-repeat left top;
 }
+.add-category-button{
+    float: right;
+    width: 140px;
+    margin-right: 10%;
+    font-weight: bold;
+    border-radius: 15px;
+    color: #2D98F3;
+    border: 2px solid #2D98F3;
+}
+.add-category-button:hover{
+    color: white;
+
+}
+.add-category input{
+    width: 40%;
+    text-align: center;
+    margin-left: 20%;
+    height: 30px;
+    margin-bottom:20px;
+    border-radius: 15px;
+    background-color: white;
+    border:1px solid #444444;
+}
+
+.add-category{
+    overflow: hidden;
+    margin-top:20px;
+    border-bottom: 1px solid #444444;
+}
+
 .add-admin input{
     width: 60%;
     float: right;
     height: 30px;
+    text-align: center;
     border-bottom-left-radius: 15px;
     border-top-left-radius: 15px;
     background-color: white;

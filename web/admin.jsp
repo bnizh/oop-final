@@ -24,7 +24,7 @@
     <%
         Boolean b = (Boolean) request.getSession().getAttribute(ADMIN_LOGGED_IN);
         if (!b) {
-            out.println("<script type=\"text/javascript\">  window.location.href = \"http://localhost:8080/activationNeeded.jsp\"; </script>");
+            out.println("<script type=\"text/javascript\">  window.location.href = \"http://localhost:8080/error.html\"; </script>");
         }
         Admin admin = (Admin) request.getSession().getAttribute(ADMIN);
         boolean isSuper = false;
@@ -38,12 +38,13 @@
         %>
         <li><a href="superadmin.jsp">Admins</a></li>
         <li><a href="add-admin.jsp">Add New Admin</a></li>
+        <li><a href="admin-category.jsp">Categories</a></li>
+
         <%
             }
         %>
         <li><a href="#">Inbox</a></li>
         <li><a href="#">Main</a></li>
-        <li><a href="#">Categories</a></li>
         <li><a href="#">Products</a></li>
         <li class="logout"><a href="/admin-login?">LOGOUT</a></li>
     </ul>

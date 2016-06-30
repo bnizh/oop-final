@@ -69,8 +69,9 @@ public interface DBQueries {
     public boolean deleteAllItemsForSeller(int idexOfSeller);
 
     public boolean addCategory(Category cat);
+    public boolean updateCategory(Category cat);
 
-    public boolean deleteCategory(Category cat);
+    public boolean deleteCategory(int id);
 
     public List<Category> getAllCategories();
 

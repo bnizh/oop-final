@@ -32,6 +32,7 @@ public class ItemServlet extends HttpServlet {
             System.out.println(a);
         }
         String itemName = request.getParameter("item-name");
+        if(itemName==null ||request.getParameter("price")==null) return;
         System.out.println(request.getParameter("price"));
         Double price = Double.valueOf(request.getParameter("price"));
         String desc = request.getParameter("description");

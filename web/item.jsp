@@ -20,7 +20,9 @@
         <a href="\index.jsp" id="logo">Food-Online</a>
     </div>
     <%
-        if (session.getAttribute("loggedIn") == null || !(boolean) session.getAttribute("loggedIn")) {
+        Boolean b = (Boolean) session.getAttribute(LOGGED_IN);
+        Boolean adm=(Boolean) session.getAttribute(ADMIN_LOGGED_IN);
+        if (!b&&!adm) {
     %>
     <script src="Javascript/script.js"></script>
     <%@include file="visitor.jsp" %>
@@ -43,7 +45,7 @@
 <%@ page import="static Managers.SiteConstants.*" %>
 <%@ page import="Objects.*" %>
 <%@ page import="java.util.List" %>
-<% Boolean logged = (Boolean) request.getSession().getAttribute(LOGGED_IN);
+<% Boolean loggedin = (Boolean) request.getSession().getAttribute(LOGGED_IN);
     Objects.Seller us = dbc.getSellerByID(item.getOwnerID());%>
 <div>
     <div class="user-container">
@@ -54,7 +56,7 @@
             <img src="ImageLoader?FileName=<%=item.getImage()%>">
             <%
 
-                if (logged) {
+                if (loggedin) {
                     User visitor = (User) request.getSession().getAttribute(USER);
                     Rating rating = dbc.getRating(id, visitor.getID(), ITEM);
 
@@ -92,7 +94,7 @@
 
         </div>
 
-        <% if (logged) {
+        <% if (loggedin) {
             User visitor = (User) request.getSession().getAttribute(USER);
         %>
 
@@ -124,8 +126,8 @@
         <div class="center-side-user-visitor">
 
             <div class="profile-visitor">
-                <label class="user-fields"><%=item.getName()%>
-                </label>
+                <label style="float:left; color: #ff5e01"> Owner:</label>   <a style="color: #990099;text-decoration: none;float: left;font-size: 20px" href="user?ID=<%=us.getID()%>" class="user-fields"><%=us.getUserName()%>
+                </a>
             </div>
             <div class="profile-visitor">
                 <label style="color: #ff5e01"> Price:</label><label><%=item.getPrice()%>
@@ -186,7 +188,7 @@
                 <%}%>
                 <input type="hidden" id="comment-owner-id" name="ID" value="<%=id%>">
                 <%
-                    if (logged) {
+                    if (loggedin) {
                 %>
                 <form id="comment-form" style="width: 80%; margin-left: 10% ">
                     <textarea style="width: 100%" onkeyup="textAreaAdjust(this)" name="comment" id="comment"

@@ -66,8 +66,8 @@ public class ItemEditServlet extends HttpServlet {
         int newRating = (votes * rating + rate) / (votes + 1);
         item.setVoters(votes + 1);
         Rating rat = db.getRating(item.getID(), user.getID(), ITEM);
-        if (rat == null) rat=ObjectFactory.getNewRating(item.getID(),user.getID(),rate,ITEM);
-        else{
+        if (rat == null) rat = ObjectFactory.getNewRating(item.getID(), user.getID(), rate, ITEM);
+        else {
             Writer out = response.getWriter();
             out.write("failed");
             out.close();

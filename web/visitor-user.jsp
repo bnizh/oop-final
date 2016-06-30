@@ -20,7 +20,9 @@
         <a href="\index.jsp" id="logo">Food-Online</a>
     </div>
     <%
-        if (session.getAttribute("loggedIn") == null || !(boolean) session.getAttribute("loggedIn")) {
+        Boolean b = (Boolean) session.getAttribute(LOGGED_IN);
+        Boolean adm=(Boolean) session.getAttribute(ADMIN_LOGGED_IN);
+        if (!b&&!adm) {
     %>
     <script src="Javascript/script.js"></script>
     <%@include file="visitor.jsp" %>

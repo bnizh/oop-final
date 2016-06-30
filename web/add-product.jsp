@@ -21,6 +21,10 @@
     </div>
     <%
         Boolean b = (Boolean) session.getAttribute("loggedIn");
+        String tp = (String) session.getAttribute(TYPE);
+        if (!b || !(tp.equals(SELLER))) {
+            out.println("<script type=\"text/javascript\">  window.location.href = \"http://localhost:8080/error.html\"; </script>");
+        }
         if (!b) {
     %>
     <script src="Javascript/script.js"></script>
@@ -60,7 +64,7 @@
                     <label class=" reg-label">Choose Category:</label>
                     <select name="category" class="search-form-control item-add" title="Categories">
                         <%
-                            DBConnection dbc= DBFactory.getDBConnection();
+                            DBConnection dbc = DBFactory.getDBConnection();
                             List<Category> list = dbc.getAllCategories();
                             for (Category cat : list) {
                                 out.println(" <option value=\"" + cat.getID() + "\">" + cat.getName());
@@ -92,7 +96,7 @@
 </div>
 
 
-<div id="footer" ></div>
+<div id="footer"></div>
 <!-- Footer -->
 
 

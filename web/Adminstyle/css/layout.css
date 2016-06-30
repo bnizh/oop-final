@@ -211,6 +211,10 @@ h2 a:hover {
     cursor: pointer;
     color:#ffe5df;
 }
+.delete-item:hover{
+    cursor: pointer;
+    color:#ffe5df;
+}
 .category-edit:hover{
     cursor: pointer;
 }

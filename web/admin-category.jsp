@@ -34,26 +34,26 @@
         Admin admin = (Admin) request.getSession().getAttribute(ADMIN);
         boolean isSuper = false;
         if (admin.getTypeOfAdmin() == SUPER_ADMIN_TYPE) isSuper = true;
-        if (!b||!isSuper) {
+        if (!b || !isSuper) {
             out.println("<script type=\"text/javascript\">  window.location.href = \"http://localhost:8080/error.html\"; </script>");
         }
     %>
     <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
     <ul id="mainNav" style="margin-left: 100px">
-        <li><a href="admin.jsp" class="active">Users</a></li> <!-- Use the "active" class for the active menu item  -->
+        <li><a href="admin.jsp">Users</a></li> <!-- Use the "active" class for the active menu item  -->
         <%
             if (isSuper) {
         %>
         <li><a href="superadmin.jsp">Admins</a></li>
         <li><a href="add-admin.jsp">Add New Admin</a></li>
-        <li><a href="admin-category.jsp">Categories</a></li>
+        <li><a href="admin-category.jsp" class="active">Categories</a></li>
 
         <%
             }
         %>
+        <li><a href="admin-product.jsp">Products</a></li>
         <li><a href="#">Inbox</a></li>
-        <li><a href="#">Main</a></li>
-        <li><a href="#">Products</a></li>
+        <li><a href="index.jsp">Main</a></li>
         <li class="logout"><a href="/admin-login?">LOGOUT</a></li>
     </ul>
     <!-- // #end mainNav -->

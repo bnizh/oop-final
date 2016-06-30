@@ -37,6 +37,25 @@
 
 
         });
+        $('.delete-item').click(function (e) {
+            console.log($(this).parent().siblings('.item-id').html());
+            e.preventDefault();
+            $.ajax({
+                url: "item-delete",
+                type: 'POST',
+                data: {
+                    ID: $(this).parent().siblings('.item-id').html()},
+                cache: false,
+                dataType: "text",
+                success: function (data) {
+                    var newDoc = document.open("text/html", "replace");
+                    newDoc.write(data);
+                    newDoc.close();
+                }
+            });
+
+            return false;
+        });
         $('.delete-category').click(function (e) {
             console.log($(this).parent().siblings('.category-id').html());
             e.preventDefault();

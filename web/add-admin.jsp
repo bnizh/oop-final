@@ -39,15 +39,15 @@
         <%
             if (isSuper) {
         %>
-        <li><a href="superadmin.jsp" class="active">Admins</a></li>
-        <li><a href="add-admin.jsp">Add New Admin</a></li>
+        <li><a href="superadmin.jsp" >Admins</a></li>
+        <li><a href="add-admin.jsp" class="active">Add New Admin</a></li>
         <li><a href="admin-category.jsp">Categories</a></li>
 
         <%
             }
         %>
-        <li><a href="#">Main</a></li>
-        <li><a href="#">Products</a></li>
+        <li><a href="admin-product.jsp">Products</a></li>
+        <li><a href="index.jsp">Main</a></li>
         <li class="logout"><a href="/admin-login?">LOGOUT</a></li>
     </ul>
     <!-- // #end mainNav -->
@@ -87,9 +87,6 @@
         <div class="clear"></div>
     </div>
     <!-- // #container -->
-
-    <p id="footer">Feel free to use and customize it. <a href="http://www.perspectived.com">Credit is appreciated.</a>
-    </p>
 </div>
 <!-- // #wrapper -->
 </body>

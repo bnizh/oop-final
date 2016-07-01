@@ -9,6 +9,100 @@ import java.util.List;
 public class DBConnection implements DBQueries {
 
     @Override
+    public Message getMessageById(int ID) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return DBFactory.getAccountDB(con).getMessageById(ID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<Message> getMessageByWriterID(int ID, int messageType) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return DBFactory.getAccountDB(con).getMessageByWriterID(ID,messageType);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<Message> getMessageByReceiverId(int ID, int messageType) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return DBFactory.getAccountDB(con).getMessageByReceiverId(ID,messageType);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }    }
+
+    @Override
+    public boolean addMessage(Message message, int messageType) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return DBFactory.getAccountDB(con).addMessage(message, messageType);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean deleteMessage(int messageID) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return DBFactory.getAccountDB(con).deleteMessage(messageID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
     public Admin getAdminByID(int ID) {
         Connection con = null;
         try {
@@ -43,7 +137,8 @@ public class DBConnection implements DBQueries {
                     e.printStackTrace();
                 }
             }
-        }    }
+        }
+    }
 
     @Override
     public Admin getAdminByEmail(String email) {
@@ -61,7 +156,8 @@ public class DBConnection implements DBQueries {
                     e.printStackTrace();
                 }
             }
-        }    }
+        }
+    }
 
     @Override
     public boolean addNewAdmin(Admin admin) {
@@ -745,7 +841,8 @@ public class DBConnection implements DBQueries {
                     e.printStackTrace();
                 }
             }
-        }    }
+        }
+    }
 
     @Override
     public boolean deleteCategory(int id) {

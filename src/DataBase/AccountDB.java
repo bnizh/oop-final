@@ -19,6 +19,31 @@ public class AccountDB implements DBQueries {
         this.con = con;
     }
 
+    private Message getMessageFromBase(PreparedStatement stm) {
+        try (ResultSet rs = stm.executeQuery()) {
+            if (rs.next()) {
+                return ObjectFactory.getNewMessage(rs.getBoolean("isRead"), rs.getInt("writerID"), rs.getInt("receiverID"),
+                        rs.getString("message"), rs.getDate("dateOfMessage"), rs.getInt("messageID"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private void getSeveralMessageFromBase(List<Message> list, PreparedStatement stm) {
+        try (ResultSet rs = stm.executeQuery()) {
+            while (rs.next()) {
+                list.add(ObjectFactory.getNewMessage(rs.getBoolean("isRead"), rs.getInt("writerID"), rs.getInt("receiverID"),
+                        rs.getString("message"), rs.getDate("dateOfMessage"), rs.getInt("messageID")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Seller getSellerFromBase(PreparedStatement stm) {
         try (ResultSet rs = stm.executeQuery()) {
             if (rs.next()) {
@@ -56,6 +81,51 @@ public class AccountDB implements DBQueries {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public Message getMessageById(int ID) {
+        try (PreparedStatement stm = con.prepareStatement("SELECT * FROM " + DBInfo.MYSQL_DATABASE_Message_table + " where messageID = " + ID)) {
+            return getMessageFromBase(stm);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Message> getMessageByWriterID(int ID,int messageType) {
+        ArrayList<Message> list = new ArrayList<Message>();
+        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Message_table + " where writerID =" + ID+" AND messageType="+messageType;
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            getSeveralMessageFromBase(list, stm);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<Message> getMessageByReceiverId(int ID,int messageType) {
+        ArrayList<Message> list = new ArrayList<Message>();
+        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Message_table + " where receiverID =" + ID+" AND messageType="+messageType;
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            getSeveralMessageFromBase(list, stm);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;    }
+
+    @Override
+    public boolean addMessage(Message message,int messageType) {
+        String s = "insert into " + DBInfo.MYSQL_DATABASE_Message_table + " (writerID, receiverID, message, dateOfMessage, messageType) " +
+                "values(" + message.getWriterID()  + "," + message.getReceiverID() +"," + "\"" + message.getMessageContent() + "\"" + ",'" +
+                new java.sql.Date(System.currentTimeMillis())+"', "+messageType+")";
+        return Helper(s);    }
+
+    @Override
+    public boolean deleteMessage(int messageID) {
+        String s = "DELETE FROM " + DBInfo.MYSQL_DATABASE_Message_table + " where messageID =" + messageID;
+        return Helper(s);    }
 
     @Override
     public Admin getAdminByID(int ID) {
@@ -534,7 +604,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean updateCategory(Category cat) {
-        String s = "Update " + DBInfo.MYSQL_DATABASE_Categories_table + " set categoryName ='" + cat.getName() + "'"+" where categoryID =" + cat.getID();
+        String s = "Update " + DBInfo.MYSQL_DATABASE_Categories_table + " set categoryName ='" + cat.getName() + "'" + " where categoryID =" + cat.getID();
         return Helper(s);
     }
 

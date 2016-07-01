@@ -4,6 +4,14 @@ import java.util.Date;
 import java.util.concurrent.BlockingQueue;
 
 public class ObjectFactory {
+    public static Message getNewMessage(boolean read, int writerID, int receiverID, String messageContent, Date dateOfSend, int messageID) {
+        return new Message(read, writerID, receiverID, messageContent, dateOfSend, messageID);
+    }
+
+    public static Message getNewMessage( int writerID, int receiverID, String messageContent) {
+        return new Message( writerID, receiverID, messageContent);
+    }
+
     //Returns new User
     /*seller with id*/
     public static Seller getNewSeller(String username, String password, String email,

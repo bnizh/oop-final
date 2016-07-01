@@ -67,7 +67,7 @@
                  src="ImageLoader?FileName=<%=admin.getImageURL()%>">
             <div style=""><span href=""><%=admin.getName()%></span></div>
             <div style="width: 100%;text-align: center"><a href="/admin.jsp">Go to AdminPanel</a></div>
-            <div style="width: 100%;text-align: center"><a href="/logout?">Log Out</a>
+            <div style="width: 100%;text-align: center"><a href="/admin-login?">Log Out</a>
             </div>
         </div>
     </div>

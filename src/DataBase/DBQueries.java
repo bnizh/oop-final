@@ -5,14 +5,32 @@ import Objects.*;
 import java.util.List;
 
 public interface DBQueries {
+    public Message getMessageById(int ID);
+
+    public List<Message> getMessageByWriterID(int ID,int messageType);
+
+    public List<Message> getMessageByReceiverId(int ID,int messageType);
+
+    public boolean addMessage(Message message,int messageType);
+
+    public boolean deleteMessage(int messageID);
+
     public Admin getAdminByID(int ID);
+
     public Admin getAdminByUsername(String userName);
+
     public Admin getAdminByEmail(String email);
+
     public boolean addNewAdmin(Admin admin);
+
     public List<Admin> getAllAdmin();
+
     public boolean deleteAdmin(int ID);
+
     public boolean updateAdminWithoutImage(Admin admin);
+
     public boolean updateAdminImage(int adminID, String path);
+
     public Seller getSellerByUsername(String companyName);
 
     public Seller getSellerByEmail(String email);
@@ -53,22 +71,24 @@ public interface DBQueries {
 
     public Item addItem(Item it);
 
-    public boolean deleteItem(int id );
+    public boolean deleteItem(int id);
 
     public Item getItemById(int id);
 
     public List<Item> getItemsBySeller(int sellerID);
 
     public List<Item> getItemsByName(String name);
-    public List<Item> getItemsByCategoryId(int ID,int numberOfItems,int offset);
 
-    public List<Item> getTopItems (int numberOfItems, int offset);
+    public List<Item> getItemsByCategoryId(int ID, int numberOfItems, int offset);
+
+    public List<Item> getTopItems(int numberOfItems, int offset);
 
     public boolean updateItemWithoutImage(Item it);
 
     public boolean deleteAllItemsForSeller(int idexOfSeller);
 
     public boolean addCategory(Category cat);
+
     public boolean updateCategory(Category cat);
 
     public boolean deleteCategory(int id);
@@ -99,8 +119,11 @@ public interface DBQueries {
      * delete all CommentServlet for user(owner) get's ownerID (int)
      */
     public List<Comment> getUserCommentsByOwner(int categoryId, int numberOfItems, int offset);
+
     public List<Comment> getItemCommentsByOwner(int categoryId, int numberOfItems, int offset);
+
     public boolean deleteAllCommentForItem(int itemID);
+
     public boolean deleteAllCommentForUser(int userID);
 
     public List<Comment> getUserCommentsByWriter(int userID);

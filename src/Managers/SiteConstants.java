@@ -20,4 +20,7 @@ public class SiteConstants {
     public static int SUPER_ADMIN_TYPE = 3;
     public static int NUMBER_OF_ITEMS_ON_PAGE = 6;
     public static int NUMBER_OF_COMMENTS_ON_PAGE = 6;
+    public static int MESSAGE_USER_TO_USER = 0;
+    public static int MESSAGE_USER_TO_ADMIN = 1;
+    public static int MESSAGE_ADMIN_TO_USER = 2;
 }

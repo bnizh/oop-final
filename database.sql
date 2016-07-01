@@ -2,6 +2,7 @@ DROP database IF EXISTS base;
 create database base;
 use base;
 
+
 CREATE TABLE Users (
     userID int auto_increment not null ,
     password varchar(128) not null,
@@ -18,11 +19,8 @@ CREATE TABLE Users (
 
     primary key (userID)
 );
-SELECT * FROM admins;
-DELETE FROM admins WHERE typeOfUser=3;
-INSERT INTO admins (password, userName, name, typeOfUser, email, mobileNumber, imageUrl) VALUES ("7c4a8d09ca3762af61e59520943dc26494f8941b","super",
-"administrator",3,"maiakovsk@gmail.com","12345678","D:\\prog\\Final-Project\\oop-final\\web\\admin.png"
-);
+
+
 CREATE TABLE admins (
     userID int auto_increment not null ,
     password varchar(128) not null,
@@ -33,6 +31,9 @@ CREATE TABLE admins (
     mobileNumber VARCHAR(64),
     imageUrl varchar(256),
     primary key (userID)
+);
+INSERT INTO admins (password, userName, name, typeOfUser, email, mobileNumber, imageUrl) VALUES ("7c4a8d09ca3762af61e59520943dc26494f8941b","super",
+                                                                                                 "administrator",3,"maiakovsk@gmail.com","12345678","D:\\prog\\Final-Project\\oop-final\\web\\admin.png"
 );
 SELECT *
 FROM users;
@@ -68,6 +69,17 @@ create table itemsComments(
     primary key(commentID),
     foreign key(writerID)  references Users(userID),
     foreign key(ownerID) REFERENCES items(itemID)
+);
+
+Create table Messages(
+    messageID int auto_increment not null,
+    writerID int not null,
+    messageType int not null,
+    isRead BOOLEAN DEFAULT false,
+    receiverID int not null,
+    message varchar (2048),
+    dateOfMessage TIMESTAMP,
+    primary key (messageID)
 );
 
 Create table usersComments(

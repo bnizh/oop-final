@@ -21,6 +21,7 @@
                 data: formData,
                 success: function (data) {
                     if (data == "success") {
+                        $('#new-admin-form')[0].reset();
                         $('#succ-msg').show();
                         $('#error-msg').hide();
                     }

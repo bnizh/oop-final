@@ -1,5 +1,7 @@
 <div id="login-form">
     <form id="login-input-container" action="" method="">
+        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+        </fb:login-button>
         <div style="position:relative; width:100%; height:90px">
             <div style='width:100%; height:30px; text-align: center;'>
                 <label id="login-error-msg"

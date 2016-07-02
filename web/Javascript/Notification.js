@@ -20,9 +20,6 @@
                     $('#text').css("top","5%").css("margin-left","45%").css("text-align","center").css("position","absolute");
                     var alert = new Audio("alert.mp3");
                     alert.play();
-                    setTimeout(function () {
-                        $("#text").remove();
-                    }, 5000);
                 }
             };
             $( "#sendNot" ).click(function() {

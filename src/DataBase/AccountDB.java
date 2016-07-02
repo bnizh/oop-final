@@ -947,7 +947,7 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean resolveTransaction(String id) {
-        String s = "Update " + DBInfo.MYSQL_DATABASE_Transaction_table + " set resolved = true where ID = '" + id + "'";
+        String s = "Update " + DBInfo.MYSQL_DATABASE_Transaction_table + " set resolved = true where ID = '" +id +"'" ;
         return Helper(s);
     }
 
@@ -958,7 +958,7 @@ public class AccountDB implements DBQueries {
 
 
     private Transaction getTransactionHelper(String id) {
-        String s = "SELECT * FROM " + DBInfo.MYSQL_DATABASE_Transaction_table + " where ID = '" + id;
+        String s = "SELECT * FROM " + DBInfo.MYSQL_DATABASE_Transaction_table + " where ID = '" +id+ "'" ;
         try (PreparedStatement stm = con.prepareStatement(s)) {
             try (ResultSet rs = stm.executeQuery()) {
                 while (rs.next()) {

@@ -17,18 +17,24 @@
     <script src="Javascript/passwordscheck.js"></script>
     <script src="Javascript/loginAjax.js"></script>
     <script src="Javascript/scrolling.js"></script>
-
 </head>
 <body>
 <!-- Header -->
 
+<div id="status">
+</div>
 <div class="header">
     <div class="header1">
         <a href="\index.jsp" id="logo">Food-Online</a>
     </div>
     <%
-        Boolean b = (Boolean) session.getAttribute(LOGGED_IN);
-        Boolean adm=(Boolean) session.getAttribute(ADMIN_LOGGED_IN);
+        Boolean b=false;
+        Boolean adm = false;
+        if(session.getAttribute(LOGGED_IN)!=null)
+           b = (Boolean) session.getAttribute(LOGGED_IN);
+
+        if (session.getAttribute(ADMIN_LOGGED_IN)!=null)
+            adm=(Boolean) session.getAttribute(ADMIN_LOGGED_IN);
         if (!b&&!adm) {
     %>
     <script src="Javascript/script.js"></script>

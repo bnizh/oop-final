@@ -21,12 +21,10 @@ public class LogOutServlet extends HttpServlet {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("user")) {
                     cookie.setMaxAge(0);
                     response.addCookie(cookie);
-                }
-                request.getSession().setAttribute(LOGGED_IN, false);
             }
+            request.getSession().setAttribute(LOGGED_IN, false);
             if (request.getSession()!= null) {
                 request.getSession().invalidate();
             }

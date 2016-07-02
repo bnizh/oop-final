@@ -14,7 +14,14 @@
             <span><%=us.getUserName()%></span>
         </div>
         <div class="left-side-user-visitor">
-            <img src="ImageLoader?FileName=<%=us.getImage()%>">
+            <%if(us.getImage().contains("https")||us.getImage().contains("http")){%>
+            <img
+                 src=<%=us.getImage()%>>
+            <%}else{%>
+            <img
+                 src="ImageLoader?FileName=<%=us.getImage()%>">
+            <%}%>
+
 
             <%
 
@@ -76,6 +83,7 @@
 
                 <input id="username" type="hidden" value="<%=visitor.getUserName()%>">
                 <input id="reciver-username" type="hidden" value="<%=us.getUserName()%>">
+                <input id="reciver-id" type="hidden" value="<%=us.getID()%>">
 
                 <div style="width: 100%;text-align: center">
                     <button id="link_add" class="button" style="font-size: 20px;border-radius: 10%; color: #990099;"

@@ -16,7 +16,6 @@ CREATE TABLE Users (
     imageUrl varchar(256),
     confirmed BOOLEAN DEFAULT FALSE ,
     banned BOOLEAN DEFAULT FALSE ,
-
     primary key (userID)
 );
 
@@ -32,9 +31,7 @@ CREATE TABLE admins (
     imageUrl varchar(256),
     primary key (userID)
 );
-INSERT INTO admins (password, userName, name, typeOfUser, email, mobileNumber, imageUrl) VALUES ("7c4a8d09ca3762af61e59520943dc26494f8941b","super",
-                                                                                                 "administrator",3,"maiakovsk@gmail.com","12345678","D:\\prog\\Final-Project\\oop-final\\web\\admin.png"
-);
+
 SELECT *
 FROM users;
 create table categories(
@@ -132,5 +129,11 @@ CREATE TABLE transactions (
   FOREIGN KEY (itemID) REFERENCES items (itemID)
 );
 INSERT INTO categories (categoryName) VALUES ('Hot Meal'),
-  ('Drinks'), ('Alcohol'), ('Meat'), ('Fast Food'), ('Other'), ('Desert')
+  ('Drinks'), ('Alcohol'), ('Meat'), ('Fast Food'), ('Other'), ('Desert');
 
+INSERT INTO admins (password, userName, name, typeOfUser, email, mobileNumber, imageUrl) VALUES ("7c4a8d09ca3762af61e59520943dc26494f8941b","super",
+"administrator",3,"maiakovsk@gmail.com","12345678","D:\\prog\\Final-Project\\oop-final\\web\\admin.png"
+);
+
+SELECT *
+FROM Users;

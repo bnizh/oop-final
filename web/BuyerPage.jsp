@@ -17,7 +17,12 @@
             </div>
 
             <%User us = (User) request.getSession().getAttribute("user"); %>
+            <%if(us.getImage().contains("https")||us.getImage().contains("http")){%>
+            <img src="<%=us.getImage()%>" style="width: 200px; height: 200px">
+            <%}else{%>
             <img src="ImageLoader?FileName=<%=us.getImage()%>" style="width: 200px; height: 200px">
+            <%}%>
+
             <div style="color: #990099">
                 <span style="margin-right: 8px"><%=us.getRating()%>/10  </span>
                 <span>voted: <%=us.getVoters()%></span>

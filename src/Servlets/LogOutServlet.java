@@ -22,13 +22,14 @@ public class LogOutServlet extends HttpServlet {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                     cookie.setMaxAge(0);
+
                     response.addCookie(cookie);
             }
-            request.getSession().setAttribute(LOGGED_IN, false);
             if (request.getSession()!= null) {
+                request.getSession().setAttribute(LOGGED_IN, false);
                 request.getSession().invalidate();
             }
-            response.sendRedirect("/index.jsp");
+           response.sendRedirect("/index.jsp");
         }
     }
 }

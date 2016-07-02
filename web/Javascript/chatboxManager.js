@@ -76,10 +76,9 @@ var chatboxManager = function() {
 	else{
 	    var el = document.createElement('div');
 	    el.setAttribute('id', id);
-		console.log(user.first_name);
 	    $(el).chatbox({id : id,
 			   user : user,
-			   title : user.first_name + " " + user.last_name,
+			   title : user.dest,
 			   hidden : false,
 			   width : config.width,
 			   offset : getNextOffset(),

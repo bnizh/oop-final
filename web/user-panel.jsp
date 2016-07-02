@@ -3,6 +3,7 @@
 <%@ page import="static Managers.SiteConstants.ADMIN" %>
 <%@ page import="Objects.Admin" %>
 <%@ page import="static Managers.SiteConstants.*" %>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
 <%
     Boolean logged = (Boolean) request.getSession().getAttribute(LOGGED_IN);
@@ -22,7 +23,8 @@
 <% if (logged) {%>
 <%@include file="chat-page.jsp" %>
 <div class="user-panel">
-    <%if(user.getImage().contains("http")){%>
+
+    <%if(user.getImage().contains("https")||user.getImage().contains("http")){%>
      <img style="width:80px; height: 60px; margin-left: 60px" class="profile-user-panel"
            src=<%=user.getImage()%>>
     <%}else{%>
@@ -36,7 +38,7 @@
         <div id="profile-menu-content">
             <div style="width: 100%;text-align: center">
                 <span href="">You Are: <%= request.getSession().getAttribute("type")%> </span></div>
-            <%if(user.getImage().contains("http")){%>
+            <%if(user.getImage().contains("https")||user.getImage().contains("http")){%>
             <img style="width:80px; height: 60px; margin-left: 60px" class="profile-user-panel"
                  src=<%=user.getImage()%>>
             <%}else{%>

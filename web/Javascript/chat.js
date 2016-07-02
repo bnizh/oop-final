@@ -2,14 +2,15 @@ $(document).ready(function () {
     var socket;
     var idList;
     var nickname;
-    var receiver = $('#reciver-username').val();
+    var receiver = $('#reciver-id').val();
+    var rec = $('#reciver-username').val();
 
     function initializeChat() {
         var id = receiver;
         idList.push(id);
         chatboxManager.addBox(id,
             {
-                dest: $('#username').val(), // not used in demo
+                dest: rec, // not used in demo
                 title: "box",
                 first_name: "" + id,
                 last_name: ""
@@ -22,7 +23,7 @@ $(document).ready(function () {
         console.log("opening socket");
         socket = new WebSocket("ws://" + document.domain + ":8080/Chat");
         socket.onopen = function () {
-            nickname = $('#username').val();
+            nickname = $('#userID').val();
             socket.send(nickname);
         };
 
@@ -33,11 +34,13 @@ $(document).ready(function () {
                 inp = inp.concat('\n' + message.substring(0, message.indexOf("#")) + " says: " + message.substring(message.indexOf("#") + 1));
                 var msg = message.substring(message.indexOf("#") + 1);
                 $('#input').val(inp);
-                receiver = message.substring(0, message.indexOf("#"));
+                receiver = message.substring(0, message.indexOf("@"));
+                rec =message.substring(message.indexOf("@")+1,message.indexOf("#"));
+                $('#reciver-username').val(rec);
                 initializeChat();
                 var alert = new Audio("alert.mp3");
                 alert.play();
-                $("#" + idList[idList.indexOf(receiver)]).chatbox("option", "boxManager").addMsg(receiver, msg);
+                $("#" + idList[idList.indexOf(receiver)]).chatbox("option", "boxManager").addMsg(rec, msg);
             }
 
         };
@@ -56,7 +59,7 @@ $(document).ready(function () {
     function sendMessage() {
         if ($("#txtMessage").val()) {
             console.log("sent to socket.");
-            socket.send(receiver + "$" + nickname + "#" + $("#txtMessage").val());
+            socket.send(receiver + "$" + nickname +"@"+$('#username').val() +"#" + $("#txtMessage").val());
             $("#txtMessage").val("");
         }
     }
@@ -69,7 +72,7 @@ $(document).ready(function () {
             $("#txtMessage").val(msg);
             receiver = from;
             sendMessage();
-            $("#" + idList[idList.indexOf(from)]).chatbox("option", "boxManager").addMsg(nickname, msg);
+            $("#" + idList[idList.indexOf(from)]).chatbox("option", "boxManager").addMsg($('#username').val(), msg);
         };
 
 
@@ -82,7 +85,7 @@ $(document).ready(function () {
             idList.push(id);
             chatboxManager.addBox(id,
                 {
-                    dest: $('#username').val(), // not used in demo
+                    dest: rec, // not used in demo
                     title: "box",
                     first_name: receiver,
                     last_name: ""

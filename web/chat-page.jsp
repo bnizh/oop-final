@@ -19,8 +19,8 @@
 <script src="Javascript/Notification.js"></script>
 <textarea id="username"
           style="display: none"><%=((User) (request.getSession().getAttribute("user"))).getUserName()%></textarea>
-<textarea id="name"
-          style="display: none"><%=((User) (request.getSession().getAttribute("user"))).getName()%></textarea>
+<textarea id="userID"
+          style="display: none"><%=((User) (request.getSession().getAttribute("user"))).getID()%></textarea>
 <TEXTAREA id="input" style="display: none"></TEXTAREA>
 <input type="text" id="txtMessage" style="display: none;margin-left: 45%;top: 5%;" class="form-control"
        placeholder="Type your message here."/>

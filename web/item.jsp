@@ -21,8 +21,8 @@
     </div>
     <%
         Boolean b = (Boolean) session.getAttribute(LOGGED_IN);
-        Boolean adm=(Boolean) session.getAttribute(ADMIN_LOGGED_IN);
-        if (!b&&!adm) {
+        Boolean adm = (Boolean) session.getAttribute(ADMIN_LOGGED_IN);
+        if (!b && !adm) {
     %>
     <script src="Javascript/script.js"></script>
     <%@include file="visitor.jsp" %>
@@ -53,7 +53,11 @@
             <span><%=item.getName()%></span>
         </div>
         <div class="left-side-user-visitor">
+            <%if (user.getImage().contains("https") || user.getImage().contains("http")) {%>
+            <img src="<%=item.getImage()%>">
+            <%} else {%>
             <img src="ImageLoader?FileName=<%=item.getImage()%>">
+            <%}%>
             <%
 
                 if (loggedin) {
@@ -126,8 +130,10 @@
         <div class="center-side-user-visitor">
 
             <div class="profile-visitor">
-                <label style="float:left; color: #ff5e01"> Owner:</label>   <a style="color: #990099;text-decoration: none;float: left;font-size: 20px" href="user?ID=<%=us.getID()%>" class="user-fields"><%=us.getUserName()%>
-                </a>
+                <label style="float:left; color: #ff5e01"> Owner:</label> <a
+                    style="color: #990099;text-decoration: none;float: left;font-size: 20px"
+                    href="user?ID=<%=us.getID()%>" class="user-fields"><%=us.getUserName()%>
+            </a>
             </div>
             <div class="profile-visitor">
                 <label style="color: #ff5e01"> Price:</label><label><%=item.getPrice()%>
@@ -160,11 +166,11 @@
                         for (Comment comment : comList) {
                             User writer = dbc.getSellerByID(comment.getWriterID());
                             if (writer == null) writer = dbc.getBuyerByID(comment.getWriterID());
-                            String image= "";
-                            if(writer.getImage().contains("https")||writer.getImage().contains("http")) {
+                            String image = "";
+                            if (writer.getImage().contains("https") || writer.getImage().contains("http")) {
                                 image += writer.getImage();
-                            }else{
-                                image +="ImageLoader?FileName="+writer.getImage();
+                            } else {
+                                image += "ImageLoader?FileName=" + writer.getImage();
                             }
                             out.println(" <div class=\"dialogbox\">\n" +
                                     "                    <div style=\"margin-left: 10%\">\n" +

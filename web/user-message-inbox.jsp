@@ -69,8 +69,12 @@
                 for (Message message : messages) {
                     User us = dbc.getBuyerByID(message.getWriterID());
                     if (us == null) us = dbc.getSellerByID(message.getWriterID());
+
+                    out.println("<tr class=\"clickable-row\">" +
+                            " <input type=\"hidden\" class=\"message-id\" value=\"" + message.getMessageID() + "\">");
                     if (message.isRead())
-                        out.println("<tr><td><img src=\"read.png\" style=\";height: 40px\" alt=\"\"></td>");
+                        out.println(
+                                "<td><img src=\"read.png\" style=\";height: 40px\" alt=\"\"></td>");
                     else out.println("<td><img src=\"unread.png\" style=\";height: 40px\" alt=\"\"></td>");
                     out.println(" <td>Administration </td>\n" +
                             " <td>" + message.getDateOfSend() + "</td>" +
@@ -79,20 +83,21 @@
 
                 }
             %>
+
             <%
                 List<Message> messagesUser = dbc.getMessageByReceiverId(reciver.getID(), MESSAGE_USER_TO_USER);
                 for (Message message : messagesUser) {
                     User us = dbc.getBuyerByID(message.getWriterID());
                     if (us == null) us = dbc.getSellerByID(message.getWriterID());
+                    out.println("<tr class=\"clickable-row\">" +
+                            " <input type=\"hidden\" class=\"message-id\" value=\"" + message.getMessageID() + "\">");
                     if (message.isRead())
-                        out.println("<tr>" +
-                                "<td><img src=\"read.png\" style=\";height: 40px\" alt=\"\"></td>");
+                        out.println("<td><img src=\"read.png\" style=\";height: 40px\" alt=\"\"></td>");
                     else out.println("<td><img src=\"unread.png\" style=\";height: 40px\" alt=\"\"></td>");
                     out.println(" <td>" + us.getName() + "</td>\n" +
                             " <td>" + message.getDateOfSend() + "</td>" +
                             "<td> <a class=\"delete-item\" style=\"color: red;text-decoration:none;font-size: 20px\">X</a></td>\n" +
                             "                    </tr>");
-
                 }
             %>
             </tbody>
@@ -100,4 +105,23 @@
     </div>
 </div>
 </body>
+<script>
+    $(".clickable-row").click(function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: 'message',
+            type: 'GET',
+            data: {
+                messageID: $(this).children('.message-id').val(),
+                type: "user"
+            },
+            cache: false,
+            dataType: "text",
+        }).done(function (response) {
+            window.location.href = "http://localhost:8080/" + response;
+        });
+
+        return false;
+    })
+</script>
 </html>

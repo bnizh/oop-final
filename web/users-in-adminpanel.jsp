@@ -38,14 +38,23 @@
                 else banned = "No";
                 int size = dbc.getItemsBySeller(seller.getID()).size();
                 out.println(" <tr class='clickable-row' data-href='user?ID=" + seller.getID() + "'>\n" +
-                        "            <td>" + seller.getID() + "</td>\n" +
-                        "            <td><img src=\"ImageLoader?FileName=" + seller.getImage() + "\" style=\";height: 40px\" alt=\"\"/></td>\n" +
+                        "            <td>" + seller.getID() + "</td>\n"
+                );
+                if (seller.getImage().contains("https") || seller.getImage().contains("http")) {
+                    out.println(
+                            "<td><img src=\"" + seller.getImage()    + "\" style=\";height: 40px\" alt=\"\"/></td>\n");
+                } else {
+                    out.println(
+                            "<td><img src=\"ImageLoader?FileName=" + seller.getImage() + "\" style=\";height: 40px\" alt=\"\"/></td>\n");
+
+                }
+                out.println(
                         "            <td valign=\"center\">" + seller.getUserName() + "</td>\n" +
-                        "            <td valign=\"center\">" + seller.getName() + "</td>\n" +
-                        "            <td valign=\"center\">" + seller.getEmail() + "</td>\n" +
-                        "            <td valign=\"center\">" + size + "</td>\n" +
-                        "            <td valign=\"center\">Seller</td>\n" +
-                        "            <td valign=\"center\">" + banned + "</td>\n");
+                                "            <td valign=\"center\">" + seller.getName() + "</td>\n" +
+                                "            <td valign=\"center\">" + seller.getEmail() + "</td>\n" +
+                                "            <td valign=\"center\">" + size + "</td>\n" +
+                                "            <td valign=\"center\">Seller</td>\n" +
+                                "            <td valign=\"center\">" + banned + "</td>\n");
                 if (seller.isBanned()) {
                     out.println(
                             " <td class=\"clickable\" ><a href=\"admin?ban=0&type=seller&ID=" + seller.getID() + "\" style=\"color: red;text-decoration:none;border: 1px solid " +
@@ -88,13 +97,20 @@
                 if (buyer.isBanned()) banned = "Yes";
                 else banned = "No";
                 out.println(" <tr class='clickable-row' data-href='user?ID=" + buyer.getID() + "'>\n" +
-                        "            <td>" + buyer.getID() + "</td>\n" +
-                        "            <td><img src=\"ImageLoader?FileName=" + buyer.getImage() + "\" style=\";height: 40px\" alt=\"\"/></td>\n" +
+                        "            <td>" + buyer.getID() + "</td>\n");
+                if (buyer.getImage().contains("https") || buyer.getImage().contains("http")) {
+                    out.println(
+                            "<td><img src=\"" + buyer.getImage() + "\" style=\";height: 40px\" alt=\"\"/></td>\n");
+                } else {
+                    out.println(
+                            " <td><img src=\"ImageLoader?FileName=" + buyer.getImage() + "\" style=\";height: 40px\" alt=\"\"/></td>\n");
+                }
+                out.println(
                         "            <td valign=\"center\">" + buyer.getUserName() + "</td>\n" +
-                        "            <td valign=\"center\">" + buyer.getName() + "</td>\n" +
-                        "            <td valign=\"center\">" + buyer.getEmail() + "</td>\n" +
-                        "            <td valign=\"center\">Buyer</td>\n" +
-                        "            <td valign=\"center\">" + banned + "</td>\n");
+                                "            <td valign=\"center\">" + buyer.getName() + "</td>\n" +
+                                "            <td valign=\"center\">" + buyer.getEmail() + "</td>\n" +
+                                "            <td valign=\"center\">Buyer</td>\n" +
+                                "            <td valign=\"center\">" + banned + "</td>\n");
                 if (buyer.isBanned()) {
                     out.println(
                             " <td class=\"clickable\" ><a href=\"admin?ban=0&type=buyer&ID=" + buyer.getID() + "\" style=\"color: red;text-decoration:none;border: 1px solid " +

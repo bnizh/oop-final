@@ -52,10 +52,13 @@
 <div>
     <div class="user-container">
         <%
-            DBConnection dbc =DBFactory.getDBConnection();
-            Message ms= (Message) request.getSession().getAttribute("message");
+            DBConnection dbc = DBFactory.getDBConnection();
+            Message ms = (Message) request.getSession().getAttribute("message");
+            if (ms == null) {
+                out.println("<script type=\"text/javascript\">  window.location.href = \"http://localhost:8080/error.html\"; </script>");
+            }
             User us = dbc.getBuyerByID(ms.getWriterID());
-            if(us==null)dbc.getSellerByID(ms.getWriterID());
+            if (us == null) dbc.getSellerByID(ms.getWriterID());
 
 
         %>
@@ -74,7 +77,11 @@
                 <tbody>
                 <td><%=us.getID()%>
                 </td>
+                <%if (us.getImage().contains("https") || us.getImage().contains("http")) {%>
+                <td><img src="<%=us.getImage()%>" style="height: 40px"></td>
+                <%} else {%>
                 <td><img src="ImageLoader?FileName=<%=us.getImage()%>" style="height: 40px"></td>
+                <%}%>
                 <td><%=us.getUserName()%>
                 </td>
                 <td><%=us.getName()%>
@@ -87,6 +94,9 @@
 
     </div>
 </div>
-
+<%
+    request.getSession().removeAttribute("message");
+%>
 </body>
+
 </html>

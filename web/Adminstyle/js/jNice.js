@@ -80,7 +80,6 @@
         });
         var focusedElement;
         $('.category-edit').click(function (e) {
-            console.log('asdasdasd');
             var el = $(this).parent().siblings('.td-name').children();
             el.css("border", "3px solid #ff5e01");
             el.attr("readOnly", false);

@@ -6,6 +6,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="static Managers.SiteConstants.NUMBER_OF_ITEMS_ON_PAGE" %>
 <%@ page import="static Managers.SiteConstants.ADMIN_LOGGED_IN" %>
+<%@ page import="DataBase.DBFactory" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -54,6 +55,10 @@
             <button id="searchConfirm" onclick="selectItem()" class="login-button" style="margin-left: 1010px; height: 48px; width: 70px; margin-bottom: 0px; ">SEARCH</button>
             <input id="searchArea"  style="width: 50%;  margin: auto; margin-top: -48px;
                  " class="search-form-control">
+            <select id="selector" class="search-form-control" style="margin-top: -48px; height: 48px; margin-left: 210px;">
+                <option value="ITEM" selected="selected">ITEM</option>
+                <option value="USER" >USER</option>
+            </select>
             <script type="text/javascript">
                 $('#searchArea').keyup(function(event){
                     if(event.keyCode === 13){
@@ -63,7 +68,7 @@
             </script>
         </div>
         <div class="left-menu">
-            <% DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
+            <% DBConnection dbc = DBFactory.getDBConnection();
                 List<Category> categoryList = (List<Category>) dbc.getAllCategories();
                 for (Category category : categoryList) {
                     out.println(" <a class=\"left-menu-item\" href=\"cat?cat=" + category.getID() + "\">" + category.getName() + "</a>");

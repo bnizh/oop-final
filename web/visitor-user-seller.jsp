@@ -18,7 +18,11 @@
 
         </div>
         <div class="left-side-user-visitor">
-            <img src="ImageLoader?FileName=<%=us.getImage()%>">
+            <%if(us.getImage().contains("https")||us.getImage().contains("http")){%>
+            <img src="<%=us.getImage()%>" style="width: 200px; height: 200px">
+            <%}else{%>
+            <img src="ImageLoader?FileName=<%=us.getImage()%>" style="width: 200px; height: 200px">
+            <%}%>
 
             <%
 
@@ -134,11 +138,17 @@
                         for (Comment comment : comList) {
                             User user = dbc.getSellerByID(comment.getWriterID());
                             if (user == null) user = dbc.getBuyerByID(comment.getWriterID());
+                            String image= "";
+                            if(user.getImage().contains("https")||user.getImage().contains("http")) {
+                                image += user.getImage();
+                            }else{
+                                image +="ImageLoader?FileName="+user.getImage();
+                            }
                             out.println(" <div class=\"dialogbox\">\n" +
                                     "                    <div style=\"margin-left: 10%\">\n" +
                                     "                        <div style=\"border: 1px solid #ff5e01;border-radius:15%;padding-left: 5px;padding-right:5px;    float:left\">\n" +
                                     "                            <span style=\"font-size: 15px; margin-top: 20px;text-align: center\">" + user.getUserName() + "</span>\n" +
-                                    "                            <div style=\"width: 100%\"><img src=\"ImageLoader?FileName=" + user.getImage() + "\"\n" +
+                                    "                            <div style=\"width: 100%\"><img src=\"" + image + "\"\n" +
                                     "                                                          style=\"width: 50px;height: 50px;text-align: center\"></div>\n" +
                                     "                        </div>\n" +
                                     "                        <div class=\"comment-body\">\n" +

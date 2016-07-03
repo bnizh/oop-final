@@ -2,11 +2,13 @@
  * Created by Boris on 03.07.2016.
  */
 function selectItem() {
+    console.log($('#selector').val());
     $.ajax({
         url: 'SearchServlet',
         type: 'GET',
         data: {
-            value:$('#searchArea').val()
+            value:$('#searchArea').val(),
+            type : $('#selector').val()
         },
         cache: true,
         dataType: "text",

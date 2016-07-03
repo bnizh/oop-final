@@ -85,7 +85,8 @@
                     User us = dbc.getBuyerByID(message.getWriterID());
                     if (us == null) us = dbc.getSellerByID(message.getWriterID());
                     if (message.isRead())
-                        out.println("<tr><td><img src=\"read.png\" style=\";height: 40px\" alt=\"\"></td>");
+                        out.println("<tr>" +
+                                "<td><img src=\"read.png\" style=\";height: 40px\" alt=\"\"></td>");
                     else out.println("<td><img src=\"unread.png\" style=\";height: 40px\" alt=\"\"></td>");
                     out.println(" <td>" + us.getName() + "</td>\n" +
                             " <td>" + message.getDateOfSend() + "</td>" +

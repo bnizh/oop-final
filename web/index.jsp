@@ -17,6 +17,7 @@
     <script src="Javascript/passwordscheck.js"></script>
     <script src="Javascript/loginAjax.js"></script>
     <script src="Javascript/scrolling.js"></script>
+    <script src="Javascript/search.js"></script>
 </head>
 <body>
 <!-- Header -->
@@ -49,6 +50,18 @@
 <!-- Main -->
 <div>
     <div id="main">
+        <div>
+            <button id="searchConfirm" onclick="selectItem()" class="login-button" style="margin-left: 1010px; height: 48px; width: 70px; margin-bottom: 0px; ">SEARCH</button>
+            <input id="searchArea"  style="width: 50%;  margin: auto; margin-top: -48px;
+                 " class="search-form-control">
+            <script type="text/javascript">
+                $('#searchArea').keyup(function(event){
+                    if(event.keyCode === 13){
+                        selectItem();
+                    }
+                });
+            </script>
+        </div>
         <div class="left-menu">
             <% DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
                 List<Category> categoryList = (List<Category>) dbc.getAllCategories();
@@ -259,7 +272,7 @@ out.println("display:none;");
         </div>
 
     </div>
-
+<div  id="newItem"></div>
 </div>
 
 </body>

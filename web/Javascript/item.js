@@ -111,7 +111,7 @@
                     cache: false,
                     dataType: "text",
                 }).done(function (response) {
-                    if (response == "success") {
+                    if (response != "success") {
                         $("#rating-form").hide();
                         $("#rate-result").show();
                     }

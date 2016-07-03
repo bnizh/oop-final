@@ -136,4 +136,4 @@ INSERT INTO admins (password, userName, name, typeOfUser, email, mobileNumber, i
 );
 
 SELECT *
-FROM Users;
+FROM users ;

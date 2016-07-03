@@ -160,11 +160,17 @@
                         for (Comment comment : comList) {
                             User writer = dbc.getSellerByID(comment.getWriterID());
                             if (writer == null) writer = dbc.getBuyerByID(comment.getWriterID());
+                            String image= "";
+                            if(writer.getImage().contains("https")||writer.getImage().contains("http")) {
+                                image += writer.getImage();
+                            }else{
+                                image +="ImageLoader?FileName="+writer.getImage();
+                            }
                             out.println(" <div class=\"dialogbox\">\n" +
                                     "                    <div style=\"margin-left: 10%\">\n" +
                                     "                        <div style=\"border: 1px solid #ff5e01;border-radius:15%;padding-left: 5px;padding-right:5px;    float:left\">\n" +
                                     "                            <span style=\"font-size: 15px; margin-top: 20px;text-align: center\">" + writer.getUserName() + "</span>\n" +
-                                    "                            <div style=\"width: 100%\"><img src=\"ImageLoader?FileName=" + writer.getImage() + "\"\n" +
+                                    "                            <div style=\"width: 100%\"><img src=\"" + image + "\"\n" +
                                     "                                                          style=\"width: 50px;height: 50px;text-align: center\"></div>\n" +
                                     "                        </div>\n" +
                                     "                        <div class=\"comment-body\">\n" +

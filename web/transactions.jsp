@@ -37,7 +37,6 @@
             <button  id=<%="rej"+ls.get(i).getId()%>>Reject</button>
         <script type="text/javascript">
             $(<%="acc"+ls.get(i).getId()%>).click(function(){
-               console.log("bla")
                 $.ajax({
                     url: 'ItemBuy',
                     type: 'POST',

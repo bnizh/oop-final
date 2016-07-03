@@ -1,6 +1,7 @@
 package Servlets;
 
 import DataBase.DBConnection;
+import DataBase.DBFactory;
 import Managers.ItemManager;
 import Managers.ManagerFactory;
 import Objects.Item;
@@ -50,7 +51,7 @@ public class ItemServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.valueOf(request.getParameter("ID"));
-        DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
+        DBConnection dbc = DBFactory.getDBConnection();
         Item item = dbc.getItemById(id);
         Seller seller = dbc.getSellerByID(item.getOwnerID());
         User user = (User) request.getSession().getAttribute(USER);

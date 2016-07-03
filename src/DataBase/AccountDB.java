@@ -222,14 +222,14 @@ public class AccountDB implements DBQueries {
     @Override
     public List<Seller> getSellerByName(String name) {
         ArrayList<Seller> list = new ArrayList<Seller>();
-        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Users_table + " where typeOfUser =" + SellerType + " and name =" + '\"' + name + '\"';
+        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Users_table + " where typeOfUser =" + SellerType + " and name like '%"  + name + "%'";
         try (PreparedStatement stm = con.prepareStatement(s)) {
             getSeveralSellersFromBase(list, stm);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='" + USER + "'";
+        s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='" + USER + "' and tagName like '%"  + name + "%'";
 
         List<Integer> ls = getIDsByTag(s);
         for (Integer l : ls) {
@@ -391,13 +391,13 @@ public class AccountDB implements DBQueries {
     @Override
     public List<Buyer> getBuyerByName(String name) {
         ArrayList<Buyer> list = new ArrayList<>();
-        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Users_table + " where typeOfUser =" + BuyerType + " and name =" + '\"' + name + '\"';
+        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Users_table + " where typeOfUser =" + BuyerType + " and name like '%" +  name + "%'";
         try (PreparedStatement stm = con.prepareStatement(s)) {
             getSeveralBuyersFromBase(list, stm);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='user'";
+        s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='user'  and tagName like '%" +  name + "%'";
         List<Integer> ls = getIDsByTag(s);
         for (Integer l : ls) {
             Buyer b = getBuyerByID(l);
@@ -544,9 +544,9 @@ public class AccountDB implements DBQueries {
     @Override
     public List<Item> getItemsByName(String name) {
         List<Item> ls = new ArrayList<Item>();
-        String s = "select * from " + DBInfo.MYSQL_DATABASE_Items_table + " where ItemName ='" + name + "'";
+        String s = "select * from " + DBInfo.MYSQL_DATABASE_Items_table + " where ItemName like '%" +  name + "%'";
         getItems(ls, s);
-        s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='" + ITEM + "'";
+        s = "Select ownerID from " + DBInfo.MYSQL_DATABASE__Tags_table + " where tagType ='" + ITEM + "'"+" and tagName like '%" + name + "%'";
         List<Integer> list = getIDsByTag(s);
         for (Integer aList : list) {
             Item it = getItemById(aList);

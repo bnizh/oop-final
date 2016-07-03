@@ -32,7 +32,7 @@ public class DBConnection implements DBQueries {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return DBFactory.getAccountDB(con).getMessageByWriterID(ID,messageType);
+            return DBFactory.getAccountDB(con).getMessageByWriterID(ID, messageType);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -51,7 +51,7 @@ public class DBConnection implements DBQueries {
         Connection con = null;
         try {
             con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
-            return DBFactory.getAccountDB(con).getMessageByReceiverId(ID,messageType);
+            return DBFactory.getAccountDB(con).getMessageByReceiverId(ID, messageType);
         } catch (SQLException ex) {
             throw new AssertionError(ex);
         } finally {
@@ -62,7 +62,27 @@ public class DBConnection implements DBQueries {
                     e.printStackTrace();
                 }
             }
-        }    }
+        }
+    }
+
+    @Override
+    public List<Message> getAllAdminMessage() {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return DBFactory.getAccountDB(con).getAllAdminMessage();
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     @Override
     public boolean addMessage(Message message, int messageType) {

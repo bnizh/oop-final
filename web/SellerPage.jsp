@@ -225,17 +225,12 @@
                             "                <img src=\"ImageLoader?FileName=" + item.getImage() + " \">\n" +
                             "             <form action=\"item\" method=\"get\">" +
                             "<input name=\"ID\" type=\"hidden\" value=\"" + item.getID() + "\">\n" +
-                            "<button  type=\"submit\" class=\"button\"> დეტალურად</button>\n" +
+                            "<button  type=\"submit\" class=\"button\"> Details</button>\n" +
                             "</form>" +
                             "            </div>");
 
                 }
             %>
-            <div class="product-user">
-                <div>Pizza</div>
-                <img src="food.jpg">
-                <button class="button"> დეტალურად</button>
-            </div>
 
         </div>
     </div>

@@ -31,84 +31,26 @@
         <li class="logout"><a href="#">LOGOUT</a></li>
     </ul>
     <!-- // #end mainNav -->
+    <div>
+        <div class="user-container">
+            <h2 style="text-align: center">Message</h2>
+            <form action="message" method="post">
+                <input name="from" value="admin">
+                <div id="addressee" style="margin-left:10%;margin-bottom:30px;width: 80%">
+                    <span style="font-size: 20px;margin-left: 70px;margin-right: 30px">Username Of addressee</span><input
 
-    <div id="container">
-
-        <main >
-            <table class="admin-table" style="margin-top: 20px">
-                <thead>
-                <tr>
-                    <th class="row-1 row-ID">ID</th>
-                    <th class="row-2 row-image">image</th>
-                    <th class="row-3 row-username">name</th>
-                    <th class="row-3 row-name">owner</th>
-                    <th class="row-5 row-type">category</th>
-                    <th class="row-6 row-banned">price</th>
-                    <th class="row-9 row-x">X</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>2</td>
-                    <td><img src="admin.png" style=";height: 40px"
-                             alt=""></td>
-                    <td valign="center">givia</td>
-                    <td valign="center">givi` sixarulidze</td>
-                    <td valign="center">hot Meal</td>
-                    <td valign="center">3.3</td>
-                    <td><a href="admin?delete=1&amp;type=buyer&amp;ID=2" class="clickable"
-                           style="color: red;text-decoration:none;font-size: 20px">X</a></td>
-                </tr><tr>
-                    <td>2</td>
-                    <td><img src="admin.png" style=";height: 40px"
-                             alt=""></td>
-                    <td valign="center">givia</td>
-                    <td valign="center">givi` sixarulidze</td>
-                    <td valign="center">hot Meal</td>
-                    <td valign="center">3.3</td>
-                    <td><a href="admin?delete=1&amp;type=buyer&amp;ID=2" class="clickable"
-                           style="color: red;text-decoration:none;font-size: 20px">X</a></td>
-                </tr><tr>
-                    <td>2</td>
-                    <td><img src="admin.png" style=";height: 40px"
-                             alt=""></td>
-                    <td valign="center">givia</td>
-                    <td valign="center">givi` sixarulidze</td>
-                    <td valign="center">hot Meal</td>
-                    <td valign="center">3.3</td>
-                    <td><a href="admin?delete=1&amp;type=buyer&amp;ID=2" class="clickable"
-                           style="color: red;text-decoration:none;font-size: 20px">X</a></td>
-                </tr><tr>
-                    <td>2</td>
-                    <td><img src="admin.png" style=";height: 40px"
-                             alt=""></td>
-                    <td valign="center">givia</td>
-                    <td valign="center">givi` sixarulidze</td>
-                    <td valign="center">hot Meal</td>
-                    <td valign="center">3.3</td>
-                    <td><a href="admin?delete=1&amp;type=buyer&amp;ID=2" class="clickable"
-                           style="color: red;text-decoration:none;font-size: 20px">X</a></td>
-                </tr><tr>
-                    <td>2</td>
-                    <td><img src="admin.png" style=";height: 40px"
-                             alt=""></td>
-                    <td valign="center">givia</td>
-                    <td valign="center">givi` sixarulidze</td>
-                    <td valign="center">hot Meal</td>
-                    <td valign="center">3.3</td>
-                    <td><a href="admin?delete=1&amp;type=buyer&amp;ID=2" class="clickable"
-                           style="color: red;text-decoration:none;font-size: 20px">X</a></td>
-                </tr>
-                </tbody>
-            </table>
-        </main>
-
-        <div class="clear"></div>
+                        name="receiver" placeholder="Username" type="text" style="border:2px solid #6b3a99;width: 60%">
+                </div>
+        <textarea placeholder="Message text" name="text"
+                  style="margin-left:5%; resize: none;width:90%;background-color: white; height: 180px"></textarea>
+                <button type="submit" style="width: 10%; float: right;margin-right:20%;border: 2px solid #6b3a99;
+         background-color: white; border-radius: 10px; margin-top: 20px ">
+                    Send
+                </button>
+            </form>
+        </div>
     </div>
     <!-- // #container -->
-
-    <p id="footer">Feel free to use and customize it. <a href="http://www.perspectived.com">Credit is appreciated.</a>
-    </p>
 </div>
 <!-- // #wrapper -->
 </body>

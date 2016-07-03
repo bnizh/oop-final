@@ -47,6 +47,7 @@
             }
         %>
         <li><a href="admin-product.jsp">Products</a></li>
+        <li><a href="admin-message-inbox.jsp">Inbox</a></li>
         <li><a href="index.jsp">Main</a></li>
         <li class="logout"><a href="/admin-login?">LOGOUT</a></li>
     </ul>

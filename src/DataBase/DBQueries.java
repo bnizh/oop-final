@@ -10,6 +10,7 @@ public interface DBQueries {
     public List<Message> getMessageByWriterID(int ID,int messageType);
 
     public List<Message> getMessageByReceiverId(int ID,int messageType);
+    public List<Message> getAllAdminMessage();
 
     public boolean addMessage(Message message,int messageType);
 

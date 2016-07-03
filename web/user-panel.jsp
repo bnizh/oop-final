@@ -15,11 +15,11 @@
 
 
 
-<%
+<%--<%
     if(!user.isConfirmed()) {
     %><script type="text/javascript">  window.location.href = "http://localhost:8080/activationNeeded.jsp"; </script><%
     }
-    %>
+    %>--%>
 <% if (logged) {%>
 <%@include file="chat-page.jsp" %>
 <div class="user-panel">
@@ -47,6 +47,7 @@
             <%}%>
             <div style=""><span href=""><%=user.getName()%></span></div>
             <div style="width: 100%;text-align: center"><a href="\user-page.jsp">Go to private page</a></div>
+            <div style="width: 100%;text-align: center"><a href="\user-page.jsp">Message Inbox</a></div>
             <%
                 String type = (String) request.getSession().getAttribute("type");
                 if (type.equals("seller")) {

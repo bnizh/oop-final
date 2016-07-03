@@ -346,6 +346,32 @@ label.star:before {
     line-height: 1.5;
     color: #797979;
 }
-#link_add:hover~{
+.user-table {
+    table-layout: fixed;
+    width: 100%;
+    white-space: nowrap;
+}
 
+.user-table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-table th {
+    background: darkblue;
+    color: white;
+}
+
+.user-table td,
+.user-table th {
+    text-align: left;
+    padding: 5px 10px;
+}
+
+.user-table tr:nth-child(even) {
+    background: lightblue;
+}
+.user-table tr:hover {
+    background-color: #fbd850;
 }

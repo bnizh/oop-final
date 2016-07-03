@@ -67,7 +67,8 @@ create table itemsComments(
     foreign key(writerID)  references Users(userID),
     foreign key(ownerID) REFERENCES items(itemID)
 );
-
+DELETE from Messages where messageID>0;
+SELECT * FROM Messages;
 Create table Messages(
     messageID int auto_increment not null,
     writerID int not null,

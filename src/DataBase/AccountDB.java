@@ -116,6 +116,17 @@ public class AccountDB implements DBQueries {
         return list;    }
 
     @Override
+    public List<Message> getAllAdminMessage() {
+        ArrayList<Message> list = new ArrayList<Message>();
+        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Message_table + " where  messageType="+MESSAGE_USER_TO_ADMIN;
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            getSeveralMessageFromBase(list, stm);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;    }
+
+    @Override
     public boolean addMessage(Message message,int messageType) {
         String s = "insert into " + DBInfo.MYSQL_DATABASE_Message_table + " (writerID, receiverID, message, dateOfMessage, messageType) " +
                 "values(" + message.getWriterID()  + "," + message.getReceiverID() +"," + "\"" + message.getMessageContent() + "\"" + ",'" +

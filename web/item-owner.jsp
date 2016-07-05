@@ -1,7 +1,7 @@
-<%@ page import="DataBase.DBConnection" %>
 <%@ page import="Objects.Item" %>
 <%@ page import="Objects.Seller" %>
 <%@ page import="DataBase.DBFactory" %>
+<%@ page import="DataBase.DBConnection" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -37,14 +37,13 @@
 </div>
 <!-- Header -->
 <%
-    DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
+    DBConnection dbc = DBFactory.getDBConnection();
     Item item = dbc.getItemById((Integer) request.getSession().getAttribute("itemID"));
     Seller seller = dbc.getSellerByID(item.getOwnerID());
 
 %>
 <!-- Main -->
 <div>
-    <input id="itemID" style="display: none" value="<%=item.getID()%>">
     <div class="user-container">
         <div class="type-header">
             <span><%=item.getName()%></span>
@@ -97,7 +96,8 @@
             </form>
             <form class="edit-forms" id="Tags" style="">
                 <label> Tag: </label>
-                <input id="tagID" style="display: none" value="">
+                <input name="ID" type="hidden" value="<%=item.getID()%>">
+                <textarea name="tag"  style="display: none; resize: none;font-size: 15px" rows="1" cols="60" ></textarea>
                 <img src="edit.png" style="float:right;" class="edit-icon ">
             </form>
         </div>

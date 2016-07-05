@@ -100,10 +100,13 @@
         $('input:radio').change(
             function () {
                 var userRating = this.value;
+                data = $('#edit-price input').val();
                 event.preventDefault();
+                var formData = new FormData($('#edit-price')[0]);
                 $.ajax({
                     url: 'item-edit',
                     type: 'GET',
+                    
                     data: {
                         rate: userRating,
                         ID:$("#user-id-form").val()
@@ -131,33 +134,29 @@
             }
         });
         $('#Tags img').click(function () {
-            console.log('bla');
-            $('#tagID').toggle();
-            console.log($("#itemID").val());
+            $('#Tags textarea').toggle();
         });
-        $('#Tags input').keyup(function(event){
-            if(event.keyCode === 13){
-                tag();
-            }
-        });
-        function tag(){
-            console.log('addTag');
-            console.log($('#Tags input').val());
+        $('#Tags textarea').keyup(function(event){
+             if(event.keyCode===13){
+                 data = $('#Tags input').val();
+                 event.preventDefault();
+                 var formData = new FormData($('#Tags')[0]);
+                 $.ajax({
+                     url: 'item-edit',
+                     type: 'POST',
+                     data: formData,
+                     success: function (data) {
+                         console.log('test');
+                     },
+                     cache: false,
+                     contentType: false,
+                     processData: false
+                 });
+                 $('#Tags textarea').toggle();
+             }
 
-            $.ajax({
-                url: 'item-edit',
-                type: 'POST',
-                data: {
-                    value: $('#Tags input').val(),
-                    ID: $('#itemID').val(),
-                    status:"tag"
-                },
-                cache: false,
-                dataType: "text",
-            });
-            $('#tagID').toggle();
-        }
+        });
+
     });
 })
 ();
-

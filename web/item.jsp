@@ -37,7 +37,7 @@
 <%@ page import="static Managers.SiteConstants.USER" %>
 <%
     int id = Integer.valueOf(request.getParameter("ID"));
-    DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
+    DBConnection dbc = DBFactory.getDBConnection();
     Item item = dbc.getItemById(id);%>
 
 <%@ page import="static Managers.SiteConstants.LOGGED_IN" %>
@@ -45,6 +45,7 @@
 <%@ page import="static Managers.SiteConstants.*" %>
 <%@ page import="Objects.*" %>
 <%@ page import="java.util.List" %>
+<%@ page import="DataBase.DBFactory" %>
 <% Boolean loggedin = (Boolean) request.getSession().getAttribute(LOGGED_IN);
     Objects.Seller us = dbc.getSellerByID(item.getOwnerID());%>
 <div>

@@ -6,7 +6,6 @@
         console.log($(document).height()+"doc"+win.height()+"win"+win.scrollTop());
         win.scroll(function () {
             // End of the document reached?
-            console.log($(document).height()+"doc"+win.height()+"win"+win.scrollTop());
             if ($(document).height() - win.height() <win.scrollTop()+50) {
                 $('#loading').show();
                 setTimeout(function(){  }, 1000);

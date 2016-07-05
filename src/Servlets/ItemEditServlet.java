@@ -27,7 +27,6 @@ import static Managers.SiteConstants.USER;
 @WebServlet("/item-edit")
 public class ItemEditServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       if(request.getParameter("status")==null) {
            ItemManager im = ManagerFactory.getItemManager();
            DBConnection dbc = DBFactory.getDBConnection();
            if (request.getParameter("ID") == null) {
@@ -35,12 +34,14 @@ public class ItemEditServlet extends HttpServlet {
                dispatch.forward(request, response);
                return;
            }
-           int id = Integer.valueOf(request.getParameter("ID"));
+           int id = Integer.parseInt(request.getParameter("ID"));
            Item item = dbc.getItemById(id);
            User user = dbc.getSellerByID(item.getOwnerID());
            String price = request.getParameter("price");
            String desc = request.getParameter("description");
+            String tag = request.getParameter("tag");
            Part file = request.getPart("image");
+            System.out.println("bla"+tag);
            if (price != null) {
                Double prc = Double.valueOf(price);
                im.editItemPrice(item, prc);
@@ -48,14 +49,11 @@ public class ItemEditServlet extends HttpServlet {
                im.editItemDesc(desc, item);
            } else if (file != null) {
                im.editItemImage(item.getID(), user.getUserName(), item.getName(), item.getImage(), file);
+           }else if(tag!=null){
+               DBFactory.getDBConnection().addHashTagToItem(id, tag);
            }
-           RequestDispatcher dispatch = request.getRequestDispatcher("item-owner.jsp");
-           dispatch.forward(request, response);
-       }else{
-           System.out.println("tag");
-           DBFactory.getDBConnection().addHashTagToItem(Integer.parseInt(request.getParameter("ID")), request.getParameter("value"));
-       }
-
+        RequestDispatcher dispatch = request.getRequestDispatcher("item-owner.jsp");
+        dispatch.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

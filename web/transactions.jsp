@@ -7,16 +7,34 @@
   Time: 2:05
   To change this template use File | Settings | File Templates.
 --%>
+<link href="css/main.css" rel="stylesheet">
+<link href="css/usercss.css" rel="stylesheet">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% User user = (User) request.getSession().getAttribute("user");%>
 <html>
 <head>
-    <title>Your Transactions</title>
+    <div class="header">
+        <div class="header1">
+            <a href="\index.jsp" id="logo">Food-Online</a>
+        </div>
+        <%
+            Boolean bool = (Boolean) session.getAttribute("loggedIn");
+            if (!bool) {
+                out.println("<script type=\"text/javascript\">  window.location.href = \"http://localhost:8080/error.html\"; </script>");
+            }
+            if (!bool) {
+        %>
+        <script src="Javascript/script.js"></script>
+        <%@include file="visitor.jsp" %>
+
+        <% } else {
+        %>
+        <%@include file="user-panel.jsp" %>
+
+    </div>
 </head>
 <body>
 <span align="center" style="color: red;  font-size: 18pt; font-family: Sylfaen;"><p>Awaiting Offers</p></span>
 <div>
-    <script src="https://code.jquery.com/jquery-3.0.0-beta1.min.js"></script>
       <% List<Transaction> ls = DBFactory.getDBConnection().getUnresolvedTransactionBySeller(user.getID());
             for(int i=0; i< ls.size(); i++){
                 Item it = DBFactory.getDBConnection().getItemById(ls.get(i).getItemID());
@@ -39,39 +57,55 @@
             $(<%="acc"+ls.get(i).getId()%>).click(function(){
                 $.ajax({
                     url: 'ItemBuy',
-                    type: 'POST',
+                    type: 'GET',
                     data: {
                         status: "Accepted",
-                        transactionID: "<%=ls.get(i).getId()%>"
+                        transactionID: "<%=ls.get(i).getId()%>",
+                        userID : "<%=user.getID()%>"
                     },
                     cache: false,
-                    });
-                $(<%="un"+i%>).remove();
-                $("#resolved").load(location.href+"#resolved");
+                    }).done(function (response) {
+                    if (response != "failed") {
+                        $(<%="un"+i%>).remove();
+                        var trans = document.createElement('div');
+                        trans.setAttribute('id', 'resolved');
+                        trans.insertAdjacentHTML('beforeend',response);
+                        $("#resolved").replaceWith(trans);
+                    }
+                });
             });
             $(<%="rej"+ls.get(i).getId()%>).click(function(){
                 $.ajax({
                     url: 'ItemBuy',
-                    type: 'POST',
+                    type: 'GET',
                     data: {
                         status: "Rejected",
-                        transactionID: "<%= ls.get(i).getId()%>"
+                        transactionID: "<%= ls.get(i).getId()%>",
+                        userID : "<%=user.getID()%>"
                     },
                     cache: false,
-                   });
-                $(<%="un"+i%>).remove();
-                $("#resolved").hide().fadeIn('fast');
+                   }).done(function (response) {
+                    if (response != "failed") {
+                        $(<%="un"+i%>).remove();
+                        var trans = document.createElement('div');
+                        trans.setAttribute('id', 'resolved');
+                        trans.insertAdjacentHTML('beforeend',response);
+                        $("#resolved").replaceWith(trans);
+                    }
+                });
+
             });
 
         </script>
     </div>
         </p>
+</div>
 <%
             }
         %>
-    </div >
-<span align="center" style="color: red;  font-size: 18pt; font-family: Sylfaen;"><p>Accepted Offers</p></span></div>
 
+    </div>
+<span align="center" style="color: red;  font-size: 18pt; font-family: Sylfaen;"><p>Accepted Offers</p></span></div>
     <div id="resolved" >
     <% List<Transaction> list = DBFactory.getDBConnection().getTransactionByBuyer(user.getID());
         if(list.size()==0)
@@ -95,5 +129,6 @@
         }
     %>
 </div>
+<% }%>
 </body>
 </html>

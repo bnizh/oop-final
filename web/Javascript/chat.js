@@ -2,7 +2,7 @@ $(document).ready(function () {
     var socket;
     var idList;
     var nickname;
-    var receiver = $('#reciver-id').val();
+    var receiver = $('#receiver-ID').val();
     var rec = $('#reciver-username').val();
 
     function initializeChat() {
@@ -36,7 +36,6 @@ $(document).ready(function () {
                 $('#input').val(inp);
                 receiver = message.substring(0, message.indexOf("@"));
                 rec =message.substring(message.indexOf("@")+1,message.indexOf("#"));
-                $('#reciver-username').val(rec);
                 initializeChat();
                 var alert = new Audio("alert.mp3");
                 alert.play();

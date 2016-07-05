@@ -1,6 +1,7 @@
 <%@ page import="DataBase.DBConnection" %>
 <%@ page import="Objects.Item" %>
 <%@ page import="Objects.Seller" %>
+<%@ page import="DataBase.DBFactory" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -20,6 +21,7 @@
 <div class="header">
     <div class="header1">
         <a href="\index.jsp" id="logo">Food-Online</a>
+
     </div>
     <%
         Boolean b = (Boolean) session.getAttribute("loggedIn");
@@ -42,6 +44,7 @@
 %>
 <!-- Main -->
 <div>
+    <input id="itemID" style="display: none" value="<%=item.getID()%>">
     <div class="user-container">
         <div class="type-header">
             <span><%=item.getName()%></span>
@@ -90,6 +93,11 @@
                           class="user-fields"
                           readonly
                           title="Description"><%=item.getDescription()%></textarea>
+                <img src="edit.png" style="float:right;" class="edit-icon ">
+            </form>
+            <form class="edit-forms" id="Tags" style="">
+                <label> Tag: </label>
+                <input id="tagID" style="display: none" value="">
                 <img src="edit.png" style="float:right;" class="edit-icon ">
             </form>
         </div>

@@ -28,6 +28,7 @@ public class ChatSocket {
 
     @OnMessage
     public void onMessage(String message) {
+        System.out.println(message);
        if(!sessionHashMap.containsKey(curSess)){
            sessionHashMap.put(curSess,message);
        }else{

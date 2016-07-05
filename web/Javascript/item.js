@@ -130,7 +130,33 @@
                 }
             }
         });
+        $('#Tags img').click(function () {
+            console.log('bla');
+            $('#tagID').toggle();
+            console.log($("#itemID").val());
+        });
+        $('#Tags input').keyup(function(event){
+            if(event.keyCode === 13){
+                tag();
+            }
+        });
+        function tag(){
+            console.log('addTag');
+            console.log($('#Tags input').val());
 
+            $.ajax({
+                url: 'item-edit',
+                type: 'POST',
+                data: {
+                    value: $('#Tags input').val(),
+                    ID: $('#itemID').val(),
+                    status:"tag"
+                },
+                cache: false,
+                dataType: "text",
+            });
+            $('#tagID').toggle();
+        }
     });
 })
 ();

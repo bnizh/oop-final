@@ -4,7 +4,10 @@ package WebSockets;
  * Created by Boris on 28.06.2016.
  */
 
+import DataBase.DBFactory;
+import Objects.Item;
 import Objects.ObjectFactory;
+import Objects.Transaction;
 
 import javax.websocket.server.ServerEndpoint;
 import javax.websocket.*;
@@ -32,9 +35,15 @@ public class TransactionWebSocket {
             sessionHashMap.put(curSess,message);
         }else{
             try {
-                String userName = message;
+                String userName = message.substring(0, message.indexOf("$"));
                 for(Session ses : conns) {
                     if (sessionHashMap.containsKey(ses)&&sessionHashMap.get(ses).equals(userName) ) {
+                        String itemID = message.substring(message.indexOf("$")+1, message.indexOf("#"));
+                        String buyerID = message.substring(message.indexOf("@")+1);
+                        String amount = message.substring(message.indexOf("#")+1, message.indexOf("@"));
+                        Item it = DBFactory.getDBConnection().getItemById(Integer.parseInt(itemID));
+                        Transaction tr = ObjectFactory.getTransaction(it.getOwnerID(),Integer.parseInt(buyerID),it.getID(),Integer.parseInt(amount));
+                        DBFactory.getDBConnection().addTransaction(tr);
                         ses.getBasicRemote().sendText("New Offer");
                     }
                 }

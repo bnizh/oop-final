@@ -53,11 +53,7 @@
             <span><%=item.getName()%></span>
         </div>
         <div class="left-side-user-visitor">
-            <%if (user.getImage().contains("https") || user.getImage().contains("http")) {%>
-            <img src="<%=item.getImage()%>">
-            <%} else {%>
             <img src="ImageLoader?FileName=<%=item.getImage()%>">
-            <%}%>
             <%
 
                 if (loggedin) {
@@ -105,6 +101,7 @@
         <input id="username" type="hidden" value="<%=visitor.getUserName()%>">
         <input id="reciver-username" type="hidden" value="<%=us.getUserName()%>">
         <input id="receiver-ID" type="hidden" value="<%=us.getID()%>">
+        <input id="receiver-ID1" type="hidden" value="<%=us.getID()%>">
         <input id="itemID" type="hidden" value="<%=item.getID()%>">
         <% if (request.getSession().getAttribute(TYPE).equals(BUYER)) {%>
         <input type="number" id="amount"

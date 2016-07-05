@@ -50,7 +50,7 @@ public class ItemServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.valueOf(request.getParameter("ID"));
+        int id = Integer.parseInt(request.getParameter("ID"));
         DBConnection dbc = DBFactory.getDBConnection();
         Item item = dbc.getItemById(id);
         Seller seller = dbc.getSellerByID(item.getOwnerID());

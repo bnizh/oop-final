@@ -27,29 +27,35 @@ import static Managers.SiteConstants.USER;
 @WebServlet("/item-edit")
 public class ItemEditServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ItemManager im = ManagerFactory.getItemManager();
-        DBConnection dbc = DBFactory.getDBConnection();
-        if (request.getParameter("ID") == null) {
-            RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
-            dispatch.forward(request, response);
-            return;
-        }
-        int id = Integer.valueOf(request.getParameter("ID"));
-        Item item = dbc.getItemById(id);
-        User user = dbc.getSellerByID(item.getOwnerID());
-        String price = request.getParameter("price");
-        String desc = request.getParameter("description");
-        Part file = request.getPart("image");
-        if (price != null) {
-            Double prc = Double.valueOf(price);
-            im.editItemPrice(item, prc);
-        } else if (desc != null) {
-            im.editItemDesc(desc, item);
-        } else if (file != null) {
-            im.editItemImage(item.getID(), user.getUserName(), item.getName(), item.getImage(), file);
-        }
-        RequestDispatcher dispatch = request.getRequestDispatcher("item-owner.jsp");
-        dispatch.forward(request, response);
+       if(request.getParameter("status")==null) {
+           ItemManager im = ManagerFactory.getItemManager();
+           DBConnection dbc = DBFactory.getDBConnection();
+           if (request.getParameter("ID") == null) {
+               RequestDispatcher dispatch = request.getRequestDispatcher("index.jsp");
+               dispatch.forward(request, response);
+               return;
+           }
+           int id = Integer.valueOf(request.getParameter("ID"));
+           Item item = dbc.getItemById(id);
+           User user = dbc.getSellerByID(item.getOwnerID());
+           String price = request.getParameter("price");
+           String desc = request.getParameter("description");
+           Part file = request.getPart("image");
+           if (price != null) {
+               Double prc = Double.valueOf(price);
+               im.editItemPrice(item, prc);
+           } else if (desc != null) {
+               im.editItemDesc(desc, item);
+           } else if (file != null) {
+               im.editItemImage(item.getID(), user.getUserName(), item.getName(), item.getImage(), file);
+           }
+           RequestDispatcher dispatch = request.getRequestDispatcher("item-owner.jsp");
+           dispatch.forward(request, response);
+       }else{
+           System.out.println("tag");
+           DBFactory.getDBConnection().addHashTagToItem(Integer.parseInt(request.getParameter("ID")), request.getParameter("value"));
+       }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

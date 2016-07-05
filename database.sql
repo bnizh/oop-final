@@ -124,10 +124,7 @@ INSERT INTO categories (categoryName) VALUES ('Hot Meal'),
   ('Drinks'), ('Alcohol'), ('Meat'), ('Fast Food'), ('Other'), ('Desert');
 
 INSERT INTO admins (password, userName, name, typeOfUser, email, mobileNumber, imageUrl) VALUES ("7c4a8d09ca3762af61e59520943dc26494f8941b","super",
-"administrator",3,"maiakovsk@gmail.com","12345678","D:\\prog\\Final-Project\\oop-final\\web\\admin.png"
+"administrator",3,"maiakovsk@gmail.com","12345678","C:\\Users\\Boris\\Desktop\\final project\\oop-final\\admins\\admin.png"
 );
 
-SELECT *
-FROM transactions ;
-select sum(amount) as overall, itemID, sellerID,
-  COUNT(DISTINCT CAST(date AS DATE)) as difDays FROM transactions GROUP BY itemID, itemID ORDER BY overall DESC ;
+select * from admins;

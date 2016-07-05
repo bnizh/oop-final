@@ -21,6 +21,11 @@
     }
     %>--%>
 <% if (logged) {%>
+<%
+       if(!user.isConfirmed()) {
+    %><script type="text/javascript">  window.location.href = "http://localhost:8080/activationNeeded.jsp"; </script><%
+            }
+    %>
 <%@include file="chat-page.jsp" %>
 <div class="user-panel">
 

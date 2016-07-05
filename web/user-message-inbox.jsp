@@ -76,9 +76,9 @@
                         out.println(
                                 "<td><img src=\"read.png\" style=\";height: 40px\" alt=\"\"></td>");
                     else out.println("<td><img src=\"unread.png\" style=\";height: 40px\" alt=\"\"></td>");
-                    out.println(" <td>Administration </td>\n" +
+                    out.println(" <td style=\"color:red\">Administration </td>\n" +
                             " <td>" + message.getDateOfSend() + "</td>" +
-                            "<td> <a class=\"delete-item\" style=\"color: red;text-decoration:none;font-size: 20px\">X</a></td>\n" +
+                            "<td> <a class=\"delete-message\" style=\"color: red;text-decoration:none;font-size: 20px\">X</a></td>\n" +
                             "                    </tr>");
 
                 }
@@ -87,16 +87,17 @@
             <%
                 List<Message> messagesUser = dbc.getMessageByReceiverId(reciver.getID(), MESSAGE_USER_TO_USER);
                 for (Message message : messagesUser) {
+                    System.out.println("iuzerebshi shemovarda"+messagesUser.size());
                     User us = dbc.getBuyerByID(message.getWriterID());
                     if (us == null) us = dbc.getSellerByID(message.getWriterID());
                     out.println("<tr class=\"clickable-row\">" +
-                            " <input type=\"hidden\" class=\"message-id\" value=\"" + message.getMessageID() + "\">");
+                            " <input type=\"hidden\" class=\"message-id\"value=\"" + message.getMessageID() + "\">");
                     if (message.isRead())
                         out.println("<td><img src=\"read.png\" style=\";height: 40px\" alt=\"\"></td>");
                     else out.println("<td><img src=\"unread.png\" style=\";height: 40px\" alt=\"\"></td>");
                     out.println(" <td>" + us.getName() + "</td>\n" +
                             " <td>" + message.getDateOfSend() + "</td>" +
-                            "<td> <a class=\"delete-item\" style=\"color: red;text-decoration:none;font-size: 20px\">X</a></td>\n" +
+                            "<td> <a class=\"delete-message\" style=\"color: red;text-decoration:none;font-size: 20px\">X</a></td>\n" +
                             "                    </tr>");
                 }
             %>
@@ -106,6 +107,27 @@
 </div>
 </body>
 <script>
+    $(".delete-message").click(function (event) {
+        event.preventDefault();
+        messageID=$(this).parent().parent().children('.message-id').val(),
+                console.log(messageID);
+                $.ajax({
+            url: 'message',
+            type: 'Post',
+            data: {
+                messageID: $(this).parent().parent().children('.message-id').val(),
+                delete: "Yes"
+            },
+            cache: false,
+            dataType: "text",
+        }).done(function (response) {
+            if(response=="success")
+            window.location.href = "http://localhost:8080/user-message-inbox.jsp";
+        });
+
+        return false;
+    });
+
     $(".clickable-row").click(function (event) {
         event.preventDefault();
         $.ajax({
@@ -122,6 +144,7 @@
         });
 
         return false;
-    })
+    });
+
 </script>
 </html>

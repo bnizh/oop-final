@@ -51,44 +51,62 @@
         %>
         <li><a href="admin-product.jsp">Products</a></li>
         <li><a href="admin-message-inbox.jsp" class="active">Inbox</a></li>
+        <li><a href="admin-new-message.jsp" class="active">New Message</a></li>
         <li><a href="index.jsp">Main</a></li>
         <li class="logout"><a href="${pageContext.request.contextPath}/admin-login?">LOGOUT</a></li>
     </ul>
     <!-- // #end mainNav -->
 
-    <div id="containerHolder">
-        <div id="container" style="margin:auto;width: 600px">
+    <div>
+        <div class="user-container">
+            <%
+                DBConnection dbc = DBFactory.getDBConnection();
+                Message ms = (Message) request.getSession().getAttribute("message");
+                if (ms == null) {
+                    String redirectURL = "/admin-message-inbox.jsp";
+                    response.sendRedirect(redirectURL);
+                    return;
+                }
+                User us = dbc.getBuyerByID(ms.getWriterID());
+                if (us == null) us = dbc.getSellerByID(ms.getWriterID());
 
-            <main style="width: 600px">
-                <h2 style="text-align: center">Message</h2>
-                <div style="overflow: hidden;width:100%;border-top: 2px solid #990099;border-bottom: 2px solid #990099;margin-bottom: 40px;margin-top: 20px;padding-bottom: 20px;text-align: center">
-                    <span style="width:100%; margin-bottom:15px;font-size: 20px;">Author:</span>
-                    <table class="admin-table" style="margin-top: 20px">
-                        <thead>
-                        <tr>
-                            <th style="width: 15%" class="row-1 row-ID">ID</th>
-                            <th style="width: 15%" class="row-1 row-image"></th>
-                            <th style="width: 35%" class="row-3 row-username">Username</th>
-                            <th style="width: 35%" class="row-5 row-type">Name</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <td>001</td>
-                        <td><img src="defaultProfile.png" style="height: 40px"></td>
-                        <td>gaga</td>
-                        <td>dedalamazishvili</td>
-                        </tbody>
-                    </table>
-                </div>
-                <textarea readonly style="margin-left:5%; resize: none;width:90%;background-color: white; height: 180px"></textarea>
 
-            </main>
+            %>
+            <h2 style="text-align: center">Message</h2>
+            <div style="overflow: hidden;width:100%;border-top: 2px solid #990099;border-bottom: 2px solid #990099;margin-bottom: 40px;margin-top: 20px;padding-bottom: 20px;text-align: center">
+                <span style="width:100%; margin-bottom:15px;font-size: 20px;">Author:</span>
+                <table class="admin-table" style="margin-top: 20px">
+                    <thead>
+                    <tr>
+                        <th style="width: 15%" class="row-1 row-ID">ID</th>
+                        <th style="width: 15%" class="row-1 row-image">Image</th>
+                        <th style="width: 35%" class="row-3 row-username">Username</th>
+                        <th style="width: 35%" class="row-5 row-type">Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <td><%=us.getID()%>
+                    </td>
+                    <%if (us.getImage().contains("https") || us.getImage().contains("http")) {%>
+                    <td><img src="<%=us.getImage()%>" style="height: 40px"></td>
+                    <%} else {%>
+                    <td><img src="ImageLoader?FileName=<%=us.getImage()%>" style="height: 40px"></td>
+                    <%}%>
+                    <td><%=us.getUserName()%>
+                    </td>
+                    <td><%=us.getName()%>
+                    </td>
+                    </tbody>
+                </table>
+            </div>
+        <textarea readonly
+                  style="margin-left:5%; resize: none;width:90%;background-color: white; height: 180px"><%=ms.getMessageContent()%></textarea>
 
-            <div class="clear"></div>
         </div>
-    <!-- // #containerHolder -->
-</div>
-<!-- // #wrapper -->
+    </div>
+        <%
+    request.getSession().removeAttribute("message");
+%>
 </body>
 
 </html>

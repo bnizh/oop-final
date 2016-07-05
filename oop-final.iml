@@ -46,5 +46,6 @@
     <orderEntry type="library" name="javax.mail" level="project" />
     <orderEntry type="library" name="javax.mail" level="project" />
     <orderEntry type="library" name="WebSocket-1.0" level="project" />
+    <orderEntry type="library" name="jquery-3.0.0-beta1" level="application" />
   </component>
 </module>

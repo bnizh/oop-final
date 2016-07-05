@@ -21,9 +21,9 @@
             </div>
 
             <%User us = (User) request.getSession().getAttribute("user"); %>
-            <%if(us.getImage().contains("https")||us.getImage().contains("http")){%>
+            <%if (us.getImage().contains("https") || us.getImage().contains("http")) {%>
             <img src="<%=us.getImage()%>" style="width: 200px; height: 200px">
-            <%}else{%>
+            <%} else {%>
             <img src="ImageLoader?FileName=<%=us.getImage()%>" style="width: 200px; height: 200px">
             <%}%>
             <div style="color: #990099">
@@ -52,8 +52,8 @@
             </form>
             <form class="edit-forms" id="Tag">
                 <label>Tag: </label>
-                <textarea name="tag"  style="display: none; resize: none;font-size: 15px" rows="1" cols="20" ></textarea>
-                <img src="edit.png"  class="edit-icon ">
+                <textarea name="tag" style="display: none; resize: none;font-size: 15px" rows="1" cols="20"></textarea>
+                <img src="edit.png" class="edit-icon ">
             </form>
             <form>
                 <input type="text" style="float:left;" id="pass-change-link" class="user-fields" value="Change Password"
@@ -123,14 +123,14 @@
                             Per Day
                         </div>
                     </div>
-                    <%  DBConnection dbc = DBFactory.getDBConnection();
+                    <% DBConnection dbc = DBFactory.getDBConnection();
                         List<Statistic> ls = dbc.getTopSoldItems(us.getID());
-                        for(Statistic stat : ls){
+                        for (Statistic stat : ls) {
                             Item it = dbc.getItemById(stat.getItemID());
-                            int avg =stat.getOverall()/stat.getDifDays();
-                            int avg2 = stat.getOverall()%stat.getDifDays();
-                            int price =(int)(it.getPrice()/1);
-                            int price2 =(int)(it.getPrice()%1);
+                            int avg = stat.getOverall() / stat.getDifDays();
+                            int avg2 = stat.getOverall() % stat.getDifDays();
+                            int price = (int) (it.getPrice() / 1);
+                            int price2 = (int) (it.getPrice() % 1);
                     %>
                     <div class="row-stat">
                         <div class="cell">
@@ -140,18 +140,18 @@
                             <%=price%>.<%=price2%>
                         </div>
                         <div class="cell">
-                           <%=stat.getOverall()%>
+                            <%=stat.getOverall()%>
                         </div>
                         <div class="cell">
-                           <%=avg%>.<%=avg2%>
+                            <%=avg%>.<%=avg2%>
                         </div>
                     </div>
                     <%}%>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <div class="div-separator"></div>
 
@@ -187,17 +187,16 @@
             <div class="container">
                 <div id="comments-box">
                     <%
-
-                        int id = us.getID();
+                        int id = Integer.valueOf(request.getParameter("ID"));
                         List<Comment> comList = dbc.getUserCommentsByOwner(id, 0, NUMBER_OF_COMMENTS_ON_PAGE);
                         for (Comment comment : comList) {
                             User user = dbc.getSellerByID(comment.getWriterID());
                             if (user == null) user = dbc.getBuyerByID(comment.getWriterID());
-                            String image= "";
-                            if(user.getImage().contains("https")||user.getImage().contains("http")) {
+                            String image = "";
+                            if (user.getImage().contains("https") || user.getImage().contains("http")) {
                                 image += user.getImage();
-                            }else{
-                                image +="ImageLoader?FileName="+user.getImage();
+                            } else {
+                                image += "ImageLoader?FileName=" + user.getImage();
                             }
                             out.println(" <div class=\"dialogbox\">\n" +
                                     "                    <div style=\"margin-left: 10%\">\n" +
@@ -225,7 +224,17 @@
                 <% if (comList.size() == NUMBER_OF_COMMENTS_ON_PAGE) {%>
                 <button id="load-more-comment" style="text-align: center">Load More</button>
                 <%}%> <input type="hidden" id="comment-owner-id" name="ID" value="<%=id%>">
-
+                <%
+                    if (logged) {
+                %>
+                <form id="comment-form" style="width: 80%; margin-left: 10% ">
+                    <textarea style="width: 100%" onkeyup="textAreaAdjust(this)" name="comment" id="comment"
+                              placeholder="Comment"></textarea><br>
+                    <button style="margin-right: 10%;float:right;margin-top: 10px; color:#990099; border-radius: 10%; font-size: 20px"
+                            type="submit" class="button"> submit
+                    </button>
+                </form>
+                <%}%>
             </div>
         </div>
     </div>

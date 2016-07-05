@@ -51,6 +51,8 @@
         %>
         <li><a href="admin-product.jsp">Products</a></li>
         <li><a href="admin-message-inbox.jsp" class="active">Inbox</a></li>
+        <li><a href="admin-new-message.jsp" >New Message</a></li>
+
         <li><a href="index.jsp">Main</a></li>
         <li class="logout"><a href="${pageContext.request.contextPath}/admin-login?">LOGOUT</a></li>
     </ul>
@@ -75,13 +77,16 @@
                         List<Message> messages = dbc.getAllAdminMessage();
                         for (Message message : messages) {
                             User user = dbc.getBuyerByID(message.getWriterID());
-                            if (user == null) dbc.getSellerByID(message.getWriterID());
+                            if (user == null) user = dbc.getSellerByID(message.getWriterID());
+                            out.println("<tr class=\"clickable-row\">" +
+                                    " <input type=\"hidden\" class=\"message-id\" value=\"" + message.getMessageID() + "\">");
                             if (message.isRead())
-                                out.println("<tr><td><img src=\"read.png\" style=\";height: 40px\" alt=\"\"></td>");
-                            else out.println("<td><img src=\"unread.png\" style=\";height: 40px\" alt=\"\"></td>");
+                                out.println("<td><img src=\"read.png\" style=\";height: 40px\" alt=\"\"></td>");
+                            else
+                                out.println("<td><img src=\"unread.png\" style=\";height: 40px\" alt=\"\"></td>");
                             out.println(" <td>" + user.getName() + "</td>\n" +
                                     " <td>" + message.getDateOfSend() + "</td>" +
-                                    "<td> <a class=\"delete-item\" style=\"color: red;text-decoration:none;font-size: 20px\">X</a></td>\n" +
+                                    "<td> <a class=\"delete-message\" style=\"color: red;text-decoration:none;font-size: 20px\">X</a></td>\n" +
                                     "                    </tr>");
 
                         }
@@ -96,7 +101,47 @@
     </div>
     <!-- // #containerHolder -->
 </div>
-<!-- // #wrapper -->
+<script>
+    $(".delete-message").click(function (event) {
+        event.preventDefault();
+        messageID = $(this).parent().parent().children('.message-id').val(),
+                console.log(messageID);
+        $.ajax({
+            url: 'message',
+            type: 'Post',
+            data: {
+                messageID: $(this).parent().parent().children('.message-id').val(),
+                delete: "Yes"
+            },
+            cache: false,
+            dataType: "text",
+        }).done(function (response) {
+            if (response == "success")
+                window.location.href = "http://localhost:8080/admin-message-inbox.jsp";
+        });
+
+        return false;
+    });
+
+    $(".clickable-row").click(function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: 'message',
+            type: 'GET',
+            data: {
+                messageID: $(this).children('.message-id').val(),
+                type: "admin"
+            },
+            cache: false,
+            dataType: "text",
+        }).done(function (response) {
+            window.location.href = "http://localhost:8080/" + response;
+        });
+
+        return false;
+    });
+
+</script>
 </body>
 </html>
 

@@ -95,7 +95,7 @@ public class AccountDB implements DBQueries {
     @Override
     public List<Message> getMessageByWriterID(int ID,int messageType) {
         ArrayList<Message> list = new ArrayList<Message>();
-        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Message_table + " where writerID =" + ID+" AND messageType="+messageType;
+        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Message_table + " where writerID =" + ID+" AND messageType="+messageType+" order by dateOfMessage desc";
         try (PreparedStatement stm = con.prepareStatement(s)) {
             getSeveralMessageFromBase(list, stm);
         } catch (SQLException e) {
@@ -107,7 +107,7 @@ public class AccountDB implements DBQueries {
     @Override
     public List<Message> getMessageByReceiverId(int ID,int messageType) {
         ArrayList<Message> list = new ArrayList<Message>();
-        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Message_table + " where receiverID =" + ID+" AND messageType="+messageType;
+        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Message_table + " where (receiverID =" + ID+" OR receiverID=0)"+" AND messageType="+messageType+" order by dateOfMessage desc" ;
         try (PreparedStatement stm = con.prepareStatement(s)) {
             getSeveralMessageFromBase(list, stm);
         } catch (SQLException e) {
@@ -118,13 +118,15 @@ public class AccountDB implements DBQueries {
     @Override
     public List<Message> getAllAdminMessage() {
         ArrayList<Message> list = new ArrayList<Message>();
-        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Message_table + " where  messageType="+MESSAGE_USER_TO_ADMIN;
+        String s = "Select * from " + DBInfo.MYSQL_DATABASE_Message_table + " where  messageType="+MESSAGE_USER_TO_ADMIN+" order by dateOfMessage desc";
         try (PreparedStatement stm = con.prepareStatement(s)) {
             getSeveralMessageFromBase(list, stm);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;    }
+
+
 
     @Override
     public boolean addMessage(Message message,int messageType) {

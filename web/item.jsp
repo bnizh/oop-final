@@ -54,7 +54,11 @@
             <span><%=item.getName()%></span>
         </div>
         <div class="left-side-user-visitor">
+            <%if (item.getImage().contains("https") || item.getImage().contains("http")) {%>
+            <img src="<%=item.getImage()%>">
+            <%} else {%>
             <img src="ImageLoader?FileName=<%=item.getImage()%>">
+            <%}%>
             <%
 
                 if (loggedin) {

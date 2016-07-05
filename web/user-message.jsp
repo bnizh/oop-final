@@ -15,6 +15,7 @@
     <title>Food-Online</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <link href="css/main.css" rel="stylesheet">
+    <link href="css/usercss.css" rel="stylesheet">
     <script src="Javascript/AjaxSending.js"></script>
     <script src="Javascript/passwordscheck.js"></script>
     <script src="Javascript/loginAjax.js"></script>
@@ -55,12 +56,14 @@
             DBConnection dbc = DBFactory.getDBConnection();
             Message ms = (Message) request.getSession().getAttribute("message");
             if (ms == null) {
-                out.println("<script type=\"text/javascript\">  window.location.href = \"http://localhost:8080/error.html\"; </script>");
+                String redirectURL = "/user-message-inbox.jsp";
+                response.sendRedirect(redirectURL);
+                return;
             }
-            User us = dbc.getBuyerByID(ms.getWriterID());
-            if (us == null) dbc.getSellerByID(ms.getWriterID());
-
-
+            ms.setRead(true);
+            if (ms.getWriterID() != 0) {
+                User us = dbc.getBuyerByID(ms.getWriterID());
+                if (us == null) us = dbc.getSellerByID(ms.getWriterID());
         %>
         <h2 style="text-align: center">Message</h2>
         <div style="overflow: hidden;width:100%;border-top: 2px solid #990099;border-bottom: 2px solid #990099;margin-bottom: 40px;margin-top: 20px;padding-bottom: 20px;text-align: center">
@@ -89,8 +92,13 @@
                 </tbody>
             </table>
         </div>
-        <textarea readonly
-                  style="margin-left:5%; resize: none;width:90%;background-color: white; height: 180px"><%=ms.getMessageContent()%></textarea>
+        <%} else {%>
+        <h2 style="text-align: center">Message</h2>
+        <div style="overflow: hidden;width:100%;border-top: 2px solid #990099;border-bottom: 2px solid #990099;margin-bottom: 40px;margin-top: 20px;padding-bottom: 20px;text-align: center">
+            <span style="width:100%; margin-bottom:15px;font-size: 20px;">Author:Administration</span>
+        </div><%}%>
+            <textarea readonly
+                      style="margin-left:5%; resize: none;width:90%;background-color: white; height: 180px"><%=ms.getMessageContent()%></textarea>
 
     </div>
 </div>

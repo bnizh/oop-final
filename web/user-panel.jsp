@@ -14,7 +14,6 @@
 %>
 
 
-
 <%--<%
     if(!user.isConfirmed()) {
     %><script type="text/javascript">  window.location.href = "http://localhost:8080/activationNeeded.jsp"; </script><%
@@ -22,17 +21,21 @@
     %>--%>
 <% if (logged) {%>
 <%
-       if(!user.isConfirmed()) {
-    %><script type="text/javascript">  window.location.href = "http://localhost:8080/activationNeeded.jsp"; </script><%
-            }
-    %>
+    if (!user.isConfirmed()) {
+%>
+<%--
+<script type="text/javascript">  window.location.href = "http://localhost:8080/activationNeeded.jsp"; </script>
+--%>
+<%
+    }
+%>
 <%@include file="chat-page.jsp" %>
 <div class="user-panel">
 
-    <%if(user.getImage().contains("https")||user.getImage().contains("http")){%>
-     <img style="width:80px; height: 60px; margin-left: 60px" class="profile-user-panel"
-           src=<%=user.getImage()%>>
-    <%}else{%>
+    <%if (user.getImage().contains("https") || user.getImage().contains("http")) {%>
+    <img style="width:80px; height: 60px; margin-left: 60px" class="profile-user-panel"
+         src=<%=user.getImage()%>>
+    <%} else {%>
     <img style="width:80px; height: 60px; margin-left: 60px" class="profile-user-panel"
          src="ImageLoader?FileName=<%=user.getImage()%>">
     <%}%>
@@ -43,16 +46,17 @@
         <div id="profile-menu-content">
             <div style="width: 100%;text-align: center">
                 <span href="">You Are: <%= request.getSession().getAttribute("type")%> </span></div>
-            <%if(user.getImage().contains("https")||user.getImage().contains("http")){%>
+            <%if (user.getImage().contains("https") || user.getImage().contains("http")) {%>
             <img style="width:80px; height: 60px; margin-left: 60px" class="profile-user-panel"
                  src=<%=user.getImage()%>>
-            <%}else{%>
+            <%} else {%>
             <img style="width:80px; height: 60px; margin-left: 60px" class="profile-user-panel"
                  src="ImageLoader?FileName=<%=user.getImage()%>">
             <%}%>
             <div style=""><span href=""><%=user.getName()%></span></div>
-            <div style="width: 100%;text-align: center"><a href="\user-page.jsp">Go to private page</a></div>
-            <div style="width: 100%;text-align: center"><a href="\user-page.jsp">Message Inbox</a></div>
+            <div style="width: 100%;text-align: center"><a href="/user-page.jsp">Go to private page</a></div>
+            <div style="width: 100%;text-align: center"><a href="/user-message-inbox.jsp">Message Inbox</a></div>
+            <div style="width: 100%;text-align: center"><a href="/user-new-message.jsp">new message</a></div>
             <%
                 String type = (String) request.getSession().getAttribute("type");
                 if (type.equals("seller")) {
@@ -89,6 +93,8 @@
                  src="ImageLoader?FileName=<%=admin.getImageURL()%>">
             <div style=""><span href=""><%=admin.getName()%></span></div>
             <div style="width: 100%;text-align: center"><a href="/admin.jsp">Go to AdminPanel</a></div>
+            <div style="width: 100%;text-align: center"><a href="/admin-message-inbox.jsp">Message Inbox</a></div>
+            <div style="width: 100%;text-align: center"><a href="/admin-new-message.jsp">new message</a></div>
             <div style="width: 100%;text-align: center"><a href="/admin-login?">Log Out</a>
             </div>
         </div>

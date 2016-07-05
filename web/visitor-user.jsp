@@ -36,9 +36,10 @@
 <%@ page import="static Managers.SiteConstants.LOGGED_IN" %>
 <%@ page import="static Managers.SiteConstants.USER" %>
 <%@ page import="Objects.Seller" %>
+<%@ page import="DataBase.DBFactory" %>
 <%
     int id = Integer.valueOf(request.getParameter("ID"));
-    DBConnection dbc = (DBConnection) getServletConfig().getServletContext().getAttribute("dbc");
+    DBConnection dbc = DBFactory.getDBConnection();
     Seller seller = dbc.getSellerByID(id);%>
 
 <%

@@ -4,6 +4,7 @@ import DataBase.DBFactory;
 import Managers.SiteConstants;
 import Objects.Category;
 import Objects.Item;
+import Objects.ObjectFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -22,7 +23,6 @@ public class ContextListener implements ServletContextListener {
         servletCont.setAttribute("categories", catList);
         List<Item> itList=dbc.getTopItems(100,0);
         servletCont.setAttribute("items", itList);
-        servletCont.setAttribute("dbc", dbc);
     }
 
     /**

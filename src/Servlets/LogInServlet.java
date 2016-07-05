@@ -39,8 +39,12 @@ public class LogInServlet extends HttpServlet {
             Cookie username = new Cookie(USER, user.getUserName());
             username.setMaxAge(3*60*60);
             response.addCookie(username);
-            RequestDispatcher dispatch = request.getRequestDispatcher("user-panel.jsp");
-            dispatch.forward(request, response);
+            if(user.isBanned()){
+                RequestDispatcher dispatch = request.getRequestDispatcher("ban.html");
+                dispatch.forward(request, response);
+                return;
+            }
+            response.sendRedirect("user-panel.jsp");
             return;
         }
         try {
@@ -55,6 +59,11 @@ public class LogInServlet extends HttpServlet {
             Cookie username = new Cookie(USER, user.getUserName());
             username.setMaxAge(3*60*60);
             response.addCookie(username);
+            if(user.isBanned()){
+                response.sendRedirect("user-panel.jsp");
+
+                return;
+            }
             RequestDispatcher dispatch = request.getRequestDispatcher("user-panel.jsp");
             dispatch.forward(request, response);
             return;

@@ -1,7 +1,7 @@
-<%@ page import="Objects.Item" %>
-<%@ page import="Objects.Seller" %>
 <%@ page import="DataBase.DBFactory" %>
 <%@ page import="DataBase.DBConnection" %>
+<%@ page import="Objects.*" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -109,6 +109,48 @@
     <div class="user-container">
         <div class="type-header">
             <span id="com">Comments</span>
+            <div class="container">
+                <div id="comments-box">
+                    <%
+                        int id = Integer.valueOf(request.getParameter("ID"));
+                        List<Comment> comList = dbc.getItemCommentsByOwner(id, 0, NUMBER_OF_COMMENTS_ON_PAGE);
+                        for (Comment comment : comList) {
+                            User writer = dbc.getSellerByID(comment.getWriterID());
+                            if (writer == null) writer = dbc.getBuyerByID(comment.getWriterID());
+                            String image = "";
+                            if (writer.getImage().contains("https") || writer.getImage().contains("http")) {
+                                image += writer.getImage();
+                            } else {
+                                image += "ImageLoader?FileName=" + writer.getImage();
+                            }
+                            out.println(" <div class=\"dialogbox\">\n" +
+                                    "                    <div style=\"margin-left: 10%\">\n" +
+                                    "                        <div style=\"border: 1px solid #ff5e01;border-radius:15%;padding-left: 5px;padding-right:5px;    float:left\">\n" +
+                                    "                            <span style=\"font-size: 15px; margin-top: 20px;text-align: center\">" + writer.getUserName() + "</span>\n" +
+                                    "                            <div style=\"width: 100%\"><img src=\"" + image + "\"\n" +
+                                    "                                                          style=\"width: 50px;height: 50px;text-align: center\"></div>\n" +
+                                    "                        </div>\n" +
+                                    "                        <div class=\"comment-body\">\n" +
+                                    "                            <span class=\"tip tip-left\"></span>\n" +
+                                    "                            <div class=\"message\">\n" + "<span style=\"float:right;padding-right:20px;color:red\"> " +
+                                    "                                " + comment.getDateOfWrite() + "   </span>" + "<br>" +
+                                    "                                <span>" + comment.getComment() + "</span>\n" +
+                                    "                            </div>\n" +
+                                    "                        </div>\n" +
+                                    "                    </div>\n" +
+                                    "                </div>");
+                        }
+                        out.println("<input type=\"hidden\" name=\"page\" id=\"comment-page\" value=\"" + 0 + "\" >");
+                        out.println("<input type=\"hidden\" id=\"comment-owner-type\" value=\"item\" >\n");
+
+                    %>
+                </div>
+                <img style="display: none" src="loading.gif" alt="Loading…"/>
+                <% if (comList.size() == NUMBER_OF_COMMENTS_ON_PAGE) {%>
+                <button id="load-more-comment" style="text-align: center">Load More</button>
+                <%}%>
+                <input type="hidden" id="comment-owner-id" name="ID" value="<%=id%>">
+            </div>
         </div>
     </div>
 </div>

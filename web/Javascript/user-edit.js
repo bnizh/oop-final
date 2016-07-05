@@ -210,6 +210,27 @@
                 }
             }
         });
+        $('#Tag img').click(function () {
+            $('#Tag textarea').toggle();
+        });
+        $('#Tag textarea').keyup(function(event){
+            if(event.keyCode===13){
+                event.preventDefault();
+                var formData = new FormData($('#Tag')[0]);
+                $.ajax({
+                    url: 'edit',
+                    type: 'POST',
+                    data: formData,
+                    success: function (data) {
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+                $('#Tag textarea').toggle();
+            }
+
+        });
 
     });
 

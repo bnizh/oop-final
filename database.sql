@@ -32,8 +32,7 @@ CREATE TABLE admins (
     primary key (userID)
 );
 
-SELECT *
-FROM users;
+
 create table categories(
     categoryID int auto_increment not null,
     categoryName varchar(128) unique,
@@ -62,13 +61,12 @@ create table itemsComments(
     writerID int not null,
     ownerID int not null,
     comm varchar (2048),
-    dateOfComment date,
+    dateOfComment TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     primary key(commentID),
     foreign key(writerID)  references Users(userID),
     foreign key(ownerID) REFERENCES items(itemID)
 );
-DELETE from Messages where messageID>0;
-SELECT * FROM Messages;
+
 Create table Messages(
     messageID int auto_increment not null,
     writerID int not null,
@@ -76,7 +74,7 @@ Create table Messages(
     isRead BOOLEAN DEFAULT false,
     receiverID int not null,
     message varchar (2048),
-    dateOfMessage TIMESTAMP,
+    dateOfMessage TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     primary key (messageID)
 );
 
@@ -85,20 +83,12 @@ Create table usersComments(
     writerID int not null,
     ownerID int not null,
     comm varchar (2048),
-    dateOfComment TIMESTAMP,
+    dateOfComment TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
     primary key (commentID),
     foreign key(writerID)  references Users(userID),
     foreign key(ownerID)  references Users(userID)
 );
 
-create table gallery(
-	id int auto_increment not null,
-    url varchar (128) unique,
-    ownerID int not null,
-    typeOf int not null,
-    primary key (id),
-    foreign key(ownerID) references Users(userID)
-);
 
 
 create table tags(
@@ -123,6 +113,7 @@ CREATE TABLE transactions (
   sellerID INT               NOT NULL ,
   itemID  INT                NOT NULL,
   amount   INT                NOT NULL,
+  date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
   resolved BOOLEAN DEFAULT false,
   PRIMARY KEY (id),
   FOREIGN KEY (sellerID) REFERENCES Users (userID),
@@ -137,4 +128,6 @@ INSERT INTO admins (password, userName, name, typeOfUser, email, mobileNumber, i
 );
 
 SELECT *
-FROM users ;
+FROM transactions ;
+select sum(amount) as overall, itemID, sellerID,
+  COUNT(DISTINCT CAST(date AS DATE)) as difDays FROM transactions GROUP BY itemID, itemID ORDER BY overall DESC ;

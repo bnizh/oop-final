@@ -121,5 +121,7 @@ public class ObjectFactory {
         return MyRandom.getInstance();
     }
 
-
+    public  static Statistic getStatistic (int overall, int itemID, int sellerID, int daysDiff){
+        return new Statistic(overall, itemID, sellerID, daysDiff);
+    }
 }

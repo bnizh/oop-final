@@ -46,6 +46,11 @@
                        title="Mobile">
                 <img src="edit.png" class="edit-icon ">
             </form>
+            <form class="edit-forms" id="Tag">
+                <label>Tag: </label>
+                <textarea name="tag"  style="display: none; resize: none;font-size: 15px" rows="1" cols="20" ></textarea>
+                <img src="edit.png"  class="edit-icon ">
+            </form>
             <form>
                 <input type="text" style="float:left;" id="pass-change-link" class="user-fields" value="Change Password"
                        readonly

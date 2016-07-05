@@ -165,4 +165,7 @@ public interface DBQueries {
 
     public List<Transaction> getUnresolvedTransactionBySeller(int sellerID);
 
+    public List<Statistic> getTopSoldItems(int sellerID);
+    public Statistic getStatistic(int itemID);
+
 }

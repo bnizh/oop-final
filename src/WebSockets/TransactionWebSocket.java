@@ -37,13 +37,13 @@ public class TransactionWebSocket {
             try {
                 String userName = message.substring(0, message.indexOf("$"));
                 for(Session ses : conns) {
+                    String itemID = message.substring(message.indexOf("$")+1, message.indexOf("#"));
+                    String buyerID = message.substring(message.indexOf("@")+1);
+                    String amount = message.substring(message.indexOf("#")+1, message.indexOf("@"));
+                    Item it = DBFactory.getDBConnection().getItemById(Integer.parseInt(itemID));
+                    Transaction tr = ObjectFactory.getTransaction(it.getOwnerID(),Integer.parseInt(buyerID),it.getID(),Integer.parseInt(amount));
+                    DBFactory.getDBConnection().addTransaction(tr);
                     if (sessionHashMap.containsKey(ses)&&sessionHashMap.get(ses).equals(userName) ) {
-                        String itemID = message.substring(message.indexOf("$")+1, message.indexOf("#"));
-                        String buyerID = message.substring(message.indexOf("@")+1);
-                        String amount = message.substring(message.indexOf("#")+1, message.indexOf("@"));
-                        Item it = DBFactory.getDBConnection().getItemById(Integer.parseInt(itemID));
-                        Transaction tr = ObjectFactory.getTransaction(it.getOwnerID(),Integer.parseInt(buyerID),it.getID(),Integer.parseInt(amount));
-                        DBFactory.getDBConnection().addTransaction(tr);
                         ses.getBasicRemote().sendText("New Offer");
                     }
                 }
@@ -58,7 +58,6 @@ public class TransactionWebSocket {
     public void onClose(Session session,
                         CloseReason reason) {
         sessionHashMap.remove(session);
-        System.out.println("Session : " + session+ " "+reason );
     }
 
     @OnError

@@ -28,10 +28,15 @@ public class EditServlet extends HttpServlet {
         String sname = request.getParameter("sname");
         String curPas = request.getParameter("curpassword");
         String newPas = request.getParameter("newpassword");
-        System.out.println(curPas);
-        System.out.println(newPas);
         UserManager um = ManagerFactory.getUserManager();
         DBConnection db = DBFactory.getDBConnection();
+        String tag = request.getParameter("tag");
+        if(tag != null){
+            User user = (User) request.getSession().getAttribute(USER);
+            DBFactory.getDBConnection().addHashTagToUser(user.getID(), tag);
+            RequestDispatcher dispatch = request.getRequestDispatcher("/user-page.jsp");
+            dispatch.forward(request, response);
+        }
         if (filePart != null) {
             User user = (User) request.getSession().getAttribute(USER);
             um.editImageUser(filePart, user);

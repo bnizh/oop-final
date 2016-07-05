@@ -41,7 +41,6 @@ public class ItemEditServlet extends HttpServlet {
            String desc = request.getParameter("description");
             String tag = request.getParameter("tag");
            Part file = request.getPart("image");
-            System.out.println("bla"+tag);
            if (price != null) {
                Double prc = Double.valueOf(price);
                im.editItemPrice(item, prc);

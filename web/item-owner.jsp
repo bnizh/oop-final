@@ -108,6 +108,59 @@
 <div>
     <div class="user-container">
         <div class="type-header">
+            <span id="stats">Statistics</span>
+        </div>
+        <div>
+            <div class="wrapper">
+
+                <div class="table">
+
+                    <div class="row-stat header">
+                        <div class="cell">
+                            Product Name
+                        </div>
+                        <div class="cell">
+                            Product Price
+                        </div>
+                        <div class="cell">
+                            Overall Sell
+                        </div>
+                        <div class="cell">
+                            Per Day
+                        </div>
+                    </div>
+                    <%      Statistic stat = dbc.getStatistic(item.getID());
+                           if(stat != null){
+                            int avg =stat.getOverall()/stat.getDifDays();
+                            int avg2 = stat.getOverall()%stat.getDifDays();
+                            int price =(int)(item.getPrice()/1);
+                            int price2 =(int)(item.getPrice()%1);
+                    %>
+                    <div class="row-stat">
+                        <div class="cell">
+                            <%=item.getName()%>
+                        </div>
+                        <div class="cell">
+                            <%=price%>.<%=price2%>
+                        </div>
+                        <div class="cell">
+                            <%=stat.getOverall()%>
+                        </div>
+                        <div class="cell">
+                            <%=avg%>.<%=avg2%>
+                        </div>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="div-separator"></div>
+<div>
+    <div class="user-container">
+        <div class="type-header">
             <span id="com">Comments</span>
             <div class="container">
                 <div id="comments-box">

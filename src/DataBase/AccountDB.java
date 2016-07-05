@@ -23,7 +23,7 @@ public class AccountDB implements DBQueries {
         try (ResultSet rs = stm.executeQuery()) {
             if (rs.next()) {
                 return ObjectFactory.getNewMessage(rs.getBoolean("isRead"), rs.getInt("writerID"), rs.getInt("receiverID"),
-                        rs.getString("message"), rs.getDate("dateOfMessage"), rs.getInt("messageID"));
+                        rs.getString("message"), rs.getTimestamp("dateOfMessage"), rs.getInt("messageID"));
             }
 
         } catch (SQLException e) {
@@ -36,7 +36,7 @@ public class AccountDB implements DBQueries {
         try (ResultSet rs = stm.executeQuery()) {
             while (rs.next()) {
                 list.add(ObjectFactory.getNewMessage(rs.getBoolean("isRead"), rs.getInt("writerID"), rs.getInt("receiverID"),
-                        rs.getString("message"), rs.getDate("dateOfMessage"), rs.getInt("messageID")));
+                        rs.getString("message"), rs.getTimestamp("dateOfMessage"), rs.getInt("messageID")));
             }
 
         } catch (SQLException e) {
@@ -128,9 +128,9 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean addMessage(Message message,int messageType) {
-        String s = "insert into " + DBInfo.MYSQL_DATABASE_Message_table + " (writerID, receiverID, message, dateOfMessage, messageType) " +
-                "values(" + message.getWriterID()  + "," + message.getReceiverID() +"," + "\"" + message.getMessageContent() + "\"" + ",'" +
-                new java.sql.Date(System.currentTimeMillis())+"', "+messageType+")";
+        String s = "insert into " + DBInfo.MYSQL_DATABASE_Message_table + " (writerID, receiverID, message, messageType) " +
+                "values(" + message.getWriterID()  + "," + message.getReceiverID() +"," + "\"" + message.getMessageContent() + "\"" +
+                ", "+messageType+")";
         return Helper(s);    }
 
     @Override
@@ -658,7 +658,7 @@ public class AccountDB implements DBQueries {
                 if (rs.next()) {
                     return ObjectFactory.getNewComment(rs.getInt("ownerID"), rs.getInt("writerID"),
                             rs.getInt("commentID"), rs.getString("comm"),
-                            new java.util.Date(rs.getDate("dateOfComment").getTime()));
+                            new java.util.Date(rs.getTimestamp("dateOfComment").getTime()));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -703,8 +703,8 @@ public class AccountDB implements DBQueries {
 
     @Override
     public boolean addCommentToItem(Comment c) {
-        String s = "Insert into " + DBInfo.MYSQL_DATABASE_ItemsComments_table + " ( writerID, ownerID, comm , dateOfComment ) values ( " +
-                c.getWriterID() + " ," + c.getOwnerID() + " ,'" + c.getComment() + "', '" + new java.sql.Date(System.currentTimeMillis()) + "' )";
+        String s = "Insert into " + DBInfo.MYSQL_DATABASE_ItemsComments_table + " ( writerID, ownerID, comm  ) values ( " +
+                c.getWriterID() + " ," + c.getOwnerID() + " ,'" + c.getComment() + "' )";
         return Helper(s);
     }
 
@@ -716,7 +716,7 @@ public class AccountDB implements DBQueries {
                 if (rs.next()) {
                     return ObjectFactory.getNewComment(rs.getInt("ownerID"), rs.getInt("writerID"),
                             rs.getInt("commentID"), rs.getString("comm"),
-                            new java.util.Date(rs.getDate("dateOfComment").getTime()));
+                            new java.util.Date(rs.getTimestamp("dateOfComment").getTime()));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -738,7 +738,7 @@ public class AccountDB implements DBQueries {
     @Override
     public boolean updateItemComment(Comment c) {
         String s = "Update " + DBInfo.MYSQL_DATABASE_ItemsComments_table + " set comm ='" + c.getComment() + "', ownerID =" +
-                c.getOwnerID() + ", writerID=" + c.getWriterID() + " ,dateOfComment ='" + new java.sql.Date(System.currentTimeMillis()) + "'";
+                c.getOwnerID() + ", writerID=" + c.getWriterID();
         return Helper(s);
     }
 
@@ -765,7 +765,7 @@ public class AccountDB implements DBQueries {
                 while (rs.next()) {
                     ls.add(ObjectFactory.getNewComment(rs.getInt("ownerID"), rs.getInt("writerID"),
                             rs.getInt("commentID"), rs.getString("comm"),
-                            new java.util.Date(rs.getDate("dateOfComment").getTime())));
+                            new java.util.Date(rs.getTimestamp("dateOfComment").getTime())));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -786,14 +786,14 @@ public class AccountDB implements DBQueries {
     @Override
     public boolean updateUserComment(Comment c) {
         String s = "Update " + DBInfo.MYSQL_DATABASE_UsersComments_table + " set comm ='" + c.getComment() + "', ownerID =" +
-                c.getOwnerID() + ", writerID=" + c.getWriterID() + " ,dateOfComment ='" + new java.sql.Date(System.currentTimeMillis()) + "'";
+                c.getOwnerID() + ", writerID=" + c.getWriterID() ;
         return Helper(s);
     }
 
     @Override
     public boolean addCommentToUser(Comment c) {
-        String s = "Insert into " + DBInfo.MYSQL_DATABASE_UsersComments_table + " ( writerID, ownerID, comm , dateOfComment ) values ( " +
-                c.getWriterID() + " ," + c.getOwnerID() + " ,'" + c.getComment() + "', '" + new java.sql.Date(System.currentTimeMillis()) + "' )";
+        String s = "Insert into " + DBInfo.MYSQL_DATABASE_UsersComments_table + " ( writerID, ownerID, comm  ) values ( " +
+                c.getWriterID() + " ," + c.getOwnerID() + " ,'" + c.getComment() + "' )";
         return Helper(s);
 
     }
@@ -926,6 +926,43 @@ public class AccountDB implements DBQueries {
     public List<Transaction> getUnresolvedTransactionBySeller(int sellerID) {
         String s = "select * from " + DBInfo.MYSQL_DATABASE_Transaction_table + " where sellerID = " + sellerID;
         return getTransactionByListHellper(s, false);
+    }
+
+    @Override
+    public List<Statistic> getTopSoldItems(int sellerID) {
+        List<Statistic>  ls= new ArrayList<Statistic>();
+        String s = "select sum(amount) as overall, itemID, sellerID," +
+                "  COUNT(DISTINCT CAST(date AS DATE)) as difDays FROM  "+ DBInfo.MYSQL_DATABASE_Transaction_table+ " where sellerID ="+sellerID+" and resolved = true GROUP BY itemID, itemID ORDER BY overall DESC limit 5";
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    ls.add(ObjectFactory.getStatistic(rs.getInt("overall"), rs.getInt("itemID"), rs.getInt("sellerID"), rs.getInt("difDays")));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ls;
+    }
+
+    @Override
+    public Statistic getStatistic(int itemID) {
+        String s = "select sum(amount) as overall, itemID, sellerID," +
+                "  COUNT(DISTINCT CAST(date AS DATE)) as difDays FROM  "+ DBInfo.MYSQL_DATABASE_Transaction_table+ " where itemID ="+itemID+" and resolved = true GROUP BY itemID, itemID ORDER BY overall ";
+        try (PreparedStatement stm = con.prepareStatement(s)) {
+            try (ResultSet rs = stm.executeQuery()) {
+                if (rs.next()) {
+                    return ObjectFactory.getStatistic(rs.getInt("overall"), rs.getInt("itemID"), rs.getInt("sellerID"), rs.getInt("difDays"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  null;
     }
 
     public List<Transaction> getTransactionByListHellper(String s, boolean resolved) {

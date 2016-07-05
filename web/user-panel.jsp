@@ -52,6 +52,8 @@
                 String type = (String) request.getSession().getAttribute("type");
                 if (type.equals("seller")) {
                     out.println(" <div style=\"width: 100%;text-align: center\"><a href=\"\\add-product.jsp\">Add New Product</a></div>");
+                    out.println(" <div style=\"width: 100%;text-align: center\"><a href=\"\\transactions.jsp\">Offers</a></div>");
+
                 }
             %>
             <div style="width: 100%;text-align: center"><a onclick="fblogout();">Log Out</a>

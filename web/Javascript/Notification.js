@@ -7,7 +7,6 @@
             socket1 = new WebSocket("ws://" + document.domain + ":8080/Transaction");
             socket1.onopen = function () {
                     var nickname = $('#userID1').val();
-                    console.log(nickname);
                     socket1.send(nickname);
             };
 

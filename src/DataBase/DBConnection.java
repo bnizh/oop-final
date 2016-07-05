@@ -1557,4 +1557,42 @@ public class DBConnection implements DBQueries {
         }
     }
 
+    @Override
+    public List<Statistic> getTopSoldItems(int sellerID) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return DBFactory.getAccountDB(con).getTopSoldItems(sellerID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
+    public Statistic getStatistic(int itemID) {
+        Connection con = null;
+        try {
+            con = DBFactory.getConnectionPool().getEventDataSource().getConnection();
+            return DBFactory.getAccountDB(con).getStatistic(itemID);
+        } catch (SQLException ex) {
+            throw new AssertionError(ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 }

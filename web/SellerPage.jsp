@@ -50,12 +50,16 @@
                        title="Mobile">
                 <img src="edit.png" class="edit-icon ">
             </form>
+            <form class="edit-forms" id="Tag">
+                <label>Tag: </label>
+                <textarea name="tag"  style="display: none; resize: none;font-size: 15px" rows="1" cols="20" ></textarea>
+                <img src="edit.png"  class="edit-icon ">
+            </form>
             <form>
                 <input type="text" style="float:left;" id="pass-change-link" class="user-fields" value="Change Password"
                        readonly
                        title="change Password">
             </form>
-
         </div>
         <div class="right-side-user">
             <div>
@@ -69,6 +73,7 @@
             </div>
             <div>
                 <a href="#com">Comments</a>
+
             </div>
         </div>
     </div>
@@ -115,98 +120,33 @@
                             Overall Sell
                         </div>
                         <div class="cell">
-                            Sold Today
-                        </div>
-                        <div class="cell">
                             Per Day
                         </div>
                     </div>
-
+                    <%  DBConnection dbc = DBFactory.getDBConnection();
+                        List<Statistic> ls = dbc.getTopSoldItems(us.getID());
+                        for(Statistic stat : ls){
+                            Item it = dbc.getItemById(stat.getItemID());
+                            int avg =stat.getOverall()/stat.getDifDays();
+                            int avg2 = stat.getOverall()%stat.getDifDays();
+                            int price =(int)(it.getPrice()/1);
+                            int price2 =(int)(it.getPrice()%1);
+                    %>
                     <div class="row-stat">
                         <div class="cell">
-                            Pizza
+                            <%=it.getName()%>
                         </div>
                         <div class="cell">
-                            7₾
+                            <%=price%>.<%=price2%>
                         </div>
                         <div class="cell">
-                            200
+                           <%=stat.getOverall()%>
                         </div>
                         <div class="cell">
-                            8
-                        </div>
-                        <div class="cell">
-                            11.6
+                           <%=avg%>.<%=avg2%>
                         </div>
                     </div>
-
-                    <div class="row-stat">
-                        <div class="cell">
-                            Khchapuri
-                        </div>
-                        <div class="cell">
-                            2₾
-                        </div>
-                        <div class="cell">
-                            300
-                        </div>
-                        <div class="cell">
-                            5
-                        </div>
-                        <div class="cell">
-                            13,4
-                        </div>
-                    </div>
-                    <div class="row-stat">
-                        <div class="cell">
-                            Khchapuri
-                        </div>
-                        <div class="cell">
-                            2₾
-                        </div>
-                        <div class="cell">
-                            300
-                        </div>
-                        <div class="cell">
-                            5
-                        </div>
-                        <div class="cell">
-                            13,4
-                        </div>
-                    </div>
-                    <div class="row-stat">
-                        <div class="cell">
-                            Khchapuri
-                        </div>
-                        <div class="cell">
-                            2₾
-                        </div>
-                        <div class="cell">
-                            300
-                        </div>
-                        <div class="cell">
-                            5
-                        </div>
-                        <div class="cell">
-                            13,4
-                        </div>
-                    </div>
-                    <div class="row-stat">
-                        <div class="cell">
-                            Khchapuri
-                        </div>
-                        <div class="cell">
-                            2₾
-                        </div>
-                        <div class="cell">
-                            300
-                        </div>
-                        <div class="cell">
-                            5
-                        </div>
-                        <div class="cell">
-                            13,4
-                        </div>
+                    <%}%>
                     </div>
                 </div>
             </div>
@@ -221,7 +161,7 @@
             <span id="my-prod">My Products</span>
         </div>
         <div id="product-list-user">
-            <% DBConnection dbc = DBFactory.getDBConnection();
+            <%
                 List<Item> items = dbc.getItemsBySeller(us.getID());
                 for (Item item : items) {
                     out.println("<div class=\"product-user\">" +
@@ -244,6 +184,49 @@
     <div class="user-container">
         <div class="type-header">
             <span id="com">Comments</span>
+            <div class="container">
+                <div id="comments-box">
+                    <%
+
+                        int id = us.getID();
+                        List<Comment> comList = dbc.getUserCommentsByOwner(id, 0, NUMBER_OF_COMMENTS_ON_PAGE);
+                        for (Comment comment : comList) {
+                            User user = dbc.getSellerByID(comment.getWriterID());
+                            if (user == null) user = dbc.getBuyerByID(comment.getWriterID());
+                            String image= "";
+                            if(user.getImage().contains("https")||user.getImage().contains("http")) {
+                                image += user.getImage();
+                            }else{
+                                image +="ImageLoader?FileName="+user.getImage();
+                            }
+                            out.println(" <div class=\"dialogbox\">\n" +
+                                    "                    <div style=\"margin-left: 10%\">\n" +
+                                    "                        <div style=\"border: 1px solid #ff5e01;border-radius:15%;padding-left: 5px;padding-right:5px;    float:left\">\n" +
+                                    "                            <span style=\"font-size: 15px; margin-top: 20px;text-align: center\">" + user.getUserName() + "</span>\n" +
+                                    "                            <div style=\"width: 100%\"><img src=\"" + image + "\"\n" +
+                                    "                                                          style=\"width: 50px;height: 50px;text-align: center\"></div>\n" +
+                                    "                        </div>\n" +
+                                    "                        <div class=\"comment-body\">\n" +
+                                    "                            <span class=\"tip tip-left\"></span>\n" +
+                                    "                            <div class=\"message\">\n" + "<span style=\"float:right;padding-right:20px;color:red\"> " +
+                                    "                                " + comment.getDateOfWrite() + "   </span>" + "<br>" +
+                                    "                                <span>" + comment.getComment() + "</span>\n" +
+                                    "                            </div>\n" +
+                                    "                        </div>\n" +
+                                    "                    </div>\n" +
+                                    "                </div>");
+                        }
+                        out.println("<input type=\"hidden\" name=\"page\" id=\"comment-page\" value=\"" + 0 + "\" >");
+                        out.println("<input type=\"hidden\" id=\"comment-owner-type\" value=\"user\" >\n");
+
+                    %>
+                </div>
+                <img style="display: none" src="loading.gif" alt="Loading…"/>
+                <% if (comList.size() == NUMBER_OF_COMMENTS_ON_PAGE) {%>
+                <button id="load-more-comment" style="text-align: center">Load More</button>
+                <%}%> <input type="hidden" id="comment-owner-id" name="ID" value="<%=id%>">
+
+            </div>
         </div>
     </div>
 </div>

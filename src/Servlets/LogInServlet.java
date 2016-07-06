@@ -60,7 +60,7 @@ public class LogInServlet extends HttpServlet {
             username.setMaxAge(3*60*60);
             response.addCookie(username);
             if(user.isBanned()){
-                response.sendRedirect("user-panel.jsp");
+                response.sendRedirect("ban.html");
 
                 return;
             }

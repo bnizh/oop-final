@@ -3,6 +3,7 @@
 <%@ page import="static Managers.SiteConstants.ADMIN" %>
 <%@ page import="Objects.Admin" %>
 <%@ page import="static Managers.SiteConstants.*" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
 <%

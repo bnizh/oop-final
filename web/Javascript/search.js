@@ -1,6 +1,7 @@
 /**
  * Created by Boris on 03.07.2016.
  */
+
 function selectItem() {
     console.log($('#selector').val());
     $.ajax({

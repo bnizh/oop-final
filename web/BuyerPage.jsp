@@ -1,4 +1,5 @@
 <%@ page import="Objects.User" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div>
     <div class="user-container">
         <div class="type-header">

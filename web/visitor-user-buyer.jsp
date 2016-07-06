@@ -4,6 +4,7 @@
 <%@ page import="static Managers.SiteConstants.USER" %>
 <%@ page import="Objects.Rating" %>
 <%@ page import="Objects.User" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <% Boolean logged = (Boolean) request.getSession().getAttribute(LOGGED_IN);
     Buyer us = dbc.getBuyerByID(id);%>

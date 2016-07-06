@@ -6,6 +6,7 @@
 <%@ page import="Objects.Rating" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Objects.Comment" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="static Managers.SiteConstants.NUMBER_OF_ITEMS_ON_PAGE" %>
 <%@ page import="static Managers.SiteConstants.*" %>
 <% Boolean logged = (Boolean) request.getSession().getAttribute(LOGGED_IN);
@@ -147,7 +148,7 @@
                             out.println(" <div class=\"dialogbox\">\n" +
                                     "                    <div style=\"margin-left: 10%\">\n" +
                                     "                        <div style=\"border: 1px solid #ff5e01;border-radius:15%;padding-left: 5px;padding-right:5px;    float:left\">\n" +
-                                    "                            <span style=\"font-size: 15px; margin-top: 20px;text-align: center\">" + user.getUserName() + "</span>\n" +
+                                    "                            <span style=\"font-size: 15px; margin-top: 20px;text-align: center\">" + user.getName() + "</span>\n" +
                                     "                            <div style=\"width: 100%\"><img src=\"" + image + "\"\n" +
                                     "                                                          style=\"width: 50px;height: 50px;text-align: center\"></div>\n" +
                                     "                        </div>\n" +

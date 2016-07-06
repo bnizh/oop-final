@@ -8,6 +8,7 @@
   To change this template use File | Settings |     File Templates.
 --%>
 <%@ page import="Objects.User" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <script src="https://code.jquery.com/jquery-3.0.0-beta1.min.js"></script>
 <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.2.custom.css"/>
 <script type="text/javascript" src="Javascript/jquery-ui-1.8.2.custom.min.js"></script>

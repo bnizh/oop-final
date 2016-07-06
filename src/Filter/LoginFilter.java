@@ -31,6 +31,7 @@ public class LoginFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         boolean loggedIn = false;
         boolean adminLoggedIn = false;
+        request.setCharacterEncoding("UTF-8");
         String userName = null;
         String adminUserName = null;
         String uri = req.getRequestURI();

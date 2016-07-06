@@ -2,6 +2,7 @@
 <%@ page import="Objects.Category" %>
 <%@ page import="DataBase.DBConnection" %>
 <%@ page import="DataBase.DBFactory" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Food-Online</title>

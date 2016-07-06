@@ -4,6 +4,7 @@
 <%@ page import="DataBase.DBConnection" %>
 <%@ page import="DataBase.DBFactory" %>
 <%@ page import="Objects.Buyer" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="Objects.Seller" %><%--
   Created by IntelliJ IDEA.
   User: Boris

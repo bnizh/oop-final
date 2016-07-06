@@ -5,11 +5,10 @@
 }
 
 .header1 {
-    position: absolute;
     height: 90px;
     width: 260px;
+    float: left;
     text-align: center;
-    padding: auto;
     line-height: 90px;
 }
 
@@ -26,20 +25,12 @@
 }
 
 #login-input-container {
-    position: absolute;
-    right: 3%;
 }
 
 .login-input {
     height: 30px;
     float: left;
-    padding-right: 1px;
-    top: 30px;
-    margin-right: 2px;
-    color: #909;
-    border: 1px solid #ff5e01;
-    border-radius: 3px;
-    padding-left: 10px;
+    margin-right: 5px;
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
@@ -97,9 +88,6 @@ button:focus {
 }
 
 #new-acc {
-    position: absolute;
-    top: 100%;
-    right: 1%;
     text-decoration: none;
 }
 
@@ -500,11 +488,13 @@ button:focus {
     float: left;
     margin-right: 24%;
 }
+
 #item-add-form {
     overflow: auto;
     margin-top: 20px;
 }
-#item-add-form div{
+
+#item-add-form div {
     margin-bottom: 10px;
     overflow: auto;
 }

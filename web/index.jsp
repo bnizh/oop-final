@@ -52,7 +52,7 @@
 <div>
     <div id="main">
         <div>
-            <button id="searchConfirm" onclick="selectItem()" class="login-button" style="margin-left: 1010px; height: 48px; width: 70px; margin-bottom: 0px; ">SEARCH</button>
+            <button id="searchConfirm" onclick="selectItem()" class="login-button" style="margin-left: 1010px; height: 48px; width: 100px; margin-bottom: 0px; ">SEARCH</button>
             <input id="searchArea"  style="width: 50%;  margin: auto; margin-top: -48px;
                  " class="search-form-control">
             <select id="selector" class="search-form-control" style="margin-top: -48px; height: 48px; margin-left: 210px;">

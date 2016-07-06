@@ -127,5 +127,5 @@ INSERT INTO admins (password, userName, name, typeOfUser, email, mobileNumber, i
 "administrator",3,"maiakovsk@gmail.com","12345678","D:\\prog\\Final-Project\\oop-final\\web\\admin.png"
 );
 
-SELECT *
-FROM users ;
+delete
+FROM users  WHERE userID>0;

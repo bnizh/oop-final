@@ -46,7 +46,7 @@
         <div id="profile-menu-content">
             <div style="width: 100%;text-align: center">
                 <span href="">You Are: <%= request.getSession().getAttribute("type")%> </span></div>
-            <%if (user.getImage().contains("https") || user.getImage().contains("http")) {%>
+            <%if (user.getImage().contains("https") || user.getImage().contains("http")||user.getImage().contains("defaultProfile")) {%>
             <img style="width:80px; height: 60px; margin-left: 60px" class="profile-user-panel"
                  src=<%=user.getImage()%>>
             <%} else {%>

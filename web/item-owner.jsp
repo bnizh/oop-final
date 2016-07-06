@@ -203,6 +203,14 @@
                 <button id="load-more-comment" style="text-align: center">Load More</button>
                 <%}%>
                 <input type="hidden" id="comment-owner-id" name="ID" value="<%=id%>">
+                <form id="comment-form" style="width: 80%; margin-left: 10% ">
+                    <textarea style="width: 100%" onkeyup="textAreaAdjust(this)" name="comment" id="comment"
+                              placeholder="Comment"></textarea><br>
+                    <button style="margin-right: 10%;float:right;margin-top: 10px; color:#990099; border-radius: 10%; font-size: 20px"
+                            type="submit" class="button"> submit
+                    </button>
+                </form>
+
             </div>
         </div>
     </div>

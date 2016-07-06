@@ -40,7 +40,6 @@
             };
 
             socket1.onerror = function () {
-                document.write("Error during transfer.");
             }
 
     }

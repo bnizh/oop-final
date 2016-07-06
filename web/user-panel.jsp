@@ -14,7 +14,6 @@
 %>
 
 
-i
 <% if (logged) {%>
 <%
     if (!user.isConfirmed()) {

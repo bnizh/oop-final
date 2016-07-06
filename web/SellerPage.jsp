@@ -1,5 +1,6 @@
 <%@ page import="Objects.User" %>
 <%@ page import="Objects.Item" %>
+<%@ page import="Objects.Statistic" %>
 <%@ page import="java.util.List" %>
 <%@ page import="DataBase.DBConnection" %>
 <%@ page import="DataBase.DBFactory" %>
@@ -187,7 +188,7 @@
             <div class="container">
                 <div id="comments-box">
                     <%
-                        int id = Integer.valueOf(request.getParameter("ID"));
+                        int id = us.getID();
                         List<Comment> comList = dbc.getUserCommentsByOwner(id, 0, NUMBER_OF_COMMENTS_ON_PAGE);
                         for (Comment comment : comList) {
                             User user = dbc.getSellerByID(comment.getWriterID());
@@ -224,9 +225,7 @@
                 <% if (comList.size() == NUMBER_OF_COMMENTS_ON_PAGE) {%>
                 <button id="load-more-comment" style="text-align: center">Load More</button>
                 <%}%> <input type="hidden" id="comment-owner-id" name="ID" value="<%=id%>">
-                <%
-                    if (logged) {
-                %>
+
                 <form id="comment-form" style="width: 80%; margin-left: 10% ">
                     <textarea style="width: 100%" onkeyup="textAreaAdjust(this)" name="comment" id="comment"
                               placeholder="Comment"></textarea><br>
@@ -234,7 +233,7 @@
                             type="submit" class="button"> submit
                     </button>
                 </form>
-                <%}%>
+
             </div>
         </div>
     </div>

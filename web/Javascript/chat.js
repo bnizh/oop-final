@@ -49,7 +49,6 @@ $(document).ready(function () {
         };
 
         socket.onerror = function () {
-            document.write("Error during transfer.");
         }
 
     }
